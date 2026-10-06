@@ -142,7 +142,7 @@ export const ContactSection: React.FC = () => {
             <div className="rounded-3xl bg-slate-900 border border-slate-800 overflow-hidden h-64 shadow-xl relative">
               <iframe
                 title="HamoTech IT Solutions Location Map"
-                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3323.83692187766!2d80.04938170321093!3d12.839401818194638!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5263189df2a1d9%3A0x154fa651ccc8b758!2sNovahamo%20Technologies%20PVT.LTD.!5e1!3m2!1sen!2sin!4v1791286936209!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="allowfullscreen" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11954.0622639565!2d80.04231435!3d12.834518350000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5263189df2a1d9%3A0x154fa651ccc8b758!2sNovahamo%20Technologies%20PVT.LTD.!5e1!3m2!1sen!2sin!4v1791288942047!5m2!1sen!2sin"
                 width="100%"
                 height="100%"
                 style={{ border: 0, filter: 'invert(90%) hue-rotate(180deg)' }}
