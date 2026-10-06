@@ -98,7 +98,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
     const text = encodeURIComponent(
       `Hi HamoTech IT Solutions! I just registered online (Ref ID: ${submittedLeadId}). Name: ${formData.name}, Course: ${formData.course}. Please confirm my counseling slot.`
     );
-    window.open(`https://wa.me/${9884166198}?text=${text}`, '_blank');
+    window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
   };
 
   const handleResetAndClose = () => {

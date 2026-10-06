@@ -6,7 +6,7 @@ export const WhatsAppButton: React.FC = () => {
   const message = encodeURIComponent(
     'Hello HamoTech IT Solutions, I am interested in your IT training courses. Please share course details.'
   );
-  const whatsappUrl = `https://wa.me/${9884166198}?text=${message}`;
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
 
   return (
     <a
