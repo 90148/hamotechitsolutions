@@ -87,7 +87,7 @@ export const AppContent: React.FC = () => {
   }, [isModalOpen]);
 
   return (
-    <div className="min-h-screen bg-[#050816] text-slate-100 flex flex-col justify-between selection:bg-[#E50914] selection:text-white">
+    <div className="min-h-screen bg-gradient-to-br from-[#FFF1F2] via-[#FDF2F8] to-[#FFF7ED] text-slate-800 flex flex-col justify-between selection:bg-[#E11D48] selection:text-white">
       <ScrollToTop />
       <ScrollProgress />
       <CursorGlow />

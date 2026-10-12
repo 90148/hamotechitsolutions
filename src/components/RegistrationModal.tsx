@@ -94,7 +94,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
   };
 
   const handleWhatsAppRedirect = () => {
-    const phone = '9198841 66198';
+    const phone = '919884166198';
     const text = encodeURIComponent(
       `Hi HamoTech IT Solutions! I just registered online (Ref ID: ${submittedLeadId}). Name: ${formData.name}, Course: ${formData.course}. Please confirm my counseling slot.`
     );
@@ -117,7 +117,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/80 backdrop-blur-md"
+            className="fixed inset-0 bg-slate-900/60 backdrop-blur-md"
           />
 
           {/* Modal Content Window */}
@@ -126,22 +126,22 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.9, opacity: 0, y: 20 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="relative w-full max-w-2xl bg-[#0B1020] border border-red-500/30 rounded-2xl shadow-2xl overflow-hidden z-10 glass-modal my-auto max-h-[90vh] flex flex-col"
+            className="relative w-full max-w-2xl bg-white border border-rose-200/90 rounded-2xl shadow-2xl shadow-rose-900/20 overflow-hidden z-10 glass-modal my-auto max-h-[90vh] flex flex-col"
           >
             {/* Top Accent Gradient Bar */}
-            <div className="h-1.5 bg-gradient-to-r from-[#E50914] via-[#FFD21F] to-[#00BFFF]" />
+            <div className="h-1.5 bg-gradient-to-r from-[#E11D48] via-[#F43F5E] via-[#F59E0B] to-[#8B5CF6]" />
 
             {/* Header */}
-            <div className="p-6 pb-4 border-b border-slate-800/80 flex items-start justify-between relative bg-[#050816]/60">
+            <div className="p-6 pb-4 border-b border-rose-100 flex items-start justify-between relative bg-gradient-to-r from-rose-50/80 via-white to-amber-50/40">
               <div>
-                <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#E50914]/15 border border-[#E50914]/30 text-[#FFD21F] text-xs font-semibold uppercase tracking-wider mb-2">
-                  <Sparkles className="w-3.5 h-3.5" />
+                <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white border border-rose-200 text-[#BE123C] text-xs font-bold uppercase tracking-wider mb-2 shadow-sm">
+                  <Sparkles className="w-3.5 h-3.5 text-[#E11D48]" />
                   <span>Limited Seats Available</span>
                 </div>
-                <h2 className="text-xl sm:text-2xl font-black text-white font-display">
+                <h2 className="text-xl sm:text-2xl font-black text-slate-900 font-display">
                   START YOUR IT CAREER TODAY 🚀
                 </h2>
-                <p className="text-xs sm:text-sm text-slate-400 mt-1">
+                <p className="text-xs sm:text-sm text-slate-600 mt-1">
                   Register now and take the first step toward becoming job-ready.
                 </p>
               </div>
@@ -150,7 +150,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
               <button
                 onClick={onClose}
                 aria-label="Close Registration Modal"
-                className="text-slate-400 hover:text-white p-2 rounded-full hover:bg-slate-800 transition-colors"
+                className="text-slate-400 hover:text-slate-800 p-2 rounded-full hover:bg-rose-100/60 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -165,26 +165,26 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
                   animate={{ opacity: 1, scale: 1 }}
                   className="text-center py-8 px-4"
                 >
-                  <div className="w-20 h-20 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-6 border border-emerald-500/40 glow-blue">
+                  <div className="w-20 h-20 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6 border border-emerald-200 shadow-sm">
                     <CheckCircle2 className="w-10 h-10" />
                   </div>
 
-                  <h3 className="text-2xl font-extrabold text-white font-display">
+                  <h3 className="text-2xl font-extrabold text-slate-900 font-display">
                     Registration Submitted Successfully! 🎉
                   </h3>
-                  <p className="text-sm text-slate-300 mt-2 max-w-md mx-auto">
-                    Thank you, <span className="text-[#FFD21F] font-semibold">{formData.name}</span>. Your enrollment inquiry for{' '}
-                    <span className="text-[#00BFFF] font-semibold">{formData.course}</span> has been received. Our senior career counselor will reach out to you within 24 hours.
+                  <p className="text-sm text-slate-600 mt-2 max-w-md mx-auto">
+                    Thank you, <span className="text-[#BE123C] font-semibold">{formData.name}</span>. Your enrollment inquiry for{' '}
+                    <span className="text-[#0284C7] font-semibold">{formData.course}</span> has been received. Our senior career counselor will reach out to you within 24 hours.
                   </p>
 
-                  <div className="mt-4 p-3 bg-slate-900/80 rounded-lg text-xs text-slate-400 max-w-xs mx-auto border border-slate-800">
-                    Registration Reference ID: <span className="text-white font-mono font-bold">{submittedLeadId}</span>
+                  <div className="mt-4 p-3 bg-rose-50 rounded-lg text-xs text-slate-600 max-w-xs mx-auto border border-rose-200">
+                    Registration Reference ID: <span className="text-[#E11D48] font-mono font-bold">{submittedLeadId}</span>
                   </div>
 
                   <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
                     <button
                       onClick={handleWhatsAppRedirect}
-                      className="w-full sm:w-auto flex items-center justify-center space-x-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold text-sm shadow-lg transition-all"
+                      className="w-full sm:w-auto flex items-center justify-center space-x-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold text-sm shadow-lg shadow-emerald-600/25 transition-all"
                     >
                       <MessageSquare className="w-4 h-4 fill-white" />
                       <span>WhatsApp Us Now</span>
@@ -192,7 +192,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
 
                     <button
                       onClick={handleResetAndClose}
-                      className="w-full sm:w-auto px-6 py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl font-semibold text-sm transition-colors border border-slate-700"
+                      className="w-full sm:w-auto px-6 py-3 bg-white hover:bg-rose-50 text-slate-700 rounded-xl font-bold text-sm transition-colors border border-rose-200 shadow-sm"
                     >
                       Continue Exploring
                     </button>
@@ -202,8 +202,8 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
                 /* Registration Form */
                 <form onSubmit={handleSubmit} className="space-y-4">
                   {errorMessage && (
-                    <div className="p-3.5 bg-red-950/80 border border-red-500/50 rounded-xl text-red-200 text-xs flex items-center space-x-2">
-                      <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
+                    <div className="p-3.5 bg-red-50 border border-red-200 rounded-xl text-red-700 text-xs flex items-center space-x-2">
+                      <AlertCircle className="w-4 h-4 text-red-500 shrink-0" />
                       <span>{errorMessage}</span>
                     </div>
                   )}
@@ -211,8 +211,8 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
                   {/* Name & Phone */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1">
-                        Full Name <span className="text-[#E50914]">*</span>
+                      <label className="block text-xs font-semibold text-slate-700 mb-1">
+                        Full Name <span className="text-[#E11D48]">*</span>
                       </label>
                       <input
                         type="text"
@@ -221,13 +221,13 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
                         placeholder="e.g. Rahul Sharma"
                         value={formData.name}
                         onChange={handleChange}
-                        className="w-full px-3.5 py-2.5 bg-slate-900/90 border border-slate-700 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:border-[#E50914] transition-colors"
+                        className="w-full px-3.5 py-2.5 bg-rose-50/50 border border-rose-200 focus:bg-white rounded-xl text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#E11D48] focus:ring-2 focus:ring-rose-200 transition-all"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1">
-                        Phone Number (10 Digits) <span className="text-[#E50914]">*</span>
+                      <label className="block text-xs font-semibold text-slate-700 mb-1">
+                        Phone Number (10 Digits) <span className="text-[#E11D48]">*</span>
                       </label>
                       <input
                         type="tel"
@@ -236,7 +236,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
                         placeholder="e.g. 9876543210"
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full px-3.5 py-2.5 bg-slate-900/90 border border-slate-700 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:border-[#E50914] transition-colors"
+                        className="w-full px-3.5 py-2.5 bg-rose-50/50 border border-rose-200 focus:bg-white rounded-xl text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#E11D48] focus:ring-2 focus:ring-rose-200 transition-all"
                       />
                     </div>
                   </div>
@@ -244,8 +244,8 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
                   {/* Email & Qualification */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1">
-                        Email Address <span className="text-[#E50914]">*</span>
+                      <label className="block text-xs font-semibold text-slate-700 mb-1">
+                        Email Address <span className="text-[#E11D48]">*</span>
                       </label>
                       <input
                         type="email"
@@ -254,19 +254,19 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
                         placeholder="e.g. rahul@example.com"
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full px-3.5 py-2.5 bg-slate-900/90 border border-slate-700 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:border-[#E50914] transition-colors"
+                        className="w-full px-3.5 py-2.5 bg-rose-50/50 border border-rose-200 focus:bg-white rounded-xl text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#E11D48] focus:ring-2 focus:ring-rose-200 transition-all"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1">
-                        Current Qualification <span className="text-[#E50914]">*</span>
+                      <label className="block text-xs font-semibold text-slate-700 mb-1">
+                        Current Qualification <span className="text-[#E11D48]">*</span>
                       </label>
                       <select
                         name="qualification"
                         value={formData.qualification}
                         onChange={handleChange}
-                        className="w-full px-3.5 py-2.5 bg-slate-900/90 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:border-[#E50914] transition-colors"
+                        className="w-full px-3.5 py-2.5 bg-rose-50/50 border border-rose-200 focus:bg-white rounded-xl text-slate-900 text-sm focus:outline-none focus:border-[#E11D48] focus:ring-2 focus:ring-rose-200 transition-all"
                       >
                         <option value="B.E / B.Tech">B.E / B.Tech</option>
                         <option value="B.Sc / BCA / MCA">B.Sc / BCA / MCA</option>
@@ -279,7 +279,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
 
                   {/* College / University */}
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">
+                    <label className="block text-xs font-semibold text-slate-700 mb-1">
                       College / University Name
                     </label>
                     <input
@@ -288,23 +288,23 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
                       placeholder="e.g. SRM Institute / Anna University"
                       value={formData.college}
                       onChange={handleChange}
-                      className="w-full px-3.5 py-2.5 bg-slate-900/90 border border-slate-700 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:border-[#E50914] transition-colors"
+                      className="w-full px-3.5 py-2.5 bg-rose-50/50 border border-rose-200 focus:bg-white rounded-xl text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#E11D48] focus:ring-2 focus:ring-rose-200 transition-all"
                     />
                   </div>
 
                   {/* Preferred Course */}
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">
-                      Select Preferred Course <span className="text-[#E50914]">*</span>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1">
+                      Select Preferred Course <span className="text-[#E11D48]">*</span>
                     </label>
                     <select
                       name="course"
                       value={formData.course}
                       onChange={handleChange}
-                      className="w-full px-3.5 py-2.5 bg-slate-900/90 border border-slate-700 rounded-xl text-[#FFD21F] font-semibold text-sm focus:outline-none focus:border-[#E50914] transition-colors"
+                      className="w-full px-3.5 py-2.5 bg-rose-50/50 border border-rose-200 focus:bg-white rounded-xl text-[#BE123C] font-bold text-sm focus:outline-none focus:border-[#E11D48] focus:ring-2 focus:ring-rose-200 transition-all"
                     >
                       {COURSES.map(c => (
-                        <option key={c.id} value={c.title} className="bg-[#0B1020] text-white">
+                        <option key={c.id} value={c.title} className="bg-white text-slate-900">
                           {c.title} ({c.duration})
                         </option>
                       ))}
@@ -314,14 +314,14 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
                   {/* Learning Mode, Experience Level & Batch */}
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1">
-                        Learning Mode <span className="text-[#E50914]">*</span>
+                      <label className="block text-xs font-semibold text-slate-700 mb-1">
+                        Learning Mode <span className="text-[#E11D48]">*</span>
                       </label>
                       <select
                         name="mode"
                         value={formData.mode}
                         onChange={handleChange}
-                        className="w-full px-3 py-2 bg-slate-900/90 border border-slate-700 rounded-xl text-white text-xs focus:outline-none focus:border-[#E50914]"
+                        className="w-full px-3 py-2 bg-rose-50/50 border border-rose-200 focus:bg-white rounded-xl text-slate-900 text-xs focus:outline-none focus:border-[#E11D48]"
                       >
                         <option value="Offline">Classroom Offline</option>
                         <option value="Online">Live Online</option>
@@ -330,14 +330,14 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1">
+                      <label className="block text-xs font-semibold text-slate-700 mb-1">
                         Experience Level
                       </label>
                       <select
                         name="experience"
                         value={formData.experience}
                         onChange={handleChange}
-                        className="w-full px-3 py-2 bg-slate-900/90 border border-slate-700 rounded-xl text-white text-xs focus:outline-none focus:border-[#E50914]"
+                        className="w-full px-3 py-2 bg-rose-50/50 border border-rose-200 focus:bg-white rounded-xl text-slate-900 text-xs focus:outline-none focus:border-[#E11D48]"
                       >
                         <option value="Beginner">Complete Beginner</option>
                         <option value="Intermediate">Intermediate</option>
@@ -346,14 +346,14 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1">
+                      <label className="block text-xs font-semibold text-slate-700 mb-1">
                         Preferred Batch
                       </label>
                       <select
                         name="batch"
                         value={formData.batch}
                         onChange={handleChange}
-                        className="w-full px-3 py-2 bg-slate-900/90 border border-slate-700 rounded-xl text-white text-xs focus:outline-none focus:border-[#E50914]"
+                        className="w-full px-3 py-2 bg-rose-50/50 border border-rose-200 focus:bg-white rounded-xl text-slate-900 text-xs focus:outline-none focus:border-[#E11D48]"
                       >
                         <option value="Morning">Morning Batch</option>
                         <option value="Afternoon">Afternoon Batch</option>
@@ -364,10 +364,10 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
 
                   {/* Interested In */}
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">
+                    <label className="block text-xs font-semibold text-slate-700 mb-1">
                       Primary Interest
                     </label>
-                    <div className="flex flex-wrap gap-4 text-xs text-slate-300 pt-1">
+                    <div className="flex flex-wrap gap-4 text-xs text-slate-700 pt-1">
                       {(['Training', 'Internship', 'Placement Guidance'] as const).map(opt => (
                         <label key={opt} className="flex items-center space-x-2 cursor-pointer">
                           <input
@@ -376,9 +376,9 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
                             value={opt}
                             checked={formData.interest === opt}
                             onChange={handleChange}
-                            className="text-[#E50914] focus:ring-[#E50914]"
+                            className="text-[#E11D48] focus:ring-[#E11D48]"
                           />
-                          <span>{opt}</span>
+                          <span className="font-medium">{opt}</span>
                         </label>
                       ))}
                     </div>
@@ -386,7 +386,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
 
                   {/* Message */}
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">
+                    <label className="block text-xs font-semibold text-slate-700 mb-1">
                       Additional Message / Goals
                     </label>
                     <textarea
@@ -395,7 +395,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
                       placeholder="e.g. I want to build a career in Full Stack Java development..."
                       value={formData.message}
                       onChange={handleChange}
-                      className="w-full px-3.5 py-2 bg-slate-900/90 border border-slate-700 rounded-xl text-white placeholder-slate-500 text-xs focus:outline-none focus:border-[#E50914]"
+                      className="w-full px-3.5 py-2 bg-rose-50/50 border border-rose-200 focus:bg-white rounded-xl text-slate-900 placeholder-slate-400 text-xs focus:outline-none focus:border-[#E11D48]"
                     />
                   </div>
 
@@ -407,9 +407,9 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
                         name="consent"
                         checked={formData.consent}
                         onChange={handleChange}
-                        className="mt-0.5 text-[#E50914] rounded focus:ring-[#E50914]"
+                        className="mt-0.5 text-[#E11D48] rounded focus:ring-[#E11D48]"
                       />
-                      <span className="text-xs text-slate-400 leading-tight">
+                      <span className="text-xs text-slate-600 leading-tight">
                         I agree to be contacted by HamoTech IT Solutions regarding courses, training, internships, and placement opportunities.
                       </span>
                     </label>
@@ -420,7 +420,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-[#E50914] via-[#c40711] to-[#E50914] hover:opacity-95 text-white font-bold text-sm tracking-wide shadow-xl flex items-center justify-center space-x-2 glow-red transition-all duration-200"
+                      className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-[#E11D48] via-[#F43F5E] to-[#BE123C] hover:opacity-95 text-white font-bold text-sm tracking-wide shadow-xl shadow-rose-500/25 flex items-center justify-center space-x-2 transition-all duration-200"
                     >
                       {isSubmitting ? (
                         <>
@@ -429,7 +429,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
                         </>
                       ) : (
                         <>
-                          <Send className="w-4 h-4 text-[#FFD21F]" />
+                          <Send className="w-4 h-4 text-amber-200" />
                           <span>SUBMIT REGISTRATION</span>
                         </>
                       )}

@@ -22,21 +22,26 @@ export const Courses: React.FC<CoursesPageProps> = ({ onOpenModal }) => {
   });
 
   return (
-    <div className="pt-32 pb-24 bg-[#050816] min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="pt-32 pb-24 min-h-screen relative overflow-hidden">
+      {/* Ambient pastel glow orbs */}
+      <div className="absolute top-20 -left-20 w-96 h-96 bg-pink-200/50 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/3 -right-20 w-96 h-96 bg-purple-200/40 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-20 left-1/3 w-96 h-96 bg-amber-100/60 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Page Banner */}
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-12">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-slate-900 border border-[#E50914]/40 text-[#FFD21F] text-xs font-bold uppercase tracking-wider">
-            <BookOpen className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-rose-600 text-xs font-bold uppercase tracking-wider shadow-sm">
+            <BookOpen className="w-3.5 h-3.5 text-rose-600" />
             <span>FULL COURSE CATALOG</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-black text-white font-display">
+          <h1 className="text-3xl sm:text-5xl font-black text-slate-900 font-display">
             EXPLORE OUR <span className="text-gradient-red">IT PROGRAMS</span>
           </h1>
 
-          <p className="text-sm sm:text-base text-slate-300">
+          <p className="text-sm sm:text-base text-slate-600 font-medium">
             Comprehensive curriculum, hands-on projects, expert mentorship & placement preparation.
           </p>
         </div>
@@ -50,7 +55,7 @@ export const Courses: React.FC<CoursesPageProps> = ({ onOpenModal }) => {
               placeholder="Search courses or technologies (e.g. Java, Python, AWS, Flutter...)"
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 bg-[#0B1020] border border-slate-700 rounded-2xl text-white placeholder-slate-500 text-sm focus:outline-none focus:border-[#E50914] shadow-xl"
+              className="w-full pl-12 pr-4 py-3.5 bg-white/90 border border-rose-200/80 rounded-2xl text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-rose-500 focus:ring-2 focus:ring-rose-200 shadow-xl shadow-rose-950/5 transition-all"
             />
           </div>
 
@@ -59,10 +64,10 @@ export const Courses: React.FC<CoursesPageProps> = ({ onOpenModal }) => {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                   selectedCategory === cat
-                    ? 'bg-[#E50914] text-white shadow'
-                    : 'bg-slate-900 text-slate-400 hover:text-white border border-slate-800'
+                    ? 'bg-gradient-to-r from-rose-500 to-rose-600 text-white shadow-md shadow-rose-500/25 scale-105'
+                    : 'bg-white/80 text-slate-600 hover:text-rose-600 hover:bg-rose-50 border border-rose-100 shadow-sm'
                 }`}
               >
                 {cat}
@@ -73,11 +78,11 @@ export const Courses: React.FC<CoursesPageProps> = ({ onOpenModal }) => {
 
         {/* Results */}
         {filtered.length === 0 ? (
-          <div className="text-center py-16 bg-[#0B1020] rounded-3xl border border-slate-800">
-            <p className="text-slate-400 text-sm">No courses matching your search criteria.</p>
+          <div className="text-center py-16 bg-white/85 rounded-3xl border border-rose-200 shadow-xl shadow-rose-950/5 max-w-lg mx-auto">
+            <p className="text-slate-600 text-sm font-medium">No courses matching your search criteria.</p>
             <button
               onClick={() => { setSearchTerm(''); setSelectedCategory('All'); }}
-              className="mt-4 px-4 py-2 bg-[#E50914] text-white text-xs font-bold rounded-xl"
+              className="mt-4 px-5 py-2.5 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-xl shadow-md transition-colors"
             >
               Reset Filters
             </button>

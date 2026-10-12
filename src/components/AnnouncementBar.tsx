@@ -16,15 +16,14 @@ export const AnnouncementBar: React.FC<AnnouncementBarProps> = ({ onOpenModal })
   ];
 
   return (
-    <div className="bg-gradient-to-r from-[#E50914] via-[#0B1020] to-[#050816] border-y border-red-500/30 py-3 overflow-hidden relative shadow-lg">
+    <div className="bg-gradient-to-r from-[#E11D48] via-[#F43F5E] via-[#F59E0B] to-[#BE123C] border-y border-rose-300/80 py-3 overflow-hidden relative shadow-md">
       <div className="flex whitespace-nowrap animate-marquee items-center cursor-pointer" onClick={onOpenModal}>
-        {/* Repeat list twice for seamless infinite scroll */}
         {[...tickerText, ...tickerText].map((item, idx) => (
           <div key={idx} className="flex items-center space-x-6 mx-4">
-            <span className="text-xs sm:text-sm font-bold text-white tracking-wide font-display flex items-center space-x-2">
+            <span className="text-xs sm:text-sm font-bold text-white tracking-wide font-display flex items-center space-x-2 drop-shadow-sm">
               <span>{item}</span>
             </span>
-            <Sparkles className="w-3.5 h-3.5 text-[#FFD21F] shrink-0" />
+            <Sparkles className="w-3.5 h-3.5 text-amber-200 shrink-0" />
           </div>
         ))}
       </div>

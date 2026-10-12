@@ -11,21 +11,21 @@ export const FAQSection: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-20 md:py-28 bg-[#0B1020] relative overflow-hidden border-t border-slate-800/80">
+    <section id="faq" className="py-20 md:py-28 bg-gradient-to-b from-[#FFF1F2]/80 via-[#FDF2F8]/80 to-[#FFF7ED]/80 relative overflow-hidden border-t border-rose-100">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-slate-900 border border-[#00BFFF]/40 text-[#00BFFF] text-xs font-bold uppercase tracking-wider">
-            <HelpCircle className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white border border-rose-300 text-[#0284C7] text-xs font-bold uppercase tracking-wider shadow-sm">
+            <HelpCircle className="w-3.5 h-3.5 text-[#0284C7]" />
             <span>GOT QUESTIONS? WE HAVE ANSWERS</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white font-display">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-display">
             FREQUENTLY ASKED <span className="text-gradient-red">QUESTIONS</span>
           </h2>
 
-          <p className="text-sm sm:text-base text-slate-300">
+          <p className="text-sm sm:text-base text-slate-600">
             Everything you need to know about our courses, admissions, hostel facilities, and placement support.
           </p>
         </div>
@@ -38,16 +38,16 @@ export const FAQSection: React.FC = () => {
             return (
               <div
                 key={idx}
-                className="rounded-2xl bg-[#050816] border border-slate-800 overflow-hidden glass-card transition-colors"
+                className="rounded-2xl bg-white/95 border border-rose-200/90 shadow-md shadow-rose-900/5 overflow-hidden transition-all hover:border-rose-300"
               >
                 <button
                   onClick={() => toggleFAQ(idx)}
                   className="w-full p-5 text-left flex items-center justify-between space-x-4 focus:outline-none"
                 >
-                  <span className="text-sm sm:text-base font-bold text-white font-display">
+                  <span className="text-sm sm:text-base font-bold text-slate-900 font-display">
                     {faq.question}
                   </span>
-                  <div className={`p-1.5 rounded-lg bg-slate-900 text-[#FFD21F] transition-transform duration-300 ${isOpen ? 'rotate-180 bg-[#E50914] text-white' : ''}`}>
+                  <div className={`p-1.5 rounded-lg transition-transform duration-300 ${isOpen ? 'rotate-180 bg-[#E11D48] text-white shadow-sm' : 'bg-rose-50 text-[#E11D48]'}`}>
                     <ChevronDown className="w-5 h-5" />
                   </div>
                 </button>
@@ -60,7 +60,7 @@ export const FAQSection: React.FC = () => {
                       exit={{ opacity: 0, height: 0 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <div className="px-5 pb-5 pt-1 border-t border-slate-900 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                      <div className="px-5 pb-5 pt-2 border-t border-rose-100 text-xs sm:text-sm text-slate-600 leading-relaxed bg-rose-50/30">
                         {faq.answer}
                       </div>
                     </motion.div>

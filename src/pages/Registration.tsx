@@ -6,7 +6,7 @@ export const Registration: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="pt-32 pb-24 bg-[#050816] min-h-screen">
+    <div className="pt-32 pb-24 min-h-screen relative overflow-hidden flex items-center justify-center">
       <RegistrationModal isOpen={true} onClose={() => navigate('/')} />
     </div>
   );

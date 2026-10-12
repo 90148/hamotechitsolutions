@@ -17,21 +17,21 @@ export const PlacementSection: React.FC<PlacementSectionProps> = ({ onOpenModal 
   ];
 
   return (
-    <section id="placements" className="py-20 md:py-28 bg-[#0B1020] relative overflow-hidden border-t border-slate-800/80">
+    <section id="placements" className="py-20 md:py-28 bg-gradient-to-b from-[#FFF1F2]/80 via-[#FDF2F8]/80 to-[#FFF7ED]/80 relative overflow-hidden border-t border-rose-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-slate-900 border border-[#FFD21F]/40 text-[#FFD21F] text-xs font-bold uppercase tracking-wider">
-            <Target className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white border border-rose-300 text-[#BE123C] text-xs font-bold uppercase tracking-wider shadow-sm">
+            <Target className="w-3.5 h-3.5 text-[#E11D48]" />
             <span>CAREER TRANSFORMATION</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white font-display">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-display">
             FROM LEARNING TO <span className="text-gradient-red">CAREER</span>
           </h2>
 
-          <p className="text-sm sm:text-base text-slate-300">
+          <p className="text-sm sm:text-base text-slate-600">
             We don't just teach technology — we prepare you end-to-end to excel in corporate IT recruitment drives.
           </p>
         </div>
@@ -45,27 +45,27 @@ export const PlacementSection: React.FC<PlacementSectionProps> = ({ onOpenModal 
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="p-6 rounded-2xl bg-[#050816] border border-slate-800 hover:border-slate-700 glass-card flex flex-col justify-between group"
+              className="p-6 rounded-2xl bg-white/95 border border-rose-200/90 hover:border-rose-300 glass-card shadow-lg shadow-rose-900/5 hover:shadow-xl flex flex-col justify-between group transition-all"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center group-hover:scale-105 transition-transform">
-                    <item.icon className="w-6 h-6 text-[#E50914]" />
+                  <div className="w-12 h-12 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-center group-hover:scale-105 transition-transform shadow-sm">
+                    <item.icon className="w-6 h-6 text-[#E11D48]" />
                   </div>
-                  <span className="text-xs font-bold font-mono text-slate-500">STAGE 0{idx + 1}</span>
+                  <span className="text-xs font-bold font-mono text-slate-400">STAGE 0{idx + 1}</span>
                 </div>
 
-                <h3 className="text-lg font-black text-white font-display mb-2 group-hover:text-[#FFD21F] transition-colors">
+                <h3 className="text-lg font-black text-slate-900 font-display mb-2 group-hover:text-[#E11D48] transition-colors">
                   {item.title}
                 </h3>
 
-                <p className="text-xs text-slate-300 leading-relaxed">
+                <p className="text-xs text-slate-600 leading-relaxed">
                   {item.desc}
                 </p>
               </div>
 
-              <div className="mt-6 pt-3 border-t border-slate-900 flex items-center space-x-1.5 text-[11px] text-emerald-400 font-semibold">
-                <CheckCircle2 className="w-4 h-4" />
+              <div className="mt-6 pt-3 border-t border-rose-100 flex items-center space-x-1.5 text-[11px] text-emerald-700 font-semibold">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                 <span>100% Career Support</span>
               </div>
             </motion.div>
@@ -76,9 +76,9 @@ export const PlacementSection: React.FC<PlacementSectionProps> = ({ onOpenModal 
         <div className="mt-12 text-center">
           <button
             onClick={onOpenModal}
-            className="px-8 py-4 rounded-xl bg-gradient-to-r from-[#E50914] via-[#c40711] to-[#E50914] text-white font-extrabold text-sm tracking-wider shadow-2xl inline-flex items-center space-x-2.5 glow-red hover:scale-105 transition-transform"
+            className="px-8 py-4 rounded-xl bg-gradient-to-r from-[#E11D48] via-[#F43F5E] to-[#BE123C] text-white font-extrabold text-sm tracking-wider shadow-xl shadow-rose-500/25 inline-flex items-center space-x-2.5 hover:scale-105 transition-transform"
           >
-            <Sparkles className="w-4 h-4 text-[#FFD21F]" />
+            <Sparkles className="w-4 h-4 text-amber-200" />
             <span>START YOUR CAREER JOURNEY TODAY</span>
           </button>
         </div>

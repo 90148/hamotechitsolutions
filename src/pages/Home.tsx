@@ -63,20 +63,22 @@ export const Home: React.FC<HomeProps> = ({ onOpenModal }) => {
       <FAQSection />
 
       {/* Final Mid-Page CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-[#E50914] via-[#0B1020] to-[#050816] text-white text-center border-t border-red-500/30">
-        <div className="max-w-4xl mx-auto px-4 space-y-4">
-          <h2 className="text-3xl sm:text-4xl font-black font-display">
+      <section className="py-16 bg-gradient-to-r from-rose-600 via-pink-600 to-amber-500 text-white text-center shadow-xl shadow-rose-900/10 relative overflow-hidden">
+        <div className="absolute -top-24 -left-24 w-72 h-72 bg-white/10 rounded-full blur-2xl pointer-events-none" />
+        <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-amber-300/20 rounded-full blur-2xl pointer-events-none" />
+        <div className="relative max-w-4xl mx-auto px-4 space-y-4">
+          <h2 className="text-3xl sm:text-4xl font-black font-display text-white drop-shadow-sm">
             READY TO START YOUR IT CAREER?
           </h2>
-          <p className="text-sm text-slate-300">
+          <p className="text-sm sm:text-base text-rose-50 max-w-2xl mx-auto font-medium">
             Join hundreds of successful students. Enroll in our upcoming live technology batch today.
           </p>
           <div className="pt-2">
             <button
               onClick={() => onOpenModal()}
-              className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#FFD21F] to-[#E50914] text-[#050816] font-extrabold text-sm shadow-xl inline-flex items-center space-x-2 hover:scale-105 transition-transform"
+              className="px-8 py-3.5 rounded-xl bg-white text-rose-600 hover:text-rose-700 font-extrabold text-sm shadow-2xl inline-flex items-center space-x-2 hover:scale-105 transition-transform hover:bg-rose-50"
             >
-              <Sparkles className="w-4 h-4" />
+              <Sparkles className="w-4 h-4 text-amber-500" />
               <span>ENROLL NOW</span>
             </button>
           </div>

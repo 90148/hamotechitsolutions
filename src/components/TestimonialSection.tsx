@@ -17,21 +17,21 @@ export const TestimonialSection: React.FC = () => {
   const current = TESTIMONIALS[currentIndex];
 
   return (
-    <section id="testimonials" className="py-20 md:py-28 bg-[#050816] relative overflow-hidden border-t border-slate-800/80">
+    <section id="testimonials" className="py-20 md:py-28 bg-gradient-to-b from-[#FDF2F8]/70 via-[#FFF1F2]/80 to-[#FFF7ED]/70 relative overflow-hidden border-t border-rose-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-slate-900 border border-yellow-500/40 text-[#FFD21F] text-xs font-bold uppercase tracking-wider">
-            <MessageSquare className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white border border-rose-300 text-[#D97706] text-xs font-bold uppercase tracking-wider shadow-sm">
+            <MessageSquare className="w-3.5 h-3.5 text-[#D97706]" />
             <span>ALUMNI REVIEWS &amp; SUCCESS</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white font-display">
-            WHAT OUR <span className="text-gradient-yellow">STUDENTS SAY</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-display">
+            WHAT OUR <span className="text-gradient-red">STUDENTS SAY</span>
           </h2>
 
-          <p className="text-sm sm:text-base text-slate-300">
+          <p className="text-sm sm:text-base text-slate-600">
             Discover how HamoTech IT Solutions has helped students transition into software careers.
           </p>
         </div>
@@ -46,13 +46,13 @@ export const TestimonialSection: React.FC = () => {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.4 }}
-              className="p-8 sm:p-12 rounded-3xl bg-[#0B1020] border border-slate-800 glass-card shadow-2xl relative overflow-hidden"
+              className="p-8 sm:p-12 rounded-3xl bg-white/95 border border-rose-200/90 glass-card shadow-2xl shadow-rose-900/10 relative overflow-hidden"
             >
-              <Quote className="w-16 h-16 text-[#E50914]/15 absolute top-6 right-8 pointer-events-none" />
+              <Quote className="w-16 h-16 text-rose-500/10 absolute top-6 right-8 pointer-events-none" />
 
               <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 relative z-10">
                 {/* Photo */}
-                <div className="w-20 h-20 rounded-2xl overflow-hidden border-2 border-[#FFD21F] shrink-0 shadow-lg glow-yellow">
+                <div className="w-20 h-20 rounded-2xl overflow-hidden border-2 border-rose-400 shrink-0 shadow-lg shadow-rose-500/20">
                   <img src={current.image} alt={current.name} className="w-full h-full object-cover" />
                 </div>
 
@@ -61,22 +61,22 @@ export const TestimonialSection: React.FC = () => {
                   {/* Rating Stars */}
                   <div className="flex items-center justify-center sm:justify-start space-x-1">
                     {[...Array(current.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 text-[#FFD21F] fill-[#FFD21F]" />
+                      <Star key={i} className="w-4 h-4 text-amber-400 fill-amber-400" />
                     ))}
                   </div>
 
                   {/* Review Text */}
-                  <p className="text-sm sm:text-base text-slate-200 leading-relaxed italic font-normal">
+                  <p className="text-sm sm:text-base text-slate-700 leading-relaxed italic font-normal">
                     &quot;{current.content}&quot;
                   </p>
 
                   {/* Student Details */}
                   <div>
-                    <h3 className="text-lg font-black text-white font-display">
+                    <h3 className="text-lg font-black text-slate-900 font-display">
                       {current.name}
                     </h3>
-                    <p className="text-xs text-[#00BFFF] font-semibold">
-                      {current.role} • <span className="text-slate-400">{current.company}</span>
+                    <p className="text-xs text-[#E11D48] font-bold">
+                      {current.role} • <span className="text-slate-500 font-normal">{current.company}</span>
                     </p>
                     <p className="text-[11px] text-slate-500 font-mono mt-0.5">
                       Course: {current.course} (Batch {current.batchYear})
@@ -92,7 +92,7 @@ export const TestimonialSection: React.FC = () => {
             <button
               onClick={prevTestimonial}
               aria-label="Previous Testimonial"
-              className="p-3 rounded-full bg-slate-900 text-slate-300 hover:text-white border border-slate-800 hover:border-[#E50914] transition-all"
+              className="p-3 rounded-full bg-white text-slate-700 hover:text-[#E11D48] border border-rose-200 hover:border-rose-300 shadow-sm transition-all"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -105,7 +105,7 @@ export const TestimonialSection: React.FC = () => {
                   onClick={() => setCurrentIndex(i)}
                   aria-label={`Go to slide ${i + 1}`}
                   className={`w-2.5 h-2.5 rounded-full transition-all ${
-                    currentIndex === i ? 'w-6 bg-[#E50914]' : 'bg-slate-700'
+                    currentIndex === i ? 'w-6 bg-[#E11D48]' : 'bg-rose-200'
                   }`}
                 />
               ))}
@@ -114,7 +114,7 @@ export const TestimonialSection: React.FC = () => {
             <button
               onClick={nextTestimonial}
               aria-label="Next Testimonial"
-              className="p-3 rounded-full bg-slate-900 text-slate-300 hover:text-white border border-slate-800 hover:border-[#E50914] transition-all"
+              className="p-3 rounded-full bg-white text-slate-700 hover:text-[#E11D48] border border-rose-200 hover:border-rose-300 shadow-sm transition-all"
             >
               <ChevronRight className="w-5 h-5" />
             </button>

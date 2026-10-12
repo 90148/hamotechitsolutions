@@ -16,36 +16,36 @@ export const InternshipSection: React.FC<InternshipSectionProps> = ({ onOpenModa
   ];
 
   return (
-    <section id="internship" className="py-20 md:py-28 bg-[#050816] relative overflow-hidden border-t border-slate-800/80">
+    <section id="internship" className="py-20 md:py-28 bg-gradient-to-b from-[#FDF2F8]/80 via-[#FFF1F2]/80 to-[#FFF7ED]/80 relative overflow-hidden border-t border-rose-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="rounded-3xl bg-gradient-to-r from-[#0B1020] via-[#050816] to-[#0B1020] border border-red-500/30 p-8 sm:p-12 glass-card shadow-2xl relative overflow-hidden">
+        <div className="rounded-3xl bg-gradient-to-r from-white via-rose-50/60 to-purple-50/60 border border-rose-200/90 p-8 sm:p-12 glass-card shadow-2xl shadow-rose-900/10 relative overflow-hidden">
           {/* Ambient glow */}
-          <div className="absolute top-0 right-0 w-80 h-80 bg-[#E50914]/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-0 right-0 w-80 h-80 bg-rose-400/20 rounded-full blur-3xl pointer-events-none" />
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
             
             {/* Left Info Column */}
             <div className="lg:col-span-6 space-y-6">
-              <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-[#E50914]/15 border border-[#E50914]/30 text-[#FFD21F] text-xs font-bold uppercase tracking-wider">
-                <Briefcase className="w-3.5 h-3.5" />
+              <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white border border-rose-300 text-[#BE123C] text-xs font-bold uppercase tracking-wider shadow-sm">
+                <Briefcase className="w-3.5 h-3.5 text-[#E11D48]" />
                 <span>REAL INDUSTRY WORKFLOW</span>
               </div>
 
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white font-display">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-display">
                 GET REAL <span className="text-gradient-red">INDUSTRY EXPERIENCE</span>
               </h2>
 
-              <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
                 Step beyond conventional learning. Our Internship Program provides candidates with real-world development workflows, team collaboration, code reviews, and software deployment experience.
               </p>
 
               <div className="pt-2">
                 <button
                   onClick={onOpenModal}
-                  className="px-8 py-4 rounded-xl bg-gradient-to-r from-[#E50914] via-[#c40711] to-[#E50914] text-white font-extrabold text-sm tracking-wider shadow-xl flex items-center space-x-2 glow-red hover:scale-105 transition-transform"
+                  className="px-8 py-4 rounded-xl bg-gradient-to-r from-[#E11D48] via-[#F43F5E] to-[#BE123C] text-white font-extrabold text-sm tracking-wider shadow-xl shadow-rose-500/25 flex items-center space-x-2 hover:scale-105 transition-transform"
                 >
-                  <Sparkles className="w-4 h-4 text-[#FFD21F]" />
+                  <Sparkles className="w-4 h-4 text-amber-200" />
                   <span>APPLY FOR INTERNSHIP</span>
                 </button>
               </div>
@@ -54,15 +54,15 @@ export const InternshipSection: React.FC<InternshipSectionProps> = ({ onOpenModa
             {/* Right Benefits Grid */}
             <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
               {benefits.map((b, idx) => (
-                <div key={idx} className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 flex items-start space-x-3">
-                  <div className="w-9 h-9 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center shrink-0">
-                    <b.icon className="w-4 h-4 text-[#FFD21F]" />
+                <div key={idx} className="p-4 rounded-xl bg-white/95 border border-rose-200/80 shadow-md shadow-rose-900/5 flex items-start space-x-3">
+                  <div className="w-9 h-9 rounded-lg bg-rose-50 border border-rose-200 flex items-center justify-center shrink-0 shadow-sm">
+                    <b.icon className="w-4 h-4 text-[#E11D48]" />
                   </div>
                   <div>
-                    <h3 className="text-xs font-extrabold text-white font-display uppercase tracking-wide">
+                    <h3 className="text-xs font-extrabold text-slate-900 font-display uppercase tracking-wide">
                       {b.title}
                     </h3>
-                    <p className="text-[11px] text-slate-400 mt-1 leading-snug">
+                    <p className="text-[11px] text-slate-600 mt-1 leading-snug">
                       {b.desc}
                     </p>
                   </div>

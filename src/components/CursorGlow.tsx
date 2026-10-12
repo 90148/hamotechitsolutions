@@ -30,7 +30,7 @@ export const CursorGlow: React.FC = () => {
     <div
       className="pointer-events-none fixed inset-0 z-50 transition-opacity duration-300 hidden md:block"
       style={{
-        background: `radial-gradient(${isHovered ? '400px' : '250px'} circle at ${position.x}px ${position.y}px, rgba(229, 9, 20, 0.08), rgba(0, 191, 255, 0.04) 50%, transparent 80%)`
+        background: `radial-gradient(${isHovered ? '420px' : '260px'} circle at ${position.x}px ${position.y}px, rgba(244, 63, 94, 0.1), rgba(168, 85, 247, 0.06) 45%, transparent 75%)`
       }}
     />
   );
