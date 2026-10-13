@@ -21,7 +21,7 @@ export const AboutSection: React.FC = () => {
           >
             <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white border border-rose-300 text-[#BE123C] text-xs font-bold uppercase tracking-wider shadow-sm">
               <Target className="w-3.5 h-3.5 text-[#E11D48]" />
-              <span>ABOUT PALMPLE'S HAMOTECH</span>
+              <span>ABOUT HAMOTECH</span>
             </div>
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 leading-tight font-display">
@@ -77,7 +77,7 @@ export const AboutSection: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="text-lg font-black text-slate-900 font-display">
-                    PALMPLE'S HAMOTECH
+                   HAMOTECH
                   </h3>
                   <p className="text-xs text-[#BE123C] font-bold tracking-wider uppercase">
                     TRAIN • LEARN • GROW • SUCCEED

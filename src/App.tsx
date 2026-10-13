@@ -17,6 +17,7 @@ import { Placements } from './pages/Placements';
 import { Internships } from './pages/Internships';
 import { Contact } from './pages/Contact';
 import { Registration } from './pages/Registration';
+import { AdminCandidates } from './pages/AdminCandidates';
 import { NotFound } from './pages/NotFound';
 
 // Helper component to reset scroll position on route changes
@@ -105,6 +106,7 @@ export const AppContent: React.FC = () => {
           <Route path="/internships" element={<Internships onOpenModal={() => openModal()} />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/register" element={<Registration />} />
+          <Route path="/admin/candidates" element={<AdminCandidates />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

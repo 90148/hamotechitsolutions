@@ -25,7 +25,7 @@ export const CertificationSection: React.FC<CertificationSectionProps> = ({ onOp
             </h2>
 
             <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-              Validate your technical skills with official certifications from Palmple's HamoTech IT Solutions. Demonstrate hands-on project mastery to hiring managers and recruiters.
+              Validate your technical skills with official certifications from HamoTech IT Solutions. Demonstrate hands-on project mastery to hiring managers and recruiters.
             </p>
 
             <div className="space-y-3 pt-2">
@@ -78,7 +78,7 @@ export const CertificationSection: React.FC<CertificationSectionProps> = ({ onOp
 
               <div>
                 <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-slate-500 block mb-1">
-                  PALMPLE'S HAMOTECH IT SOLUTIONS
+                   HAMOTECH IT SOLUTIONS
                 </span>
                 <h3 className="text-xl font-black text-slate-900 font-display">
                   CERTIFICATE OF EXCELLENCE

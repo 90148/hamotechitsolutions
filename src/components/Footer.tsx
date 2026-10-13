@@ -161,7 +161,7 @@ export const Footer: React.FC = () => {
 
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-          <p>© {currentYear} Palmple's HamoTech IT Solutions. All Rights Reserved.</p>
+          <p>© {currentYear} HamoTech IT Solutions. All Rights Reserved.</p>
           <div className="flex items-center space-x-6">
             <Link to="/#faq" className="hover:text-[#E11D48] transition-colors">FAQs</Link>
             <span className="text-slate-300">•</span>
