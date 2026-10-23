@@ -72,9 +72,16 @@ export const TestimonialSection: React.FC = () => {
 
                   {/* Student Details */}
                   <div>
-                    <h3 className="text-lg font-black text-slate-900 font-display">
-                      {current.name}
-                    </h3>
+                    <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+                      <h3 className="text-lg font-black text-slate-900 font-display">
+                        {current.name}
+                      </h3>
+                      {current.packageLPA && (
+                        <span className="px-2 py-0.5 rounded-md bg-rose-50 border border-rose-200 text-[#BE123C] text-[11px] font-black font-mono">
+                          Offer: {current.packageLPA}
+                        </span>
+                      )}
+                    </div>
                     <p className="text-xs text-[#E11D48] font-bold">
                       {current.role} • <span className="text-slate-500 font-normal">{current.company}</span>
                     </p>

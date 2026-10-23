@@ -33,8 +33,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenModal }) => {
     { name: 'Courses', path: '/courses' },
     { name: 'Why Us', path: '/#why-us' },
     { name: 'Placements', path: '/placements' },
+    { name: 'Success Stories', path: '/#placed-students' },
     { name: 'Internships', path: '/internships' },
-    { name: 'Testimonials', path: '/#testimonials' },
     { name: 'FAQ', path: '/#faq' },
     { name: 'Contact', path: '/contact' }
   ];

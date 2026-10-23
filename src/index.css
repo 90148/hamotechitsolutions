@@ -151,11 +151,26 @@
 
 .animate-marquee {
   display: flex;
-  width: 200%;
-  animation: marquee 25s linear infinite;
+  width: max-content;
+  animation: marquee 35s linear infinite;
 }
 
 .animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
+}
+
+.animate-marquee-right {
+  display: flex;
+  width: max-content;
+  animation: marquee-right 35s linear infinite;
+}
+
+.animate-marquee-right:hover {
   animation-play-state: paused;
 }
 

@@ -8,6 +8,8 @@ import { LearningProcess } from '../components/LearningProcess';
 import { ProjectsSection } from '../components/ProjectsSection';
 import { InternshipSection } from '../components/InternshipSection';
 import { PlacementSection } from '../components/PlacementSection';
+import { HiringPartnersSection } from '../components/HiringPartnersSection';
+import { PlacedStudentsSection } from '../components/PlacedStudentsSection';
 import { CertificationSection } from '../components/CertificationSection';
 import { HostelSection } from '../components/HostelSection';
 import { TestimonialSection } from '../components/TestimonialSection';
@@ -22,12 +24,12 @@ interface HomeProps {
 
 export const Home: React.FC<HomeProps> = ({ onOpenModal }) => {
   return (
-    <div className="space-y-0">
+    <div className="space-y-0 pt-24">
+      {/* Upcoming batch status ticker below the fixed navbar */}
+      <AnnouncementBar onOpenModal={() => onOpenModal()} />
+
       {/* Hero */}
       <Hero onOpenModal={() => onOpenModal()} />
-
-      {/* Ticker Announcement */}
-      <AnnouncementBar onOpenModal={() => onOpenModal()} />
 
       {/* About Section */}
       <AboutSection />
@@ -49,6 +51,12 @@ export const Home: React.FC<HomeProps> = ({ onOpenModal }) => {
 
       {/* Placement Preparation */}
       <PlacementSection onOpenModal={() => onOpenModal()} />
+
+      {/* Top Tech MNCs & Startups Hiring Partners Marquee */}
+      <HiringPartnersSection onOpenModal={() => onOpenModal()} />
+
+      {/* Placed Students Hall of Fame / Student Success Stories */}
+      <PlacedStudentsSection onOpenModal={() => onOpenModal()} />
 
       {/* Certification Section */}
       <CertificationSection onOpenModal={() => onOpenModal()} />

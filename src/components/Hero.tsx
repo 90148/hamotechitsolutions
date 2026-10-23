@@ -1,8 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, ArrowRight, CheckCircle2, Code, Cpu, ShieldCheck } from 'lucide-react';
+import { Sparkles, ArrowRight, CheckCircle2, Code, Cpu, ShieldCheck, Award } from 'lucide-react';
 import { AnimatedCounter } from './AnimatedCounter';
 import logoImage from '../assets/hamo logo.png';
+import placementStatsImg from '../assets/placement-stats.png';
 
 interface HeroProps {
   onOpenModal: () => void;
@@ -193,30 +194,140 @@ export const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
         </div>
 
         {/* Bottom Statistics Cards Bar */}
-        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[
-            { label: 'Students Trained', count: 500, suffix: '+', color: 'text-[#E11D48]' },
-            { label: 'Industry Projects', count: 50, suffix: '+', color: 'text-[#D97706]' },
-            { label: 'Placement Support', count: 95, suffix: '%', color: 'text-[#0284C7]' },
-            { label: 'Technology Programs', count: 10, suffix: '+', color: 'text-emerald-600' }
-          ].map((stat, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-              className="p-5 rounded-2xl bg-white/90 border border-rose-200/70 text-center hover:border-rose-300 hover:shadow-lg hover:shadow-rose-500/10 transition-all duration-300 glass-card"
-            >
-              <div className={`text-3xl sm:text-4xl ${stat.color} font-black font-display mb-1`}>
-                <AnimatedCounter end={stat.count} suffix={stat.suffix} />
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="mt-16 lg:mt-24 rounded-3xl bg-white/90 border border-rose-200/80 p-6 sm:p-8 lg:p-10 shadow-2xl shadow-rose-900/5 glass-card relative overflow-hidden"
+        >
+          {/* Subtle Ambient Decorative Glows */}
+          <div className="absolute top-0 right-1/4 w-80 h-80 bg-rose-200/30 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-10 w-64 h-64 bg-amber-200/30 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center relative z-10">
+            
+            {/* Left Column: Heading & Statistics Cards */}
+            <div className="lg:col-span-7 space-y-6">
+              
+              <div className="space-y-3">
+                <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-[#BE123C] text-xs font-bold uppercase tracking-wider shadow-xs">
+                  <Award className="w-3.5 h-3.5 text-[#E11D48]" />
+                  <span>PROVEN CAREER EXCELLENCE &amp; PLACEMENT IMPACT</span>
+                </div>
+
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 font-display leading-tight">
+                  Accelerate Your Career With <span className="text-gradient-red">Proven Industry Outcomes</span>
+                </h2>
+
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-2xl">
+                  Through intensive project labs, real-time mentor guidance, and 1200+ recruitment partnerships, our graduates consistently secure high-growth developer and engineering roles.
+                </p>
               </div>
-              <p className="text-xs font-bold text-slate-600 uppercase tracking-wider">
-                {stat.label}
-              </p>
-            </motion.div>
-          ))}
-        </div>
+
+              {/* Statistics Cards Grid */}
+              <div className="grid grid-cols-2 gap-3.5 sm:gap-4">
+                {[
+                  { label: 'Students Trained', count: 500, suffix: '+', color: 'text-[#E11D48]', bg: 'hover:border-rose-300' },
+                  { label: 'Industry Projects', count: 50, suffix: '+', color: 'text-[#D97706]', bg: 'hover:border-amber-300' },
+                  { label: 'Placement Support', count: 95, suffix: '%', color: 'text-[#0284C7]', bg: 'hover:border-sky-300' },
+                  { label: 'Technology Programs', count: 10, suffix: '+', color: 'text-emerald-600', bg: 'hover:border-emerald-300' }
+                ].map((stat, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.1 }}
+                    className={`p-4 sm:p-5 rounded-2xl bg-white border border-rose-100 shadow-sm hover:shadow-md ${stat.bg} transition-all duration-300 group`}
+                  >
+                    <div className={`text-2xl sm:text-3xl lg:text-4xl ${stat.color} font-black font-display mb-1 group-hover:scale-105 transition-transform duration-200`}>
+                      <AnimatedCounter end={stat.count} suffix={stat.suffix} />
+                    </div>
+                    <p className="text-xs font-bold text-slate-600 uppercase tracking-wider">
+                      {stat.label}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Bottom Quick Feature Highlights & CTA */}
+              <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-rose-100/90">
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-semibold text-slate-600">
+                  <div className="flex items-center space-x-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Mock Technical Interviews</span>
+                  </div>
+                  <div className="flex items-center space-x-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Dedicated Placement Cell</span>
+                  </div>
+                  <div className="flex items-center space-x-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>ATS Resume Building</span>
+                  </div>
+                </div>
+
+                <button
+                  onClick={onOpenModal}
+                  className="self-start sm:self-auto px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#E11D48] to-[#BE123C] hover:opacity-95 text-white text-xs font-extrabold tracking-wider shadow-md hover:shadow-rose-500/20 transition-all flex items-center space-x-2 shrink-0 transform hover:-translate-y-0.5"
+                >
+                  <span>JOIN NEXT BATCH</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+
+            </div>
+
+            {/* Right Column: Visual Placement UI Design with Professional & Floating Badges */}
+            <div className="lg:col-span-5 flex justify-center lg:justify-end w-full">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                animate={{ y: [0, -6, 0] }}
+                transition={{
+                  scale: { duration: 0.6 },
+                  y: { duration: 5, repeat: Infinity, ease: 'easeInOut' }
+                }}
+                className="relative w-full max-w-md group"
+              >
+                {/* Ambient colorful backlight glow */}
+                <div className="absolute -inset-2 bg-gradient-to-tr from-rose-400/20 via-sky-400/20 to-amber-300/25 rounded-3xl blur-xl opacity-75 group-hover:opacity-100 transition duration-500 pointer-events-none" />
+
+                {/* Main Card Wrap */}
+                <div className="relative rounded-3xl bg-white p-3 sm:p-4 border border-rose-200/90 shadow-2xl shadow-rose-950/10 overflow-hidden">
+                  
+                  {/* Clean image showcase */}
+                  <div className="relative overflow-hidden rounded-2xl bg-white">
+                    <img
+                      src={placementStatsImg}
+                      alt="HamoTech Placement Record - 40 LPA Highest Package, 1200+ Hiring Partners, 8 LPA Average Salary"
+                      className="w-full h-auto object-contain select-none transition-transform duration-500 group-hover:scale-[1.02]"
+                    />
+                  </div>
+
+                  {/* Active recruitment live indicator */}
+                  <div className="mt-3 px-3 py-2.5 rounded-xl bg-gradient-to-r from-slate-50 via-rose-50/50 to-slate-50 border border-rose-100 flex items-center justify-between text-xs">
+                    <div className="flex items-center space-x-2">
+                      <span className="relative flex h-2.5 w-2.5">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                      </span>
+                      <span className="font-bold text-slate-800">100% Placement Support</span>
+                    </div>
+                    <span className="text-[#BE123C] font-extrabold text-[11px] uppercase tracking-wider font-mono">
+                      1200+ Partners
+                    </span>
+                  </div>
+
+                </div>
+              </motion.div>
+            </div>
+
+          </div>
+
+        </motion.div>
 
       </div>
     </section>

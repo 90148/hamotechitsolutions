@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles } from 'lucide-react';
+import { ArrowRight, Clock3, Megaphone } from 'lucide-react';
 
 interface AnnouncementBarProps {
   onOpenModal: () => void;
@@ -7,25 +7,41 @@ interface AnnouncementBarProps {
 
 export const AnnouncementBar: React.FC<AnnouncementBarProps> = ({ onOpenModal }) => {
   const tickerText = [
-    '🔥 Admissions Open for New Batches',
-    '⚡ Limited Seats Available',
-    '💻 Industry-Oriented Practical Training',
-    '🚀 Real-Time Enterprise Projects',
-    '🎯 100% Placement Preparation & Mock Interviews',
-    '🎓 Course & Internship Certification'
+    'Admissions Open for Upcoming Batches',
+    'Limited Seats Available',
+    'Next Cohort Starts Soon',
+    'Live Training & Placement Guidance'
   ];
 
   return (
-    <div className="bg-gradient-to-r from-[#E11D48] via-[#F43F5E] via-[#F59E0B] to-[#BE123C] border-y border-rose-300/80 py-3 overflow-hidden relative shadow-md">
-      <div className="flex whitespace-nowrap animate-marquee items-center cursor-pointer" onClick={onOpenModal}>
-        {[...tickerText, ...tickerText].map((item, idx) => (
-          <div key={idx} className="flex items-center space-x-6 mx-4">
-            <span className="text-xs sm:text-sm font-bold text-white tracking-wide font-display flex items-center space-x-2 drop-shadow-sm">
-              <span>{item}</span>
-            </span>
-            <Sparkles className="w-3.5 h-3.5 text-amber-200 shrink-0" />
+    <div className="bg-gradient-to-r from-[#FFE347] via-[#FFD45C] to-[#FFB45C] border-y border-amber-300/80 py-2.5 overflow-hidden relative shadow-md">
+      <div className="flex items-center min-w-max">
+        <button
+          type="button"
+          onClick={onOpenModal}
+          className="relative z-10 shrink-0 flex items-center gap-2 bg-[#FFE347] px-4 sm:px-6 py-1 text-sm sm:text-base font-extrabold text-slate-950 hover:text-[#BE123C] transition-colors"
+        >
+          <Megaphone className="w-4 h-4 sm:w-5 sm:h-5" />
+          <span>Active Openings</span>
+          <ArrowRight className="w-4 h-4" />
+        </button>
+
+        <div className="min-w-0 flex-1 overflow-hidden">
+          <div className="flex whitespace-nowrap animate-marquee-right items-center">
+            {[...tickerText, ...tickerText].map((item, idx) => (
+              <button
+                key={`${item}-${idx}`}
+                type="button"
+                onClick={onOpenModal}
+                className="flex items-center gap-2 mx-5 text-xs sm:text-sm font-semibold text-slate-950 tracking-wide hover:text-[#BE123C] transition-colors"
+              >
+                <Clock3 className="w-4 h-4 text-slate-800 shrink-0" />
+                <span>{item}</span>
+                <span className="text-slate-700/60">•</span>
+              </button>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
     </div>
   );
