@@ -433,7 +433,7 @@ export const HiringPartnersSection: React.FC<HiringPartnersSectionProps> = ({ on
 
         {/* ROW 2: Scrolls to the Right (Opposite Direction) */}
         <div className="flex overflow-hidden py-2 select-none">
-          <div className="animate-marquee-right flex items-center">
+          <div className="animate-marquee-reverse flex items-center">
             {/* First sequence */}
             {row2Companies.map((company, idx) => renderCard(company, idx, 'r2-a'))}
             {/* Exact replica sequence for seamless looping */}
