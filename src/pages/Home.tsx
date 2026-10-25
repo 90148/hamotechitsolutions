@@ -15,7 +15,7 @@ import { HostelSection } from '../components/HostelSection';
 import { TestimonialSection } from '../components/TestimonialSection';
 import { FAQSection } from '../components/FAQSection';
 import { ContactSection } from '../components/ContactSection';
-import { QRCodeSection } from '../components/QRCodeSection';
+{/*import { QRCodeSection } from '../components/QRCodeSection';*/}
 import { Sparkles } from 'lucide-react';
 
 interface HomeProps {
@@ -96,8 +96,8 @@ export const Home: React.FC<HomeProps> = ({ onOpenModal }) => {
       {/* Contact Section */}
       <ContactSection />
 
-      {/* QR Code Section */}
-      <QRCodeSection onOpenModal={() => onOpenModal()} />
+      {/* QR Code Section 
+      <QRCodeSection onOpenModal={() => onOpenModal()} />*/}
     </div>
   );
 };
