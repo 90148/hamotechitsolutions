@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, Globe, MessageSquare } from 'lucide-react';
+import { Phone, Mail, MapPin, Globe } from 'lucide-react';
+import { FaInstagram, FaLinkedinIn, FaWhatsapp, FaYoutube } from 'react-icons/fa6';
 import logoImage from '../assets/hamo logo.png';
 
 export const Footer: React.FC = () => {
@@ -46,36 +47,42 @@ export const Footer: React.FC = () => {
             </p>
 
             {/* Social Media Icons */}
-            <div className="pt-2 flex items-center space-x-3">
+            <div className="pt-2 flex items-center gap-3">
               <a
                 href="https://wa.me/919884166198"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="WhatsApp"
-                className="w-9 h-9 rounded-xl bg-white border border-rose-200 text-slate-600 hover:text-emerald-600 hover:border-emerald-400 hover:bg-emerald-50 flex items-center justify-center transition-all duration-200 shadow-sm"
+                className="group flex h-10 w-10 items-center justify-center rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-600 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:bg-emerald-500 hover:text-white hover:shadow-lg hover:shadow-emerald-500/25"
               >
-                <MessageSquare className="w-4 h-4" />
+                <FaWhatsapp className="h-5 w-5 transition-transform duration-200 group-hover:scale-110" />
               </a>
               <a
                 href="https://www.linkedin.com/company/hamotech-it-solutions-chennai"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="LinkedIn"
-                className="w-9 h-9 rounded-xl bg-white border border-rose-200 text-slate-600 hover:text-[#0284C7] hover:border-sky-300 hover:bg-sky-50 flex items-center justify-center transition-all duration-200 shadow-sm"
+                className="group flex h-10 w-10 items-center justify-center rounded-xl border border-sky-200 bg-sky-50 text-[#0A66C2] shadow-sm transition-all duration-200 hover:-translate-y-1 hover:bg-[#0A66C2] hover:text-white hover:shadow-lg hover:shadow-sky-500/25"
               >
-                <span className="font-bold text-xs font-mono">in</span>
+                <FaLinkedinIn className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" />
               </a>
               <a
                 href="https://www.instagram.com/hamotechitsolutions?exln=MWd5endxOHh0dnA5dg=="
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="w-9 h-9 rounded-xl bg-white border border-rose-200 text-slate-600 hover:text-[#E11D48] hover:border-rose-300 hover:bg-rose-50 flex items-center justify-center transition-all duration-200 shadow-sm"
+                className="group flex h-10 w-10 items-center justify-center rounded-xl border border-pink-200 bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 text-[#E1306C] shadow-sm transition-all duration-200 hover:-translate-y-1 hover:from-[#833AB4] hover:via-[#E1306C] hover:to-[#F77737] hover:text-white hover:shadow-lg hover:shadow-pink-500/25"
               >
-                <span className="font-bold text-xs font-mono">ig</span>
+                <FaInstagram className="h-5 w-5 transition-transform duration-200 group-hover:scale-110" />
               </a>
               <a
                 href="http://www.youtube.com/@HamoTechITSolutions"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="YouTube"
-                className="w-9 h-9 rounded-xl bg-white border border-rose-200 text-slate-600 hover:text-red-600 hover:border-red-300 hover:bg-red-50 flex items-center justify-center transition-all duration-200 shadow-sm"
+                className="group flex h-10 w-10 items-center justify-center rounded-xl border border-red-200 bg-red-50 text-[#FF0000] shadow-sm transition-all duration-200 hover:-translate-y-1 hover:bg-[#FF0000] hover:text-white hover:shadow-lg hover:shadow-red-500/25"
               >
-                <span className="font-bold text-xs font-mono">yt</span>
+                <FaYoutube className="h-5 w-5 transition-transform duration-200 group-hover:scale-110" />
               </a>
             </div>
           </div>
