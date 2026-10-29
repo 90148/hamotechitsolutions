@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, Globe, MessageSquare } from 'lucide-react';
+import { Phone, Mail, MapPin, Globe, MessageSquare, Lock } from 'lucide-react';
 import logoImage from '../assets/hamo logo.png';
 
 export const Footer: React.FC = () => {
@@ -57,21 +57,21 @@ export const Footer: React.FC = () => {
                 <MessageSquare className="w-4 h-4" />
               </a>
               <a
-                href="#"
+                href="https://www.linkedin.com/company/hamotech-it-solutions-chennai"
                 aria-label="LinkedIn"
                 className="w-9 h-9 rounded-xl bg-white border border-rose-200 text-slate-600 hover:text-[#0284C7] hover:border-sky-300 hover:bg-sky-50 flex items-center justify-center transition-all duration-200 shadow-sm"
               >
                 <span className="font-bold text-xs font-mono">in</span>
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/hamotechitsolutions?exln=MWd5endxOHh0dnA5dg=="
                 aria-label="Instagram"
                 className="w-9 h-9 rounded-xl bg-white border border-rose-200 text-slate-600 hover:text-[#E11D48] hover:border-rose-300 hover:bg-rose-50 flex items-center justify-center transition-all duration-200 shadow-sm"
               >
                 <span className="font-bold text-xs font-mono">ig</span>
               </a>
               <a
-                href="#"
+                href="http://www.youtube.com/@HamoTechITSolutions"
                 aria-label="YouTube"
                 className="w-9 h-9 rounded-xl bg-white border border-rose-200 text-slate-600 hover:text-red-600 hover:border-red-300 hover:bg-red-50 flex items-center justify-center transition-all duration-200 shadow-sm"
               >
@@ -162,12 +162,16 @@ export const Footer: React.FC = () => {
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500 gap-4">
           <p>© {currentYear} HamoTech IT Solutions. All Rights Reserved.</p>
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center space-x-6 flex-wrap gap-y-2">
             <Link to="/#faq" className="hover:text-[#E11D48] transition-colors">FAQs</Link>
             <span className="text-slate-300">•</span>
             <span className="hover:text-[#E11D48] cursor-pointer">Privacy Policy</span>
             <span className="text-slate-300">•</span>
             <span className="hover:text-[#E11D48] cursor-pointer">Terms &amp; Conditions</span>
+            {/*<span className="text-slate-300">•</span>
+            <Link to="/admin" className="text-slate-400 hover:text-[#E11D48] transition-colors inline-flex items-center gap-1 font-medium">
+              <Lock className="w-3 h-3" /> Admin Portal
+            </Link>*/}
           </div>
         </div>
       </div>

@@ -96,6 +96,7 @@ export const AppContent: React.FC = () => {
           <Route path="/internships" element={<Internships onOpenModal={() => openModal()} />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/register" element={<Registration />} />
+          <Route path="/admin" element={<AdminCandidates />} />
           <Route path="/admin/candidates" element={<AdminCandidates />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
