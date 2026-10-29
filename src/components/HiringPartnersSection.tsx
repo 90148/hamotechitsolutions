@@ -346,7 +346,7 @@ export const HiringPartnersSection: React.FC<HiringPartnersSectionProps> = ({ on
   return (
     <section 
       id="hiring-partners" 
-      className="py-16 md:py-24 bg-gradient-to-b from-[#FFF7ED]/70 via-[#FFF1F2]/80 to-[#FDF2F8]/70 relative overflow-hidden border-t border-b border-rose-200/60"
+      className="py-12 md:py-16 bg-gradient-to-b from-[#FFF7ED]/70 via-[#FFF1F2]/80 to-[#FDF2F8]/70 relative overflow-hidden border-t border-b border-rose-200/60"
     >
       {/* Ambient background glow orbs */}
       <div className="absolute top-1/3 left-10 w-96 h-96 rounded-full bg-rose-300/20 blur-3xl pointer-events-none" />
@@ -355,7 +355,7 @@ export const HiringPartnersSection: React.FC<HiringPartnersSectionProps> = ({ on
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4 mb-12">
+        <div className="text-center max-w-3xl mx-auto space-y-3 mb-8">
           
           <motion.div
             initial={{ opacity: 0, y: -10 }}

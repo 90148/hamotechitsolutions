@@ -217,3 +217,94 @@
 .animate-spin-slow {
   animation: spin-slow 20s linear infinite;
 }
+
+/* Text Slide Up & Fading Animations */
+@keyframes slideUpFade {
+  0% {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUpFade 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInEffect {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInEffect 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes textShimmerFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.text-shimmer {
+  background: linear-gradient(90deg, #E11D48 0%, #D97706 35%, #9333EA 70%, #E11D48 100%);
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textShimmerFlow 6s ease-in-out infinite;
+}
+
+/* Interactive Code Editor & Syntax Hover Effects */
+.code-line-interactive {
+  position: relative;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 8px;
+  padding: 4px 8px;
+  margin: 1px 0;
+  cursor: pointer;
+}
+
+.code-line-interactive:hover {
+  background: rgba(244, 63, 94, 0.08);
+  transform: translateX(6px);
+  box-shadow: -3px 0 0 #E11D48, 0 4px 12px rgba(225, 29, 72, 0.06);
+}
+
+.code-line-interactive:hover .code-line-num {
+  color: #E11D48;
+  font-weight: 700;
+}
+
+.code-line-interactive:hover .code-token-highlight {
+  text-shadow: 0 0 12px rgba(225, 29, 72, 0.25);
+}
+
+.code-badge-interactive {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.code-badge-interactive:hover {
+  transform: translateY(-2px) scale(1.08);
+  background: #FFF1F2;
+  border-color: #FDA4AF;
+  color: #BE123C;
+  box-shadow: 0 6px 16px -2px rgba(225, 29, 72, 0.2);
+}
+
+/* Lightbox Poster Modal Effect */
+.poster-glow-box {
+  box-shadow: 0 20px 50px -10px rgba(225, 29, 72, 0.2), 0 0 0 1px rgba(244, 63, 94, 0.25);
+}

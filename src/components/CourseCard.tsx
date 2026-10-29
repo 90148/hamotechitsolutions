@@ -27,8 +27,8 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course, onOpenModal }) =
 
   return (
     <motion.div
-      whileHover={{ y: -6 }}
-      transition={{ duration: 0.25 }}
+      whileHover={{ y: -8, scale: 1.01 }}
+      transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
       className="group relative rounded-2xl bg-white/95 border border-rose-200/90 hover:border-rose-400 p-6 glass-card shadow-lg shadow-rose-900/5 hover:shadow-2xl hover:shadow-rose-500/15 flex flex-col justify-between overflow-hidden"
     >
       {/* Top subtle hover glow overlay */}
@@ -36,15 +36,15 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course, onOpenModal }) =
 
       {/* Featured Badge */}
       {course.badge && (
-        <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-gradient-to-r from-[#E11D48] to-[#F59E0B] text-white text-[10px] font-black uppercase tracking-wider shadow-sm">
+        <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-gradient-to-r from-[#E11D48] to-[#F59E0B] text-white text-[10px] font-black uppercase tracking-wider shadow-sm animate-pulse-slow">
           {course.badge}
         </div>
       )}
 
       <div>
-        {/* Course Header & Icon */}
+        {/* Course Header & Icon with Hover Spin/Scale */}
         <div className="flex items-center space-x-3 mb-4">
-          <div className="w-12 h-12 rounded-xl bg-rose-50 border border-rose-200 group-hover:border-[#E11D48] flex items-center justify-center transition-colors group-hover:scale-105 shadow-sm">
+          <div className="w-12 h-12 rounded-xl bg-rose-50 border border-rose-200 group-hover:border-[#E11D48] flex items-center justify-center transition-all duration-300 group-hover:scale-110 shadow-sm">
             <IconComponent className="w-6 h-6 text-[#E11D48] transition-colors" />
           </div>
           <div>
@@ -64,26 +64,26 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course, onOpenModal }) =
 
         {/* Meta Pills (Duration, Level, Projects) */}
         <div className="flex flex-wrap items-center gap-2 mb-4 text-[11px] text-slate-600 font-medium">
-          <span className="flex items-center space-x-1 px-2.5 py-1 rounded-lg bg-rose-50/80 border border-rose-100">
+          <span className="flex items-center space-x-1 px-2.5 py-1 rounded-lg bg-rose-50/80 border border-rose-100 hover:border-rose-300 transition-colors">
             <Clock className="w-3 h-3 text-[#E11D48]" />
             <span>{course.duration}</span>
           </span>
-          <span className="flex items-center space-x-1 px-2.5 py-1 rounded-lg bg-sky-50/80 border border-sky-100">
+          <span className="flex items-center space-x-1 px-2.5 py-1 rounded-lg bg-sky-50/80 border border-sky-100 hover:border-sky-300 transition-colors">
             <BarChart className="w-3 h-3 text-[#0284C7]" />
             <span>{course.level}</span>
           </span>
-          <span className="flex items-center space-x-1 px-2.5 py-1 rounded-lg bg-emerald-50/80 border border-emerald-100">
+          <span className="flex items-center space-x-1 px-2.5 py-1 rounded-lg bg-emerald-50/80 border border-emerald-100 hover:border-emerald-300 transition-colors">
             <FolderGit2 className="w-3 h-3 text-emerald-600" />
             <span>{course.projectsCount}+ Projects</span>
           </span>
         </div>
 
-        {/* Tech Stack Badges */}
+        {/* Tech Stack Badges with Interactive Code Hover Effects */}
         <div className="flex flex-wrap gap-1.5 mb-6">
           {course.technologies.map(tech => (
             <span
               key={tech}
-              className="px-2 py-0.5 rounded-md bg-rose-50/60 border border-rose-100 text-slate-700 text-[10px] font-mono font-medium"
+              className="code-badge-interactive px-2.5 py-1 rounded-md bg-rose-50/70 border border-rose-100 text-slate-700 text-[10px] font-mono font-semibold cursor-pointer hover:border-rose-400 hover:text-rose-600 transition-all duration-200"
             >
               {tech}
             </span>
@@ -103,7 +103,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course, onOpenModal }) =
 
         <button
           onClick={() => onOpenModal(course.title)}
-          className="flex-1 py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#E11D48] to-[#BE123C] hover:from-[#BE123C] hover:to-[#9F1239] text-white font-bold text-xs text-center flex items-center justify-center space-x-1 shadow-md shadow-rose-500/25 transition-all"
+          className="flex-1 py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#E11D48] to-[#BE123C] hover:from-[#BE123C] hover:to-[#9F1239] text-white font-bold text-xs text-center flex items-center justify-center space-x-1 shadow-md shadow-rose-500/25 transition-all transform hover:-translate-y-0.5 cursor-pointer"
         >
           <Sparkles className="w-3.5 h-3.5 text-amber-200" />
           <span>Enroll Now</span>

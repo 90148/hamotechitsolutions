@@ -30,7 +30,7 @@ export const PlacedStudentsSection: React.FC<PlacedStudentsSectionProps> = ({ on
   return (
     <section 
       id="placed-students" 
-      className="py-20 md:py-28 bg-gradient-to-b from-[#FFF1F2]/90 via-[#FFF7ED]/80 to-[#FFF1F2]/90 relative overflow-hidden border-t border-b border-rose-200/70"
+      className="py-12 md:py-16 bg-gradient-to-b from-[#FFF1F2]/90 via-[#FFF7ED]/80 to-[#FFF1F2]/90 relative overflow-hidden border-t border-b border-rose-200/70"
     >
       {/* Ambient background glow orbs */}
       <div className="absolute top-10 left-1/4 w-96 h-96 rounded-full bg-rose-400/15 blur-3xl pointer-events-none" />
@@ -40,7 +40,7 @@ export const PlacedStudentsSection: React.FC<PlacedStudentsSectionProps> = ({ on
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Highlighted Banner Header */}
-        <div className="text-center max-w-4xl mx-auto space-y-4 mb-14">
+        <div className="text-center max-w-4xl mx-auto space-y-3 mb-8 md:mb-10">
           
           {/* Top Floating Badge */}
           <motion.div

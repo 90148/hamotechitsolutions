@@ -9,7 +9,7 @@ interface AboutProps {
 
 export const About: React.FC<AboutProps> = ({ onOpenModal }) => {
   return (
-    <div className="pt-24 space-y-0">
+    <div className="pt-16 space-y-0">
       <AboutSection />
       <WhyChooseUs />
       <CertificationSection onOpenModal={onOpenModal} />

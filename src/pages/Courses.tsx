@@ -22,7 +22,7 @@ export const Courses: React.FC<CoursesPageProps> = ({ onOpenModal }) => {
   });
 
   return (
-    <div className="pt-32 pb-24 min-h-screen relative overflow-hidden">
+    <div className="pt-24 pb-16 min-h-screen relative overflow-hidden">
       {/* Ambient pastel glow orbs */}
       <div className="absolute top-20 -left-20 w-96 h-96 bg-pink-200/50 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute top-1/3 -right-20 w-96 h-96 bg-purple-200/40 rounded-full blur-3xl pointer-events-none" />
@@ -31,7 +31,7 @@ export const Courses: React.FC<CoursesPageProps> = ({ onOpenModal }) => {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Page Banner */}
-        <div className="text-center max-w-3xl mx-auto space-y-4 mb-12">
+        <div className="text-center max-w-3xl mx-auto space-y-3 mb-8">
           <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-rose-600 text-xs font-bold uppercase tracking-wider shadow-sm">
             <BookOpen className="w-3.5 h-3.5 text-rose-600" />
             <span>FULL COURSE CATALOG</span>

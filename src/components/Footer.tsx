@@ -7,13 +7,13 @@ export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gradient-to-b from-[#FFF1F2] to-white border-t border-rose-200/80 pt-16 pb-12 relative overflow-hidden">
+    <footer className="bg-gradient-to-b from-[#FFF1F2] to-white border-t border-rose-200/80 pt-12 pb-8 relative overflow-hidden">
       {/* Background glow effects */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-rose-300/15 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-300/15 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-rose-200/70">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 pb-8 border-b border-rose-200/70">
           
           {/* Column 1: Brand Info */}
           <div className="lg:col-span-2 space-y-4">

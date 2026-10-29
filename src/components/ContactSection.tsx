@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Phone, Mail, MapPin, Globe, Send, MessageSquare, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { COURSES } from '../data/courses';
 
@@ -37,29 +38,41 @@ export const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-20 md:py-28 bg-gradient-to-b from-[#FDF2F8]/80 via-[#FFF1F2]/80 to-[#FFF7ED]/80 relative overflow-hidden border-t border-rose-100">
+    <section id="contact" className="py-12 md:py-16 bg-gradient-to-b from-[#FDF2F8]/80 via-[#FFF1F2]/80 to-[#FFF7ED]/80 relative overflow-hidden border-t border-rose-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white border border-rose-300 text-[#BE123C] text-xs font-bold uppercase tracking-wider shadow-sm">
+        {/* Header with Slide Up & Fading Animations */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center max-w-3xl mx-auto space-y-3 mb-8 md:mb-10"
+        >
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white border border-rose-300 text-[#BE123C] text-xs font-bold uppercase tracking-wider shadow-sm hover:scale-105 transition-transform">
             <Phone className="w-3.5 h-3.5 text-[#E11D48]" />
             <span>WE ARE HERE TO HELP YOU</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-display">
-            LET'S BUILD YOUR <span className="text-gradient-red">FUTURE TOGETHER</span>
+            LET'S BUILD YOUR <span className="text-gradient-red animate-slide-up">FUTURE TOGETHER</span>
           </h2>
 
-          <p className="text-sm sm:text-base text-slate-600">
+          <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
             Have questions about training batches, fee structure, or hostel accommodation? Reach out to us today.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
           {/* Left Info Column */}
-          <div className="lg:col-span-5 space-y-6">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-5 space-y-6"
+          >
             
             <div className="p-8 rounded-3xl bg-white/95 border border-rose-200/90 glass-card space-y-6 shadow-xl shadow-rose-900/5">
               <h3 className="text-xl font-black text-slate-900 font-display">
@@ -73,107 +86,119 @@ export const ContactSection: React.FC = () => {
                   </div>
                   <div>
                     <h4 className="text-xs font-bold text-slate-900 font-display uppercase">Address</h4>
-                    <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                      3rd Street, Guduvancheri, Bajankovil, Chennai – 603 202
+                    <p className="text-xs mt-1 leading-relaxed text-slate-600">
+                      Bajanlai Kovil Street 3, Guduvanchery, Chennai - 603202, Tamil Nadu, India
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-start space-x-3.5">
-                  <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center shrink-0 shadow-sm">
-                    <Phone className="w-5 h-5 text-[#D97706]" />
+                  <div className="w-10 h-10 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-center shrink-0 shadow-sm">
+                    <Phone className="w-5 h-5 text-[#E11D48]" />
                   </div>
                   <div>
-                    <h4 className="text-xs font-bold text-slate-900 font-display uppercase">Phone &amp; Helpline</h4>
-                    <a href="tel:9884166198" className="text-xs text-[#BE123C] font-semibold hover:underline mt-1 block">
-                      +91 98841 66198
+                    <h4 className="text-xs font-bold text-slate-900 font-display uppercase">Phone &amp; Admissions</h4>
+                    <div className="space-y-1 mt-1">
+                      <a href="tel:9884166198" className="block text-xs font-bold text-[#E11D48] hover:underline">
+                        +91 98841 66198 (Primary)
+                      </a>
+                      <a href="tel:7659044625" className="block text-xs text-slate-600 hover:text-rose-600 hover:underline">
+                        +91 76590 44625
+                      </a>
+                      <a href="tel:7200477378" className="block text-xs text-slate-600 hover:text-rose-600 hover:underline">
+                        +91 72004 77378
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-3.5">
+                  <div className="w-10 h-10 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-center shrink-0 shadow-sm">
+                    <Mail className="w-5 h-5 text-[#E11D48]" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold text-slate-900 font-display uppercase">Email Enquiries</h4>
+                    <a href="mailto:hamotechitsolution25@gmail.com" className="text-xs text-slate-600 hover:text-[#E11D48] mt-1 block">
+                      hamotechitsolution25@gmail.com
                     </a>
                   </div>
                 </div>
 
                 <div className="flex items-start space-x-3.5">
-                  <div className="w-10 h-10 rounded-xl bg-sky-50 border border-sky-200 flex items-center justify-center shrink-0 shadow-sm">
-                    <Mail className="w-5 h-5 text-[#0284C7]" />
+                  <div className="w-10 h-10 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-center shrink-0 shadow-sm">
+                    <Globe className="w-5 h-5 text-[#E11D48]" />
                   </div>
                   <div>
-                    <h4 className="text-xs font-bold text-slate-900 font-display uppercase">Email Address</h4>
-                    <a href="mailto:hamotechitsolutions@gmail.com" className="text-xs text-[#0284C7] hover:underline mt-1 block">
-                      hamotechitsolutions@gmail.com
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-3.5">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center shrink-0 shadow-sm">
-                    <Globe className="w-5 h-5 text-emerald-600" />
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-bold text-slate-900 font-display uppercase">Website</h4>
-                    <a href="http://www.hamotechitsolutions.com" target="_blank" rel="noopener noreferrer" className="text-xs text-emerald-700 hover:underline mt-1 block">
-                      www.hamotechitsolutions.com
+                    <h4 className="text-xs font-bold text-slate-900 font-display uppercase">Official Website</h4>
+                    <a href="https://www.palmplehamotechitsolutions.com" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-600 hover:text-[#E11D48] mt-1 block">
+                      www.palmplehamotechitsolutions.com
                     </a>
                   </div>
                 </div>
               </div>
 
-              {/* Quick Actions */}
-              <div className="pt-4 border-t border-rose-100 flex flex-wrap gap-2">
+              {/* Direct WhatsApp Callout */}
+              <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-between shadow-xs">
+                <div className="flex items-center space-x-3">
+                  <MessageSquare className="w-5 h-5 text-emerald-600 fill-emerald-100" />
+                  <div>
+                    <span className="block text-xs font-bold text-slate-900">Need quick answers?</span>
+                    <span className="block text-[11px] text-slate-600">Chat directly with counselor</span>
+                  </div>
+                </div>
                 <a
-                  href="tel:9884166198"
-                  className="flex-1 py-2.5 px-3 rounded-xl bg-rose-50 hover:bg-rose-100 border border-rose-200 text-slate-800 font-bold text-xs text-center flex items-center justify-center space-x-1.5 transition-colors shadow-sm"
-                >
-                  <Phone className="w-3.5 h-3.5 text-[#E11D48]" />
-                  <span>Call Us</span>
-                </a>
-
-                <a
-                  href="https://wa.me/919884166198"
+                  href="https://wa.me/919884166198?text=Hello%20HamoTech,%20I%20have%20an%20enquiry%20regarding%20IT%20courses."
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs text-center flex items-center justify-center space-x-1.5 shadow-md transition-colors"
+                  className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold transition-colors shadow-xs"
                 >
-                  <MessageSquare className="w-3.5 h-3.5 fill-white" />
-                  <span>WhatsApp</span>
+                  WhatsApp
                 </a>
               </div>
             </div>
 
-            {/* Embedded Interactive Map Container */}
-            <div className="rounded-3xl bg-white border border-rose-200 overflow-hidden h-64 shadow-lg shadow-rose-900/5 relative">
+            {/* Embedded Google Map */}
+            <div className="rounded-3xl overflow-hidden border border-rose-200/90 shadow-xl shadow-rose-900/5 h-64 relative bg-rose-50">
               <iframe
-                title="HamoTech IT Solutions Location Map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11954.0622639565!2d80.04231435!3d12.834518350000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5263189df2a1d9%3A0x154fa651ccc8b758!2sNovahamo%20Technologies%20PVT.LTD.!5e1!3m2!1sen!2sin!4v1791288942047!5m2!1sen!2sin"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
+                title="HamoTech IT Solutions Location Guduvanchery Chennai"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3890.3546733224367!2d80.05781497576579!3d12.820358818167384!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a52f70b779a9573%3A0xc3b8a36d9366e076!2sGuduvanchery%2C%20Chennai%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1711200000000!5m2!1sen!2sin"
+                className="w-full h-full border-0"
                 allowFullScreen={false}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
 
-          </div>
+          </motion.div>
 
           {/* Right Contact Form Column */}
-          <div className="lg:col-span-7">
-            <div className="p-8 rounded-3xl bg-white/95 border border-rose-200/90 glass-card shadow-2xl shadow-rose-900/10">
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-7"
+          >
+            <div className="p-8 rounded-3xl bg-white/95 border border-rose-200/90 glass-card shadow-xl shadow-rose-900/5">
               <h3 className="text-xl font-black text-slate-900 font-display mb-2">
-                SEND AN ENQUIRY
+                SEND US A MESSAGE
               </h3>
-              <p className="text-xs text-slate-500 mb-6">
-                Fill out the form below and our counseling coordinator will contact you promptly.
+              <p className="text-xs text-slate-600 mb-6 font-medium">
+                Fill out the quick enquiry form below and our counselor will call you within 24 hours.
               </p>
 
               {isSuccess ? (
-                <div className="p-8 text-center bg-rose-50/60 rounded-2xl border border-emerald-500/40 space-y-4">
-                  <CheckCircle2 className="w-12 h-12 text-emerald-600 mx-auto" />
-                  <h4 className="text-xl font-bold text-slate-900 font-display">Enquiry Submitted!</h4>
-                  <p className="text-xs text-slate-600">
-                    Thank you, {formData.name}. We have received your inquiry for {formData.course}. Our counselor will call you shortly.
+                <div className="py-12 text-center space-y-4">
+                  <div className="w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center mx-auto shadow-sm">
+                    <CheckCircle2 className="w-8 h-8" />
+                  </div>
+                  <h4 className="text-xl font-bold text-slate-900">Message Received!</h4>
+                  <p className="text-xs text-slate-600 max-w-sm mx-auto">
+                    Thank you, <span className="font-semibold text-rose-600">{formData.name}</span>. Your enquiry has been received. Our counselor will contact you soon.
                   </p>
                   <button
-                    onClick={() => setIsSuccess(false)}
-                    className="px-6 py-2.5 rounded-xl bg-white hover:bg-rose-50 text-slate-800 font-bold text-xs border border-rose-200 shadow-sm"
+                    onClick={() => { setIsSuccess(false); setFormData({ name: '', phone: '', email: '', course: COURSES[0].title, message: '' }); }}
+                    className="px-6 py-2.5 bg-rose-50 text-rose-600 border border-rose-200 rounded-xl text-xs font-bold hover:bg-rose-100 transition-colors"
                   >
                     Send Another Message
                   </button>
@@ -194,7 +219,7 @@ export const ContactSection: React.FC = () => {
                         type="text"
                         name="name"
                         required
-                        placeholder="e.g. SURYA"
+                        placeholder="e.g. Anand Kumar"
                         value={formData.name}
                         onChange={handleChange}
                         className="w-full px-3.5 py-2.5 bg-rose-50/50 border border-rose-200 focus:bg-white rounded-xl text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#E11D48] focus:ring-2 focus:ring-rose-200 transition-all"
@@ -222,7 +247,7 @@ export const ContactSection: React.FC = () => {
                         type="email"
                         name="email"
                         required
-                        placeholder="e.g. anish@example.com"
+                        placeholder="e.g. anand@example.com"
                         value={formData.email}
                         onChange={handleChange}
                         className="w-full px-3.5 py-2.5 bg-rose-50/50 border border-rose-200 focus:bg-white rounded-xl text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#E11D48] focus:ring-2 focus:ring-rose-200 transition-all"
@@ -259,7 +284,7 @@ export const ContactSection: React.FC = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#E11D48] via-[#F43F5E] to-[#BE123C] text-white font-extrabold text-sm tracking-wider shadow-xl shadow-rose-500/25 flex items-center justify-center space-x-2 transition-transform hover:scale-[1.01]"
+                    className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#E11D48] via-[#F43F5E] to-[#BE123C] text-white font-extrabold text-sm tracking-wider shadow-xl shadow-rose-500/25 flex items-center justify-center space-x-2 transition-transform hover:scale-[1.01] cursor-pointer"
                   >
                     {isSubmitting ? (
                       <Loader2 className="w-5 h-5 animate-spin" />
@@ -273,7 +298,7 @@ export const ContactSection: React.FC = () => {
                 </form>
               )}
             </div>
-          </div>
+          </motion.div>
 
         </div>
 

@@ -7,10 +7,10 @@ interface QRCodeSectionProps {
 
 export const QRCodeSection: React.FC<QRCodeSectionProps> = ({ onOpenModal }) => {
   return (
-    <section className="py-16 bg-gradient-to-b from-[#FFF1F2]/70 via-[#FFF7ED]/70 to-[#FDF2F8]/70 relative overflow-hidden border-t border-rose-100">
+    <section className="py-10 md:py-12 bg-gradient-to-b from-[#FFF1F2]/70 via-[#FFF7ED]/70 to-[#FDF2F8]/70 relative overflow-hidden border-t border-rose-100">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="p-8 sm:p-10 rounded-3xl bg-gradient-to-r from-white via-rose-50/40 to-sky-50/40 border border-sky-200/80 glass-card shadow-2xl shadow-rose-900/5 flex flex-col sm:flex-row items-center justify-between gap-8 text-center sm:text-left">
+        <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-white via-rose-50/40 to-sky-50/40 border border-sky-200/80 glass-card shadow-2xl shadow-rose-900/5 flex flex-col sm:flex-row items-center justify-between gap-8 text-center sm:text-left">
           
           <div className="space-y-3 max-w-md">
             <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white border border-sky-200 text-[#0284C7] text-xs font-bold uppercase tracking-wider shadow-sm">

@@ -55,36 +55,42 @@ export const WhyChooseUs: React.FC = () => {
   ];
 
   return (
-    <section id="why-us" className="py-20 md:py-28 bg-gradient-to-b from-[#FFF1F2]/70 via-[#FFF7ED]/70 to-[#FDF2F8]/70 relative overflow-hidden border-t border-rose-100">
+    <section id="why-us" className="py-12 md:py-16 bg-gradient-to-b from-[#FFF1F2]/70 via-[#FFF7ED]/70 to-[#FDF2F8]/70 relative overflow-hidden border-t border-rose-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white border border-rose-300 text-[#D97706] text-xs font-bold uppercase tracking-wider shadow-sm">
+        {/* Section Header with Animated Slide Up & Fade */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center max-w-3xl mx-auto space-y-3 mb-8 md:mb-10"
+        >
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white border border-rose-300 text-[#D97706] text-xs font-bold uppercase tracking-wider shadow-sm hover:scale-105 transition-transform">
             <ShieldCheck className="w-3.5 h-3.5 text-[#E11D48]" />
             <span>THE HAMOTECH ADVANTAGE</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-display">
-            WHY CHOOSE <span className="text-gradient-red">HAMOTECH?</span>
+            WHY CHOOSE <span className="text-gradient-red animate-slide-up">HAMOTECH?</span>
           </h2>
 
-          <p className="text-sm sm:text-base text-slate-600">
+          <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
             We provide everything you need to transition from a learner to a successful software engineering professional.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Feature Cards Grid */}
+        {/* Feature Cards Grid with Staggered Scroll Animations */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((item, idx) => (
             <motion.div
               key={item.title}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 35 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              whileHover={{ scale: 1.02 }}
-              className="p-6 rounded-2xl bg-white/95 border border-rose-200/90 hover:border-rose-300 glass-card shadow-lg shadow-rose-900/5 hover:shadow-xl flex flex-col justify-between group"
+              transition={{ duration: 0.55, delay: idx * 0.09, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -8, scale: 1.02 }}
+              className="p-6 rounded-2xl bg-white/95 border border-rose-200/90 hover:border-rose-400 glass-card shadow-lg shadow-rose-900/5 hover:shadow-2xl hover:shadow-rose-500/15 flex flex-col justify-between group transition-all duration-300 cursor-default"
             >
               <div>
                 <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.gradient} border ${item.borderColor} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-sm`}>
@@ -95,7 +101,7 @@ export const WhyChooseUs: React.FC = () => {
                   {item.title}
                 </h3>
 
-                <p className="text-xs text-slate-600 leading-relaxed">
+                <p className="text-xs text-slate-600 leading-relaxed font-medium">
                   {item.desc}
                 </p>
               </div>
@@ -104,7 +110,7 @@ export const WhyChooseUs: React.FC = () => {
                 <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest">
                   FEATURE 0{idx + 1}
                 </span>
-                <span className="w-2 h-2 rounded-full bg-rose-200 group-hover:bg-[#E11D48] transition-colors" />
+                <span className="w-2.5 h-2.5 rounded-full bg-rose-200 group-hover:bg-[#E11D48] transition-colors" />
               </div>
             </motion.div>
           ))}

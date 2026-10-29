@@ -71,7 +71,7 @@ export const Home: React.FC<HomeProps> = ({ onOpenModal }) => {
       <FAQSection />
 
       {/* Final Mid-Page CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-rose-600 via-pink-600 to-amber-500 text-white text-center shadow-xl shadow-rose-900/10 relative overflow-hidden">
+      <section className="py-12 md:py-14 bg-gradient-to-r from-rose-600 via-pink-600 to-amber-500 text-white text-center shadow-xl shadow-rose-900/10 relative overflow-hidden">
         <div className="absolute -top-24 -left-24 w-72 h-72 bg-white/10 rounded-full blur-2xl pointer-events-none" />
         <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-amber-300/20 rounded-full blur-2xl pointer-events-none" />
         <div className="relative max-w-4xl mx-auto px-4 space-y-4">

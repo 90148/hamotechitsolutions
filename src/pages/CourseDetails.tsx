@@ -26,10 +26,10 @@ export const CourseDetails: React.FC<CourseDetailsProps> = ({ onOpenModal }) => 
   }
 
   return (
-    <div className="pt-28 pb-24 min-h-screen relative overflow-hidden">
+    <div className="pt-20 pb-16 min-h-screen relative overflow-hidden">
       
       {/* Top Banner Header */}
-      <div className="bg-gradient-to-r from-rose-100/60 via-pink-100/50 to-amber-100/50 border-b border-rose-200/70 py-12 relative">
+      <div className="bg-gradient-to-r from-rose-100/60 via-pink-100/50 to-amber-100/50 border-b border-rose-200/70 py-8 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <button
@@ -92,8 +92,8 @@ export const CourseDetails: React.FC<CourseDetailsProps> = ({ onOpenModal }) => 
       </div>
 
       {/* Main Details Body */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           
           {/* Main Left Content */}
           <div className="lg:col-span-8 space-y-10">

@@ -49,43 +49,33 @@ export const AppContent: React.FC = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
-    // Set localStorage flag so auto-trigger does not repeatedly annoy the user in the same session
     try {
-      localStorage.setItem('hamotech_modal_dismissed_v1', 'true');
+      sessionStorage.setItem('hamotech_popup_dismissed_session', 'true');
     } catch {
       // Ignore storage errors
     }
   };
 
-  // Controlled automatic popup trigger logic
+  // Automatic registration popup trigger logic
+  // Trigger shortly after website opens and landing page renders (1.8s)
   useEffect(() => {
-    const isDismissed = localStorage.getItem('hamotech_modal_dismissed_v1');
-    if (isDismissed) return;
+    // Clear any old legacy permanent blocker so users definitely see the popup
+    try {
+      localStorage.removeItem('hamotech_modal_dismissed_v1');
+    } catch {
+      // Ignore storage errors
+    }
 
-    // 1. Time-based trigger after 18 seconds
+    const isDismissedInSession = sessionStorage.getItem('hamotech_popup_dismissed_session');
+    if (isDismissedInSession) return;
+
+    // Show registration popup notification 1.8s after landing page displays
     const timer = setTimeout(() => {
-      if (!isModalOpen && !localStorage.getItem('hamotech_modal_dismissed_v1')) {
-        setIsModalOpen(true);
-      }
-    }, 18000);
+      setIsModalOpen(true);
+    }, 1800);
 
-    // 2. Scroll-based trigger (50-60% of page)
-    const handleScroll = () => {
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (docHeight > 0 && window.scrollY / docHeight > 0.55) {
-        if (!isModalOpen && !localStorage.getItem('hamotech_modal_dismissed_v1')) {
-          setIsModalOpen(true);
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [isModalOpen]);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#FFF1F2] via-[#FDF2F8] to-[#FFF7ED] text-slate-800 flex flex-col justify-between selection:bg-[#E11D48] selection:text-white">

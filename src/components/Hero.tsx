@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, ArrowRight, CheckCircle2, Code, Cpu, ShieldCheck, Award } from 'lucide-react';
+import { Sparkles, ArrowRight, CheckCircle2, Code, Cpu, ShieldCheck, Award, Copy, Check, Terminal } from 'lucide-react';
 import { AnimatedCounter } from './AnimatedCounter';
 import logoImage from '../assets/hamo logo.png';
 import placementStatsImg from '../assets/placement-stats.png';
@@ -10,8 +10,54 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
+  const [activeTab, setActiveTab] = useState<'ts' | 'py' | 'devops'>('ts');
+  const [copied, setCopied] = useState(false);
+
+  const codeSnippets = {
+    ts: {
+      filename: 'hamotech-career.ts',
+      lines: [
+        { num: '01', text: 'const studentCareer = async () => {', comment: '// Future-ready tech pipeline' },
+        { num: '02', text: '  await train("Java | Spring Boot | React");', comment: '// 100% Practical Labs' },
+        { num: '03', text: '  await build("Enterprise Cloud & Web Apps");', comment: '// 50+ Real-Time Projects' },
+        { num: '04', text: '  await prepare("Mock Interviews & Coding");', comment: '// Dedicated Placement Cell' },
+        { num: '05', text: '  return "JOB_READY_IT_PROFESSIONAL";', comment: '// Hired at Top Product & MNCs' },
+        { num: '06', text: '};', comment: '// 1200+ Hiring Partners' }
+      ]
+    },
+    py: {
+      filename: 'python-ai-ml.py',
+      lines: [
+        { num: '01', text: 'def launch_ai_career():', comment: '// Next-Gen Tech' },
+        { num: '02', text: '    skills = ["Python", "Django", "PyTorch", "LLMs"]', comment: '// Modern AI Stack' },
+        { num: '03', text: '    projects = build_realtime_models()', comment: '// Live Data Pipelines' },
+        { num: '04', text: '    placement = secure_dream_offer()', comment: '// High Salary Packages' },
+        { num: '05', text: '    return placement.success', comment: '// Guaranteed Career Growth' },
+        { num: '06', text: 'launch_ai_career()', comment: '// Join Upcoming Live Batch' }
+      ]
+    },
+    devops: {
+      filename: 'cloud-deploy.sh',
+      lines: [
+        { num: '01', text: '#!/bin/bash - HamoTech Cloud Labs', comment: '// Enterprise CI/CD' },
+        { num: '02', text: 'docker build -t app:production .', comment: '// Containerization' },
+        { num: '03', text: 'kubectl apply -f k8s-cluster.yaml', comment: '// Kubernetes Cloud' },
+        { num: '04', text: 'aws ecs deploy --cluster prod-mesh', comment: '// AWS Cloud Architecture' },
+        { num: '05', text: 'echo "DEPLOYMENT STATUS: 100% LIVE"', comment: '// High Availability' },
+        { num: '06', text: 'exit 0', comment: '// Zero Downtime' }
+      ]
+    }
+  };
+
+  const handleCopyCode = () => {
+    const textToCopy = codeSnippets[activeTab].lines.map(l => l.text).join('\n');
+    navigator.clipboard.writeText(textToCopy);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
-    <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-tech-grid border-b border-rose-200/60">
+    <section className="relative pt-28 pb-12 md:pt-36 md:pb-16 overflow-hidden bg-tech-grid border-b border-rose-200/60">
       {/* Ambient background pastel glow spheres */}
       <div className="absolute top-1/4 left-10 w-96 h-96 rounded-full bg-rose-400/25 blur-3xl animate-pulse-slow pointer-events-none" />
       <div className="absolute top-1/3 right-10 w-96 h-96 rounded-full bg-purple-300/25 blur-3xl animate-pulse-slow pointer-events-none delay-1000" />
@@ -25,52 +71,52 @@ export const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
             
             {/* Top Announcement Badge */}
             <motion.div
-              initial={{ opacity: 0, y: -10 }}
+              initial={{ opacity: 0, y: -16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/90 border border-rose-300 text-slate-700 text-xs font-semibold shadow-sm backdrop-blur-md"
+              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+              className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/95 border border-rose-300 text-slate-700 text-xs font-semibold shadow-sm backdrop-blur-md hover:scale-105 transition-transform"
             >
-              <span className="w-2 h-2 rounded-full bg-[#E11D48] animate-ping" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#E11D48] animate-ping" />
               <span className="text-[#BE123C] font-bold">LIMITED SEATS AVAILABLE</span>
               <span className="text-slate-400">•</span>
-              <span className="text-slate-600">ADMISSIONS OPEN FOR NEW BATCH</span>
+              <span className="text-slate-600 font-medium">ADMISSIONS OPEN FOR NEW BATCH</span>
             </motion.div>
 
-            {/* Main Headline */}
+            {/* Main Headline with Animated Slide Up & Text Shimmer */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="space-y-2"
+              transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="space-y-3"
             >
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-tight font-display tracking-tight">
-                BUILD YOUR <span className="text-gradient-red">FUTURE IN IT</span>
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.12] font-display tracking-tight">
+                BUILD YOUR <span className="text-gradient-red animate-slide-up">FUTURE IN IT</span>
               </h1>
-              <p className="text-xl sm:text-2xl font-extrabold text-[#D97706] tracking-wide font-display">
-                YOUR FUTURE STARTS HERE!
+              <p className="text-xl sm:text-2xl font-black text-shimmer tracking-wide font-display">
+                YOUR FUTURE STARTS HERE! ✨
               </p>
             </motion.div>
 
-            {/* Subtitle */}
+            {/* Subtitle with Fade & Slide */}
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.65, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
               className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0 font-normal"
             >
-              World-Class IT Training, Practical Real-Time Projects &amp; Placement Guidance to build a successful high-growth software career.
+              World-Class IT Training, Practical Real-Time Projects &amp; Placement Guidance to build a high-growth software career.
             </motion.p>
 
             {/* CTA Buttons */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              transition={{ duration: 0.65, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
               className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2"
             >
               <button
                 onClick={onOpenModal}
-                className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-[#E11D48] via-[#F43F5E] to-[#BE123C] hover:opacity-95 text-white font-extrabold text-sm tracking-wider shadow-xl shadow-rose-500/25 flex items-center justify-center space-x-2.5 glow-red transition-all duration-300 transform hover:-translate-y-0.5 border border-rose-300/40"
+                className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-[#E11D48] via-[#F43F5E] to-[#BE123C] hover:opacity-95 text-white font-extrabold text-sm tracking-wider shadow-xl shadow-rose-500/25 flex items-center justify-center space-x-2.5 glow-red transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl border border-rose-300/40 cursor-pointer"
               >
                 <Sparkles className="w-5 h-5 text-amber-300" />
                 <span>ENROLL NOW</span>
@@ -78,7 +124,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
 
               <a
                 href="#courses"
-                className="w-full sm:w-auto px-8 py-4 rounded-xl bg-white/90 hover:bg-white text-slate-700 hover:text-slate-900 font-bold text-sm tracking-wide border border-rose-200 hover:border-rose-300 shadow-md flex items-center justify-center space-x-2 transition-all duration-300"
+                className="w-full sm:w-auto px-8 py-4 rounded-xl bg-white/95 hover:bg-white text-slate-700 hover:text-slate-900 font-bold text-sm tracking-wide border border-rose-200 hover:border-rose-400 shadow-md flex items-center justify-center space-x-2 transition-all duration-300 hover:-translate-y-0.5"
               >
                 <span>EXPLORE COURSES</span>
                 <ArrowRight className="w-4 h-4 text-[#E11D48]" />
@@ -87,13 +133,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
 
             {/* Key Value Highlights */}
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-2 text-xs text-slate-600 font-medium"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.42 }}
+              className="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-2 text-xs text-slate-600 font-semibold"
             >
               {['100% Practical Training', 'Live Industry Projects', 'Placement Guidance', 'Hostel Facility'].map((item, idx) => (
-                <div key={idx} className="flex items-center space-x-1.5">
+                <div key={idx} className="flex items-center space-x-1.5 hover:text-rose-600 transition-colors">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                   <span>{item}</span>
                 </div>
@@ -102,7 +148,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
 
           </div>
 
-          {/* Right Hero Visual Column */}
+          {/* Right Hero Visual Column: Interactive Code IDE Card with Rich Hover Effects */}
           <div className="lg:col-span-5 relative flex justify-center lg:justify-end">
             
             {/* Outer Circular Glow Container */}
@@ -131,57 +177,112 @@ export const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
                 </div>
               </div>
 
-              {/* Main Futuristic Card Container in Light Theme */}
+              {/* Main Futuristic Card Container in Light Theme with Rich Code Hover Effects */}
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.7 }}
-                className="w-full h-full rounded-3xl bg-white/95 border border-rose-200/90 p-6 glass-card shadow-2xl shadow-rose-900/10 flex flex-col justify-between relative overflow-hidden group"
+                className="w-full h-full rounded-3xl bg-white/95 border border-rose-200/90 p-6 glass-card shadow-2xl shadow-rose-900/10 flex flex-col justify-between relative overflow-hidden group hover:border-rose-400 transition-all duration-300"
               >
-                {/* Decorative Code Graphic Header */}
-                <div className="flex items-center justify-between border-b border-rose-100 pb-4">
-                  <div className="flex items-center space-x-2">
-                    <span className="w-3 h-3 rounded-full bg-rose-500" />
-                    <span className="w-3 h-3 rounded-full bg-amber-400" />
-                    <span className="w-3 h-3 rounded-full bg-emerald-500" />
-                    <span className="text-xs font-mono text-slate-500 ml-2">hamotech-core.ts</span>
+                {/* Decorative Code Graphic Header & Interactive Tabs */}
+                <div className="border-b border-rose-100 pb-3">
+                  <div className="flex items-center justify-between mb-2.5">
+                    {/* Window Controls */}
+                    <div className="flex items-center space-x-2">
+                      <span className="w-3 h-3 rounded-full bg-rose-500 hover:opacity-80 transition-opacity cursor-pointer" />
+                      <span className="w-3 h-3 rounded-full bg-amber-400 hover:opacity-80 transition-opacity cursor-pointer" />
+                      <span className="w-3 h-3 rounded-full bg-emerald-500 hover:opacity-80 transition-opacity cursor-pointer" />
+                      <span className="text-xs font-mono text-slate-500 ml-2 font-semibold flex items-center space-x-1">
+                        <Terminal className="w-3 h-3 text-rose-500" />
+                        <span>{codeSnippets[activeTab].filename}</span>
+                      </span>
+                    </div>
+
+                    {/* Copy Code Button with Hover Effect */}
+                    <button
+                      onClick={handleCopyCode}
+                      className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-md bg-rose-50 hover:bg-rose-100 text-rose-600 hover:text-rose-700 text-[11px] font-bold font-mono transition-all border border-rose-200 shadow-xs active:scale-95 cursor-pointer"
+                      title="Copy code to clipboard"
+                    >
+                      {copied ? (
+                        <>
+                          <Check className="w-3 h-3 text-emerald-600" />
+                          <span className="text-emerald-600">Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-3 h-3" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
                   </div>
-                  <span className="px-2.5 py-1 rounded bg-rose-50 text-[#E11D48] border border-rose-200 text-[10px] font-bold font-mono">
-                    LIVE BATCH
-                  </span>
+
+                  {/* Interactive Tech Tabs */}
+                  <div className="flex items-center space-x-1.5 pt-1">
+                    {[
+                      { key: 'ts', label: 'TypeScript' },
+                      { key: 'py', label: 'Python AI' },
+                      { key: 'devops', label: 'Cloud & DevOps' }
+                    ].map(tab => (
+                      <button
+                        key={tab.key}
+                        onClick={() => setActiveTab(tab.key as any)}
+                        className={`px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold transition-all cursor-pointer ${
+                          activeTab === tab.key
+                            ? 'bg-rose-600 text-white shadow-xs'
+                            : 'bg-slate-100/80 text-slate-600 hover:bg-rose-50 hover:text-rose-600'
+                        }`}
+                      >
+                        {tab.label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
-                {/* Simulated Tech Stack Code with high-contrast text */}
-                <div className="py-6 space-y-3 font-mono text-xs sm:text-sm">
-                  <div className="text-purple-700 font-semibold">const studentCareer = async () =&gt; &#123;</div>
-                  <div className="pl-4 text-slate-700">
-                    await train(&quot;<span className="text-[#BE123C] font-semibold">Full Stack Java / Python</span>&quot;);
+                {/* Simulated Interactive Code with Line Hover Highlights & Micro Badges */}
+                <div className="py-4 space-y-1 font-mono text-xs overflow-hidden">
+                  {codeSnippets[activeTab].lines.map((line, idx) => (
+                    <div
+                      key={idx}
+                      className="code-line-interactive group/line flex items-center justify-between text-slate-700 hover:text-slate-950"
+                    >
+                      <div className="flex items-center space-x-2.5">
+                        <span className="code-line-num text-slate-400 text-[10px] font-mono select-none w-4 text-right">
+                          {line.num}
+                        </span>
+                        <span className="code-token-highlight text-xs font-medium">
+                          {line.text}
+                        </span>
+                      </div>
+                      
+                      {/* Interactive comment tooltip on hover */}
+                      <span className="hidden group-hover/line:inline-flex text-[10px] text-[#BE123C] font-semibold bg-rose-50 px-2 py-0.5 rounded border border-rose-200 animate-fade-in shrink-0 ml-2">
+                        {line.comment}
+                      </span>
+                    </div>
+                  ))}
+                  
+                  {/* Blinking cursor effect */}
+                  <div className="flex items-center space-x-2 pt-1 pl-6 text-rose-500 font-bold">
+                    <span className="w-2 h-4 bg-rose-500 animate-pulse" />
+                    <span className="text-[10px] text-slate-400 font-mono italic">hover lines to inspect pipeline</span>
                   </div>
-                  <div className="pl-4 text-slate-700">
-                    await build(&quot;<span className="text-[#0284C7] font-semibold">Real-Time Projects</span>&quot;);
-                  </div>
-                  <div className="pl-4 text-slate-700">
-                    await prepare(&quot;<span className="text-[#D97706] font-semibold">Placement Mock Interviews</span>&quot;);
-                  </div>
-                  <div className="pl-4 text-emerald-700 font-bold">
-                    return <span className="text-slate-900">&quot;JOB_READY_ENGINEER&quot;</span>;
-                  </div>
-                  <div className="text-purple-700 font-semibold">&#125;;</div>
                 </div>
 
-                {/* Mini Tech Floating Icons */}
-                <div className="grid grid-cols-3 gap-3 pt-4 border-t border-rose-100">
-                  <div className="flex items-center space-x-2 p-2 rounded-xl bg-rose-50/70 border border-rose-100">
-                    <Code className="w-4 h-4 text-[#E11D48]" />
-                    <span className="text-[11px] font-semibold text-slate-700">Clean Code</span>
+                {/* Mini Tech Floating Icons with Interactive Code Badge Hover Effects */}
+                <div className="grid grid-cols-3 gap-2.5 pt-3 border-t border-rose-100">
+                  <div className="code-badge-interactive flex items-center space-x-2 p-2 rounded-xl bg-rose-50/70 border border-rose-100 cursor-pointer">
+                    <Code className="w-4 h-4 text-[#E11D48] shrink-0" />
+                    <span className="text-[11px] font-bold text-slate-700">Clean Code</span>
                   </div>
-                  <div className="flex items-center space-x-2 p-2 rounded-xl bg-amber-50/70 border border-amber-100">
-                    <Cpu className="w-4 h-4 text-[#D97706]" />
-                    <span className="text-[11px] font-semibold text-slate-700">AI / Cloud</span>
+                  <div className="code-badge-interactive flex items-center space-x-2 p-2 rounded-xl bg-amber-50/70 border border-amber-100 cursor-pointer">
+                    <Cpu className="w-4 h-4 text-[#D97706] shrink-0" />
+                    <span className="text-[11px] font-bold text-slate-700">AI / Cloud</span>
                   </div>
-                  <div className="flex items-center space-x-2 p-2 rounded-xl bg-sky-50/70 border border-sky-100">
-                    <ShieldCheck className="w-4 h-4 text-[#0284C7]" />
-                    <span className="text-[11px] font-semibold text-slate-700">100% Support</span>
+                  <div className="code-badge-interactive flex items-center space-x-2 p-2 rounded-xl bg-sky-50/70 border border-sky-100 cursor-pointer">
+                    <ShieldCheck className="w-4 h-4 text-[#0284C7] shrink-0" />
+                    <span className="text-[11px] font-bold text-slate-700">100% Support</span>
                   </div>
                 </div>
 
@@ -199,7 +300,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="mt-16 lg:mt-24 rounded-3xl bg-white/90 border border-rose-200/80 p-6 sm:p-8 lg:p-10 shadow-2xl shadow-rose-900/5 glass-card relative overflow-hidden"
+          className="mt-10 lg:mt-12 rounded-3xl bg-white/90 border border-rose-200/80 p-6 sm:p-8 lg:p-10 shadow-2xl shadow-rose-900/5 glass-card relative overflow-hidden"
         >
           {/* Subtle Ambient Decorative Glows */}
           <div className="absolute top-0 right-1/4 w-80 h-80 bg-rose-200/30 rounded-full blur-3xl pointer-events-none" />

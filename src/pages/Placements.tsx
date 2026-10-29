@@ -10,7 +10,7 @@ interface PlacementsProps {
 
 export const Placements: React.FC<PlacementsProps> = ({ onOpenModal }) => {
   return (
-    <div className="pt-24 space-y-0">
+    <div className="pt-16 space-y-0">
       <PlacementSection onOpenModal={onOpenModal} />
       <HiringPartnersSection onOpenModal={onOpenModal} />
       <PlacedStudentsSection onOpenModal={onOpenModal} />

@@ -35,7 +35,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenModal }) => {
     { name: 'Placements', path: '/placements' },
     { name: 'Success Stories', path: '/#placed-students' },
     { name: 'Internships', path: '/internships' },
-    { name: 'FAQ', path: '/#faq' },
     { name: 'Contact', path: '/contact' }
   ];
 
