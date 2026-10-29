@@ -1,7 +1,6 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import {
   LogOut,
-  RefreshCw,
   Search,
   ShieldAlert,
   Download,
@@ -67,10 +66,6 @@ export const AdminCandidates: React.FC = () => {
     setLeads(getStoredLeads());
     setIsAuthenticated(true);
     setLoginError('');
-  };
-
-  const handleRefresh = () => {
-    setLeads(getStoredLeads());
   };
 
   const handleLogout = () => {
@@ -355,7 +350,7 @@ export const AdminCandidates: React.FC = () => {
                 </thead>
                 <tbody className="divide-y divide-rose-100/70">
                   {filteredLeads.map(lead => {
-                    const cleanPhone = (lead.phone || '').replace(/[\s\-\(\)\+]/g, '');
+                    const cleanPhone = (lead.phone || '').replace(/[\s\-()+]/g, '');
                     const fullPhone = cleanPhone.startsWith('91') ? cleanPhone : `91${cleanPhone}`;
                     const whatsappUrl = `https://wa.me/${fullPhone}?text=${encodeURIComponent(
                       `Hello ${lead.name}, greetings from HamoTech IT Solutions! We received your registration inquiry for the "${lead.course}" course. We'd love to share the syllabus, fees, and next batch timings with you.`

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, Globe, MessageSquare, Lock } from 'lucide-react';
+import { Phone, Mail, MapPin, Globe, MessageSquare } from 'lucide-react';
 import logoImage from '../assets/hamo logo.png';
 
 export const Footer: React.FC = () => {
