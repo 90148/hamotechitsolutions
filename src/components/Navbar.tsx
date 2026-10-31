@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Sparkles, ChevronRight, Phone } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import logoImage from '../assets/hamo logo.png';
+import { AnimatedButton } from './ui/animated-button';
 
 interface NavbarProps {
   onOpenModal: () => void;
@@ -12,6 +13,23 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenModal }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  // Scroll to hero section on clicking brand logo
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (location.pathname === '/') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/');
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 50);
+    }
+    if (mobileMenuOpen) {
+      setMobileMenuOpen(false);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,8 +66,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenModal }) => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3 group">
+          {/* Logo with Liquid Red Text & Scroll-to-Hero Handler */}
+          <Link 
+            to="/" 
+            onClick={handleLogoClick}
+            className="flex items-center space-x-3 group cursor-pointer"
+            title="Return to Home Page Hero Section"
+          >
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#E11D48] via-[#F43F5E] to-[#F59E0B] p-[1.5px] shadow-md shadow-rose-500/20 group-hover:scale-105 transition-transform duration-300">
               <div className="w-full h-full bg-white rounded-[10px] flex items-center justify-center p-0.5">
                 <img
@@ -60,10 +83,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenModal }) => {
               </div>
             </div>
             <div className="flex flex-col">
-              <span className="text-lg font-black tracking-wider text-slate-900 leading-none font-display">
+              <span className="text-xl font-black tracking-wider leading-none font-display liquid-text-red">
                 HAMOTECH
               </span>
-              <span className="text-[10px] font-bold tracking-[0.25em] text-[#E11D48] leading-tight font-display">
+              <span className="text-[10px] font-extrabold leading-tight font-display liquid-subtext-red">
                 IT SOLUTIONS
               </span>
             </div>
@@ -99,13 +122,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenModal }) => {
               <span>98841 66198</span>
             </a>
 
-            <button
+            <AnimatedButton
               onClick={onOpenModal}
               className="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#E11D48] to-[#BE123C] hover:from-[#BE123C] hover:to-[#9F1239] text-white font-bold text-xs tracking-wide shadow-lg shadow-rose-500/25 hover:scale-105 transition-all duration-200 border border-rose-300/40"
             >
               <Sparkles className="w-3.5 h-3.5 text-amber-300" />
               <span>ENROLL NOW</span>
-            </button>
+            </AnimatedButton>
           </div>
 
           {/* Mobile Hamburger Toggle */}
@@ -142,7 +165,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenModal }) => {
                   <Link
                     key={link.name}
                     to={link.path}
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={(e) => {
+                      if (link.path === '/') {
+                        handleLogoClick(e);
+                      } else {
+                        setMobileMenuOpen(false);
+                      }
+                    }}
                     className="flex items-center justify-between px-4 py-3 rounded-xl bg-rose-50/60 border border-rose-100 text-sm font-semibold text-slate-700 hover:text-[#E11D48] hover:bg-rose-100/60"
                   >
                     <span>{link.name}</span>

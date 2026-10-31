@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, ArrowRight, CheckCircle2, Code, Cpu, ShieldCheck, Award, Copy, Check, Terminal } from 'lucide-react';
 import { AnimatedCounter } from './AnimatedCounter';
+import { AnimatedButton } from './ui/animated-button';
+import { FlipText } from './ui/FlipText';
+import { MorphText } from './ui/MorphText';
+import { AsciiGlitchText } from './ui/AsciiGlitchText';
 import logoImage from '../assets/hamo logo.png';
 import placementStatsImg from '../assets/placement-stats.png';
+import homeHeroStudentImage from '../assets/home-hero-student.png';
 
 interface HeroProps {
   onOpenModal: () => void;
@@ -57,7 +62,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
   };
 
   return (
-    <section className="relative pt-28 pb-12 md:pt-36 md:pb-16 overflow-hidden bg-tech-grid border-b border-rose-200/60">
+    <section id="hero" className="relative pt-6 sm:pt-8 md:pt-10 pb-12 md:pb-16 overflow-hidden bg-tech-grid border-b border-rose-200/60">
       {/* Ambient background pastel glow spheres */}
       <div className="absolute top-1/4 left-10 w-96 h-96 rounded-full bg-rose-400/25 blur-3xl animate-pulse-slow pointer-events-none" />
       <div className="absolute top-1/3 right-10 w-96 h-96 rounded-full bg-purple-300/25 blur-3xl animate-pulse-slow pointer-events-none delay-1000" />
@@ -69,7 +74,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
           {/* Left Hero Column */}
           <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
             
-            {/* Top Announcement Badge */}
+            {/* Top Announcement Badge with ASCII Glitch Ripple */}
             <motion.div
               initial={{ opacity: 0, y: -16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -77,35 +82,71 @@ export const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
               className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/95 border border-rose-300 text-slate-700 text-xs font-semibold shadow-sm backdrop-blur-md hover:scale-105 transition-transform"
             >
               <span className="w-2.5 h-2.5 rounded-full bg-[#E11D48] animate-ping" />
-              <span className="text-[#BE123C] font-bold">LIMITED SEATS AVAILABLE</span>
+              <AsciiGlitchText text="LIMITED SEATS AVAILABLE" className="text-[#BE123C] font-extrabold" />
               <span className="text-slate-400">•</span>
               <span className="text-slate-600 font-medium">ADMISSIONS OPEN FOR NEW BATCH</span>
             </motion.div>
 
-            {/* Main Headline with Animated Slide Up & Text Shimmer */}
+            {/* Main Headline with Animated Flip Text, Flip-Fade, and Text Shimmer */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="space-y-3"
             >
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.12] font-display tracking-tight">
-                BUILD YOUR <span className="text-gradient-red animate-slide-up">FUTURE IN IT</span>
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.04] font-display tracking-tight">
+                BUILD YOUR FUTURE AS A <br />
+                <FlipText 
+                  words={[
+                    "FULL STACK DEVELOPER",
+                    "PYTHON AI / ML ENGINEER",
+                    "CLOUD & DEVOPS PRO",
+                    "DATA ANALYTICS EXPERT",
+                    "SOFTWARE ARCHITECT"
+                  ]} 
+                  variant="flip-fade" 
+                  className="text-rose-600 font-extrabold tracking-wide drop-shadow-sm"
+                  interval={2800}
+                />
               </h1>
-              <p className="text-xl sm:text-2xl font-black text-shimmer tracking-wide font-display">
-                YOUR FUTURE STARTS HERE! ✨
-              </p>
+              
+              <div className="flex items-center justify-center lg:justify-start space-x-2 pt-1">
+                <p className="text-xl sm:text-2xl font-black text-shimmer tracking-wide font-display">
+                  YOUR FUTURE STARTS HERE! ✨
+                </p>
+                <span className="hidden sm:inline-block">
+                  <AsciiGlitchText text="[#HAMOTECH_CAREER]" className="text-[11px] font-mono text-rose-600 font-bold bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200" />
+                </span>
+              </div>
             </motion.div>
 
-            {/* Subtitle with Fade & Slide */}
-            <motion.p
+            {/* Subtitle with Morphing Text Effect */}
+            <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
-              className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0 font-normal"
+              className="space-y-2 max-w-2xl mx-auto lg:mx-0"
             >
-              World-Class IT Training, Practical Real-Time Projects &amp; Placement Guidance to build a high-growth software career.
-            </motion.p>
+              <div className="flex items-start space-x-2.5 p-3 rounded-2xl bg-white/80 border border-rose-200/80 shadow-xs backdrop-blur-sm text-left">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#E11D48] mt-1.5 shrink-0 animate-pulse" />
+                <div className="w-full overflow-hidden">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-rose-600 mb-0.5">Dynamic Training Pipeline</p>
+                  <MorphText
+                    texts={[
+                      "World-Class IT Training With 100% Practical Labs",
+                      "Build 50+ Real-Time Enterprise Level Software Projects",
+                      "1-on-1 Mock Technical & HR Interviews With Senior Developers",
+                      "Guaranteed Placement Guidance Across 1200+ IT Hiring Partners"
+                    ]}
+                    className="text-sm sm:text-base font-bold text-slate-800"
+                    interval={3400}
+                  />
+                </div>
+              </div>
+              <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
+                Hands-on practical curriculum designed by senior software architects to make you job-ready.
+              </p>
+            </motion.div>
 
             {/* CTA Buttons */}
             <motion.div
@@ -114,13 +155,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
               transition={{ duration: 0.65, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
               className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2"
             >
-              <button
+              <AnimatedButton
                 onClick={onOpenModal}
                 className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-[#E11D48] via-[#F43F5E] to-[#BE123C] hover:opacity-95 text-white font-extrabold text-sm tracking-wider shadow-xl shadow-rose-500/25 flex items-center justify-center space-x-2.5 glow-red transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl border border-rose-300/40 cursor-pointer"
               >
                 <Sparkles className="w-5 h-5 text-amber-300" />
                 <span>ENROLL NOW</span>
-              </button>
+              </AnimatedButton>
 
               <a
                 href="#courses"
@@ -182,10 +223,22 @@ export const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.7 }}
-                className="w-full h-full rounded-3xl bg-white/95 border border-rose-200/90 p-6 glass-card shadow-2xl shadow-rose-900/10 flex flex-col justify-between relative overflow-hidden group hover:border-rose-400 transition-all duration-300"
+                className="w-full h-full rounded-3xl bg-white/75 border border-rose-200/90 p-6 glass-card shadow-2xl shadow-rose-900/10 flex flex-col justify-between relative overflow-hidden group hover:border-rose-400 transition-all duration-300 backdrop-blur-md"
               >
+                {/* Student image backdrop keeps the code panel visually connected to the career journey. */}
+                <div className="pointer-events-none absolute inset-y-0 right-0 z-0 w-[58%] overflow-hidden">
+                  <img
+                    src={homeHeroStudentImage}
+                    alt=""
+                    aria-hidden="true"
+                    className="h-full w-full object-cover object-[78%_center] opacity-85 saturate-125 transition-transform duration-700 group-hover:scale-125"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-white via-white/75 to-white/10" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-white/80 via-transparent to-sky-50/20" />
+                </div>
+
                 {/* Decorative Code Graphic Header & Interactive Tabs */}
-                <div className="border-b border-rose-100 pb-3">
+                <div className="relative z-10 border-b border-rose-100/80 pb-3">
                   <div className="flex items-center justify-between mb-2.5">
                     {/* Window Controls */}
                     <div className="flex items-center space-x-2">
@@ -241,7 +294,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
                 </div>
 
                 {/* Simulated Interactive Code with Line Hover Highlights & Micro Badges */}
-                <div className="py-4 space-y-1 font-mono text-xs overflow-hidden">
+                <div className="relative z-10 py-4 space-y-1 font-mono text-xs overflow-hidden">
                   {codeSnippets[activeTab].lines.map((line, idx) => (
                     <div
                       key={idx}
@@ -271,7 +324,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
                 </div>
 
                 {/* Mini Tech Floating Icons with Interactive Code Badge Hover Effects */}
-                <div className="grid grid-cols-3 gap-2.5 pt-3 border-t border-rose-100">
+                <div className="relative z-10 grid grid-cols-3 gap-2.5 pt-3 border-t border-rose-100/80">
                   <div className="code-badge-interactive flex items-center space-x-2 p-2 rounded-xl bg-rose-50/70 border border-rose-100 cursor-pointer">
                     <Code className="w-4 h-4 text-[#E11D48] shrink-0" />
                     <span className="text-[11px] font-bold text-slate-700">Clean Code</span>

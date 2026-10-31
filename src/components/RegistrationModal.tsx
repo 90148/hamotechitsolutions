@@ -80,6 +80,14 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
     if (type === 'checkbox') {
       const checked = (e.target as HTMLInputElement).checked;
       setFormData(prev => ({ ...prev, [name]: checked }));
+    } else if (name === 'name') {
+      // Allow only alphabetic characters and spaces
+      const sanitized = value.replace(/[^a-zA-Z\s]/g, '');
+      setFormData(prev => ({ ...prev, name: sanitized }));
+    } else if (name === 'phone') {
+      // Allow only numbers and restrict to 10 digits strictly
+      const sanitized = value.replace(/\D/g, '').slice(0, 10);
+      setFormData(prev => ({ ...prev, phone: sanitized }));
     } else {
       setFormData(prev => ({ ...prev, [name]: value }));
     }
@@ -224,17 +232,20 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
                       {/* Main Form */}
                       <form onSubmit={handleSubmit} className="space-y-4">
                         
-                        {/* Name */}
+                        {/* Name - Only Alphabetic Characters */}
                         <div>
-                          <label className="block text-xs font-bold text-slate-700 mb-1.5 flex items-center space-x-1.5">
-                            <User className="w-3.5 h-3.5 text-rose-500" />
-                            <span>Name <span className="text-[#E11D48]">*</span></span>
+                          <label className="block text-xs font-bold text-slate-700 mb-1.5 flex items-center justify-between">
+                            <span className="flex items-center space-x-1.5">
+                              <User className="w-3.5 h-3.5 text-rose-500" />
+                              <span>Full Name <span className="text-[#E11D48]">*</span></span>
+                            </span>
+                            <span className="text-[10px] text-slate-400 font-normal">Letters only</span>
                           </label>
                           <input
                             type="text"
                             name="name"
                             required
-                            placeholder="Enter your name"
+                            placeholder="Enter your full name"
                             value={formData.name}
                             onChange={handleChange}
                             className="w-full px-4 py-3 bg-slate-50/70 border border-slate-200 focus:bg-white rounded-xl text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#E11D48] focus:ring-2 focus:ring-rose-200 transition-all shadow-xs"
@@ -258,21 +269,33 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
                           />
                         </div>
 
-                        {/* Contact Number */}
+                        {/* Contact Number - Only Numbers, Exactly 10 Digits */}
                         <div>
-                          <label className="block text-xs font-bold text-slate-700 mb-1.5 flex items-center space-x-1.5">
-                            <Phone className="w-3.5 h-3.5 text-emerald-500" />
-                            <span>Contact Number <span className="text-[#E11D48]">*</span></span>
+                          <label className="block text-xs font-bold text-slate-700 mb-1.5 flex items-center justify-between">
+                            <span className="flex items-center space-x-1.5">
+                              <Phone className="w-3.5 h-3.5 text-emerald-500" />
+                              <span>Contact Number <span className="text-[#E11D48]">*</span></span>
+                            </span>
+                            <span className={`text-[10px] font-mono font-bold ${formData.phone.length === 10 ? 'text-emerald-600' : 'text-slate-400'}`}>
+                              {formData.phone.length}/10 digits
+                            </span>
                           </label>
-                          <input
-                            type="tel"
-                            name="phone"
-                            required
-                            placeholder="Enter your contact number (10 digits)"
-                            value={formData.phone}
-                            onChange={handleChange}
-                            className="w-full px-4 py-3 bg-slate-50/70 border border-slate-200 focus:bg-white rounded-xl text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#E11D48] focus:ring-2 focus:ring-rose-200 transition-all shadow-xs"
-                          />
+                          <div className="relative">
+                            <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-xs font-bold text-slate-400 font-mono">
+                              +91
+                            </span>
+                            <input
+                              type="tel"
+                              name="phone"
+                              required
+                              maxLength={10}
+                              inputMode="numeric"
+                              placeholder="10-digit mobile number"
+                              value={formData.phone}
+                              onChange={handleChange}
+                              className="w-full pl-12 pr-4 py-3 bg-slate-50/70 border border-slate-200 focus:bg-white rounded-xl text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#E11D48] focus:ring-2 focus:ring-rose-200 transition-all shadow-xs font-mono"
+                            />
+                          </div>
                         </div>
 
                         {/* Enter Desired Course */}

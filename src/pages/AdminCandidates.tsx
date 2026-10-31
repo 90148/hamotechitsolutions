@@ -8,11 +8,13 @@ import {
   MessageSquare,
   Trash2,
   CheckCircle2,
-  Clock,
   Users,
   BookOpen,
   Sparkles,
-  Lock
+  Lock,
+  RefreshCw,
+  Mail,
+  Inbox
 } from 'lucide-react';
 import {
   getStoredLeads,
@@ -38,15 +40,30 @@ export const AdminCandidates: React.FC = () => {
   const [leads, setLeads] = useState<LeadData[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<'All' | 'New' | 'Contacted' | 'Interested' | 'Registered'>('All');
+  const [categoryFilter, setCategoryFilter] = useState<'all' | 'registrations' | 'messages'>('all');
   const [selectedLead, setSelectedLead] = useState<LeadData | null>(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
-  // Check session storage on mount to keep logged in across refreshes
+  // Check session storage on mount & listen for real-time lead updates
   useEffect(() => {
     const isAuth = sessionStorage.getItem('hamotech_admin_auth');
     if (isAuth === 'true') {
       setIsAuthenticated(true);
       setLeads(getStoredLeads());
     }
+
+    // Auto-refresh when new messages or registrations arrive
+    const handleLeadUpdate = () => {
+      setLeads(getStoredLeads());
+    };
+
+    window.addEventListener('hamotech_leads_updated', handleLeadUpdate);
+    window.addEventListener('storage', handleLeadUpdate);
+
+    return () => {
+      window.removeEventListener('hamotech_leads_updated', handleLeadUpdate);
+      window.removeEventListener('storage', handleLeadUpdate);
+    };
   }, []);
 
   const handleLogin = (event: React.FormEvent) => {
@@ -68,6 +85,12 @@ export const AdminCandidates: React.FC = () => {
     setLoginError('');
   };
 
+  const handleRefresh = () => {
+    setIsRefreshing(true);
+    setLeads(getStoredLeads());
+    setTimeout(() => setIsRefreshing(false), 500);
+  };
+
   const handleLogout = () => {
     setIsAuthenticated(false);
     setPassword('');
@@ -83,7 +106,7 @@ export const AdminCandidates: React.FC = () => {
   };
 
   const handleDeleteLead = (id: string, name: string) => {
-    if (window.confirm(`Are you sure you want to remove candidate "${name}"?`)) {
+    if (window.confirm(`Are you sure you want to remove entry "${name}"?`)) {
       deleteLead(id);
       setLeads(getStoredLeads());
       if (selectedLead?.id === id) {
@@ -104,20 +127,29 @@ export const AdminCandidates: React.FC = () => {
   const filteredLeads = useMemo(() => {
     let result = leads;
 
+    // Filter by type: registrations vs contact messages
+    if (categoryFilter === 'messages') {
+      result = result.filter(l => l.source === 'contact' || l.id?.startsWith('HT-MSG-'));
+    } else if (categoryFilter === 'registrations') {
+      result = result.filter(l => l.source !== 'contact' && !l.id?.startsWith('HT-MSG-'));
+    }
+
+    // Filter by status
     if (statusFilter !== 'All') {
       result = result.filter(lead => (lead.status || 'New') === statusFilter);
     }
 
+    // Search filter across all attributes including message
     const normalizedSearch = searchTerm.trim().toLowerCase();
     if (normalizedSearch) {
       result = result.filter(lead =>
-        [lead.name, lead.email, lead.phone, lead.course, lead.qualification, lead.college, lead.status]
+        [lead.name, lead.email, lead.phone, lead.course, lead.qualification, lead.college, lead.status, lead.message]
           .some(value => value?.toLowerCase().includes(normalizedSearch))
       );
     }
 
     return result;
-  }, [leads, searchTerm, statusFilter]);
+  }, [leads, searchTerm, statusFilter, categoryFilter]);
 
   // Statistics
   const stats = useMemo(() => {
@@ -126,7 +158,9 @@ export const AdminCandidates: React.FC = () => {
     const contacted = leads.filter(l => l.status === 'Contacted').length;
     const interested = leads.filter(l => l.status === 'Interested').length;
     const registered = leads.filter(l => l.status === 'Registered').length;
-    return { total, newCount, contacted, interested, registered };
+    const contactMessagesCount = leads.filter(l => l.source === 'contact' || l.id?.startsWith('HT-MSG-')).length;
+    const courseRegistrationsCount = total - contactMessagesCount;
+    return { total, newCount, contacted, interested, registered, contactMessagesCount, courseRegistrationsCount };
   }, [leads]);
 
   if (!isAuthenticated) {
@@ -149,7 +183,7 @@ export const AdminCandidates: React.FC = () => {
             Admin &amp; Counselor Portal
           </h1>
           <p className="mt-2 text-center text-xs text-slate-600 leading-relaxed">
-            Secure access to student registrations, course inquiries, and placement leads.
+            Secure access to student registrations, contact enquiries, and placement leads.
           </p>
 
           <div className="mt-6">
@@ -198,37 +232,39 @@ export const AdminCandidates: React.FC = () => {
                 <Sparkles className="w-3 h-3" /> Institute Portal
               </span>
               <span className="text-xs text-slate-400">•</span>
-              <span className="text-xs font-semibold text-slate-500">Live Registration Responses</span>
+              <span className="text-xs font-semibold text-slate-500">Live Registration &amp; Contact Enquiries</span>
             </div>
             <h1 className="mt-1 text-2xl sm:text-3xl font-black text-slate-900 font-display">
-              Student Registration Responses
+              Student Responses &amp; Contact Messages
             </h1>
             <p className="mt-1 text-xs text-slate-600">
-              Manage prospective students, follow up on WhatsApp/Call, and export data for your counseling team.
+              Review student registrations and &quot;SEND US A MESSAGE&quot; enquiries, follow up on WhatsApp/Call, and export to Excel.
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-2.5">
             <button
               type="button"
+              onClick={handleRefresh}
+              className="inline-flex items-center gap-1.5 rounded-xl border border-rose-200 bg-white px-3.5 py-2.5 text-xs font-bold text-slate-700 hover:bg-rose-50 transition shadow-xs cursor-pointer"
+              title="Refresh responses list"
+            >
+              <RefreshCw className={`h-3.5 w-3.5 text-rose-600 ${isRefreshing ? 'animate-spin' : ''}`} /> 
+              <span>Refresh</span>
+            </button>
+            <button
+              type="button"
               onClick={handleExportCSV}
               disabled={leads.length === 0}
-              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm hover:from-emerald-700 hover:to-teal-700 disabled:opacity-50 transition"
-              title="Download registrations as Excel / CSV spreadsheet"
+              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm hover:from-emerald-700 hover:to-teal-700 disabled:opacity-50 transition cursor-pointer"
+              title="Download registrations and enquiries as Excel / CSV spreadsheet"
             >
               <Download className="h-4 w-4" /> Export Excel/CSV
             </button>
-            {/*<button
-              type="button"
-              onClick={handleRefresh}
-              className="inline-flex items-center gap-1.5 rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50 transition"
-            >
-              <RefreshCw className="h-3.5 w-3.5 text-slate-500" /> Refresh
-            </button>*/}
             <button
               type="button"
               onClick={handleLogout}
-              className="inline-flex items-center gap-1.5 rounded-xl border border-rose-200 bg-rose-50 px-3.5 py-2.5 text-xs font-bold text-rose-700 hover:bg-rose-100 transition"
+              className="inline-flex items-center gap-1.5 rounded-xl border border-rose-200 bg-rose-50 px-3.5 py-2.5 text-xs font-bold text-rose-700 hover:bg-rose-100 transition cursor-pointer"
             >
               <LogOut className="h-3.5 w-3.5" /> Sign Out
             </button>
@@ -239,7 +275,7 @@ export const AdminCandidates: React.FC = () => {
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 sm:gap-4">
           <div className="rounded-2xl border border-rose-200/80 bg-white/90 p-4 shadow-sm">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Total Leads</span>
+              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Total Responses</span>
               <Users className="w-4 h-4 text-[#E11D48]" />
             </div>
             <p className="mt-2 text-2xl font-black text-slate-900 font-display">{stats.total}</p>
@@ -247,10 +283,18 @@ export const AdminCandidates: React.FC = () => {
 
           <div className="rounded-2xl border border-rose-200/80 bg-white/90 p-4 shadow-sm">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-rose-600 uppercase tracking-wider">New Submissions</span>
+              <span className="text-xs font-bold text-rose-600 uppercase tracking-wider">New Enquiries</span>
               <span className="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping" />
             </div>
             <p className="mt-2 text-2xl font-black text-[#E11D48] font-display">{stats.newCount}</p>
+          </div>
+
+          <div className="rounded-2xl border border-amber-200/80 bg-white/90 p-4 shadow-sm">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-amber-600 uppercase tracking-wider">Contact Messages</span>
+              <Mail className="w-4 h-4 text-amber-500" />
+            </div>
+            <p className="mt-2 text-2xl font-black text-amber-600 font-display">{stats.contactMessagesCount}</p>
           </div>
 
           <div className="rounded-2xl border border-blue-200/80 bg-white/90 p-4 shadow-sm">
@@ -259,14 +303,6 @@ export const AdminCandidates: React.FC = () => {
               <Phone className="w-4 h-4 text-blue-500" />
             </div>
             <p className="mt-2 text-2xl font-black text-blue-600 font-display">{stats.contacted}</p>
-          </div>
-
-          <div className="rounded-2xl border border-amber-200/80 bg-white/90 p-4 shadow-sm">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-amber-600 uppercase tracking-wider">Interested</span>
-              <Clock className="w-4 h-4 text-amber-500" />
-            </div>
-            <p className="mt-2 text-2xl font-black text-amber-600 font-display">{stats.interested}</p>
           </div>
 
           <div className="rounded-2xl border border-emerald-200/80 bg-white/90 p-4 shadow-sm col-span-2 sm:col-span-1">
@@ -278,6 +314,54 @@ export const AdminCandidates: React.FC = () => {
           </div>
         </div>
 
+        {/* Source Categories Tabs */}
+        <div className="flex flex-wrap items-center gap-2 border-b border-rose-200 pb-3">
+          <button
+            type="button"
+            onClick={() => setCategoryFilter('all')}
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+              categoryFilter === 'all'
+                ? 'bg-slate-900 text-white shadow-sm'
+                : 'bg-white border border-rose-200 text-slate-700 hover:bg-rose-50'
+            }`}
+          >
+            <span className="flex items-center gap-1.5">
+              <Inbox className="w-3.5 h-3.5" />
+              <span>All Responses ({leads.length})</span>
+            </span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setCategoryFilter('messages')}
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+              categoryFilter === 'messages'
+                ? 'bg-amber-600 text-white shadow-sm'
+                : 'bg-white border border-rose-200 text-slate-700 hover:bg-rose-50'
+            }`}
+          >
+            <span className="flex items-center gap-1.5">
+              <Mail className="w-3.5 h-3.5 text-amber-500" />
+              <span>Contact Page Messages ({stats.contactMessagesCount})</span>
+            </span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setCategoryFilter('registrations')}
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+              categoryFilter === 'registrations'
+                ? 'bg-[#E11D48] text-white shadow-sm'
+                : 'bg-white border border-rose-200 text-slate-700 hover:bg-rose-50'
+            }`}
+          >
+            <span className="flex items-center gap-1.5">
+              <BookOpen className="w-3.5 h-3.5 text-rose-500" />
+              <span>Course Registrations ({stats.courseRegistrationsCount})</span>
+            </span>
+          </button>
+        </div>
+
         {/* Search & Filter Toolbar */}
         <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-white/80 p-3 rounded-2xl border border-rose-200/80 shadow-sm">
           {/* Status filter pills */}
@@ -287,7 +371,7 @@ export const AdminCandidates: React.FC = () => {
                 key={status}
                 type="button"
                 onClick={() => setStatusFilter(status)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${statusFilter === status
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${statusFilter === status
                   ? 'bg-[#E11D48] text-white shadow-sm'
                   : 'bg-rose-50/70 text-slate-600 hover:bg-rose-100 hover:text-slate-900'
                   }`}
@@ -304,7 +388,7 @@ export const AdminCandidates: React.FC = () => {
               type="search"
               value={searchTerm}
               onChange={event => setSearchTerm(event.target.value)}
-              placeholder="Search by student name, phone, course, college..."
+              placeholder="Search by student name, phone, message content..."
               className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-9 pr-4 text-xs outline-none focus:border-[#E11D48] focus:ring-2 focus:ring-rose-100"
             />
           </div>
@@ -318,18 +402,18 @@ export const AdminCandidates: React.FC = () => {
                 <BookOpen className="w-6 h-6" />
               </div>
               <h3 className="text-base font-bold text-slate-800">
-                {leads.length === 0 ? 'No Student Registrations Yet' : 'No Candidates Match Your Filters'}
+                {leads.length === 0 ? 'No Enquiries or Registrations Yet' : 'No Responses Match Your Filters'}
               </h3>
               <p className="text-xs text-slate-500 max-w-sm mx-auto">
                 {leads.length === 0
-                  ? 'When students submit the registration popup or form, their details will immediately appear here.'
-                  : 'Try adjusting your search keywords or switching the status filter tab.'}
+                  ? 'When students submit the registration popup or the Contact Us form, their responses will appear here instantly.'
+                  : 'Try adjusting your search keywords or switching between the filter tabs.'}
               </p>
               {leads.length === 0 && (
                 <button
                   type="button"
                   onClick={handleLoadSamples}
-                  className="mt-3 inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-rose-100 text-[#E11D48] hover:bg-rose-200 text-xs font-bold transition"
+                  className="mt-3 inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-rose-100 text-[#E11D48] hover:bg-rose-200 text-xs font-bold transition cursor-pointer"
                 >
                   <Sparkles className="w-3.5 h-3.5" /> Load 3 Demo Sample Registrations
                 </button>
@@ -340,10 +424,10 @@ export const AdminCandidates: React.FC = () => {
               <table className="w-full min-w-[1050px] text-left text-xs">
                 <thead className="bg-gradient-to-r from-rose-50 via-rose-100/40 to-orange-50/50 text-[11px] font-bold uppercase tracking-wider text-slate-700 border-b border-rose-200">
                   <tr>
-                    <th className="px-5 py-3.5">Candidate Details</th>
-                    <th className="px-5 py-3.5">Course &amp; Batch</th>
+                    <th className="px-5 py-3.5">Candidate &amp; Type</th>
+                    <th className="px-5 py-3.5">Enquiry / Message</th>
                     <th className="px-5 py-3.5">Direct Actions</th>
-                    <th className="px-5 py-3.5">Registration Time</th>
+                    <th className="px-5 py-3.5">Received Time</th>
                     <th className="px-5 py-3.5">Status</th>
                     <th className="px-5 py-3.5 text-right">Manage</th>
                   </tr>
@@ -352,8 +436,12 @@ export const AdminCandidates: React.FC = () => {
                   {filteredLeads.map(lead => {
                     const cleanPhone = (lead.phone || '').replace(/[\s\-()+]/g, '');
                     const fullPhone = cleanPhone.startsWith('91') ? cleanPhone : `91${cleanPhone}`;
+                    const isContactMsg = lead.source === 'contact' || lead.id?.startsWith('HT-MSG-');
+
                     const whatsappUrl = `https://wa.me/${fullPhone}?text=${encodeURIComponent(
-                      `Hello ${lead.name}, greetings from HamoTech IT Solutions! We received your registration inquiry for the "${lead.course}" course. We'd love to share the syllabus, fees, and next batch timings with you.`
+                      isContactMsg
+                        ? `Hello ${lead.name}, greetings from HamoTech IT Solutions! We received your message enquiry: "${lead.message || lead.course}". How can we help you?`
+                        : `Hello ${lead.name}, greetings from HamoTech IT Solutions! We received your registration inquiry for the "${lead.course}" course. We'd love to share the syllabus, fees, and next batch timings with you.`
                     )}`;
 
                     return (
@@ -361,42 +449,68 @@ export const AdminCandidates: React.FC = () => {
                         {/* Candidate */}
                         <td className="px-5 py-4">
                           <div className="flex items-start gap-2.5">
-                            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-rose-500 to-[#E11D48] text-white flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
+                            <div className={`w-8 h-8 rounded-full text-white flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 ${
+                              isContactMsg
+                                ? 'bg-gradient-to-br from-amber-500 to-orange-600'
+                                : 'bg-gradient-to-br from-rose-500 to-[#E11D48]'
+                            }`}>
                               {lead.name.slice(0, 1).toUpperCase()}
                             </div>
                             <div>
-                              <p className="font-bold text-slate-900 text-sm">{lead.name}</p>
+                              <div className="flex items-center gap-1.5 flex-wrap">
+                                <p className="font-bold text-slate-900 text-sm">{lead.name}</p>
+                                {isContactMsg ? (
+                                  <span className="px-2 py-0.5 rounded text-[10px] font-black bg-amber-100 text-amber-800 border border-amber-200">
+                                    📩 Contact Message
+                                  </span>
+                                ) : (
+                                  <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-100 text-[#E11D48] border border-rose-200">
+                                    🎓 Registration
+                                  </span>
+                                )}
+                              </div>
                               <p className="text-[11px] text-slate-500 font-medium">{lead.qualification}</p>
                               {lead.college && (
                                 <p className="text-[10px] text-slate-400 truncate max-w-[200px]" title={lead.college}>
                                   🏛️ {lead.college}
                                 </p>
                               )}
-                              <span className="font-mono text-[10px] text-rose-600 bg-rose-50 px-1.5 py-0.5 rounded mt-1 inline-block">
+                              <span className="font-mono text-[10px] text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded mt-1 inline-block">
                                 ID: {lead.id}
                               </span>
                             </div>
                           </div>
                         </td>
 
-                        {/* Course & Preferences */}
-                        <td className="px-5 py-4">
-                          <p className="font-semibold text-slate-800 text-xs">{lead.course}</p>
-                          <div className="mt-1 flex flex-wrap gap-1">
-                            <span className="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[10px] font-medium">
-                              {lead.mode}
-                            </span>
-                            <span className="px-2 py-0.5 rounded-md bg-amber-50 text-amber-700 text-[10px] font-medium">
-                              {lead.batch} Batch
-                            </span>
-                            <span className="px-2 py-0.5 rounded-md bg-purple-50 text-purple-700 text-[10px] font-medium">
-                              {lead.interest}
-                            </span>
-                          </div>
+                        {/* Course & Message Content */}
+                        <td className="px-5 py-4 max-w-sm">
+                          <p className="font-semibold text-slate-800 text-xs">
+                            <span className="text-slate-400 font-normal">Interested in:</span> {lead.course}
+                          </p>
+                          
+                          {!isContactMsg && (
+                            <div className="mt-1 flex flex-wrap gap-1">
+                              <span className="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[10px] font-medium">
+                                {lead.mode}
+                              </span>
+                              <span className="px-2 py-0.5 rounded-md bg-amber-50 text-amber-700 text-[10px] font-medium">
+                                {lead.batch} Batch
+                              </span>
+                              <span className="px-2 py-0.5 rounded-md bg-purple-50 text-purple-700 text-[10px] font-medium">
+                                {lead.interest}
+                              </span>
+                            </div>
+                          )}
+
                           {lead.message && (
-                            <p className="mt-1 text-[11px] text-slate-500 italic max-w-xs truncate" title={lead.message}>
-                              &quot;{lead.message}&quot;
-                            </p>
+                            <div className="mt-1.5 p-2 rounded-xl bg-rose-50/80 border border-rose-100 text-xs text-slate-700 shadow-xs">
+                              <span className="text-[10px] font-black uppercase tracking-wider text-rose-600 block mb-0.5">
+                                Message:
+                              </span>
+                              <p className="italic leading-relaxed font-normal">
+                                &quot;{lead.message}&quot;
+                              </p>
+                            </div>
                           )}
                         </td>
 
@@ -462,8 +576,8 @@ export const AdminCandidates: React.FC = () => {
                           <button
                             type="button"
                             onClick={() => handleDeleteLead(lead.id!, lead.name)}
-                            className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition"
-                            title="Delete Lead"
+                            className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition cursor-pointer"
+                            title="Delete Entry"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
@@ -487,18 +601,18 @@ export const AdminCandidates: React.FC = () => {
             <div className="bg-rose-50/50 p-3.5 rounded-xl border border-rose-100">
               <p className="font-bold text-slate-800 mb-1">📍 Where is this data currently stored?</p>
               <p>
-                Student form submissions are stored client-side in the browser&apos;s LocalStorage under the key <code className="bg-white px-1.5 py-0.5 rounded border border-rose-200 text-rose-600 font-mono">hamotech_leads_v1</code>.
+                Student form submissions and contact messages are stored client-side in the browser&apos;s LocalStorage under the key <code className="bg-white px-1.5 py-0.5 rounded border border-rose-200 text-rose-600 font-mono">hamotech_leads_v1</code>.
                 You can download the full database at any time using the <strong>&quot;Export Excel/CSV&quot;</strong> button above.
               </p>
             </div>
             <div className="bg-orange-50/50 p-3.5 rounded-xl border border-orange-100">
               <p className="font-bold text-slate-800 mb-1">🚀 Cloud / Multi-Device Sync Options</p>
               <p>
-                For receiving registrations from any student&apos;s smartphone or PC directly to your team, you can connect:
+                For receiving registrations from any student&apos;s smartphone or PC directly to your team:
                 <br />
                 • <strong>Google Sheets:</strong> Free Google Apps Script webhook to append every lead to an Excel Sheet.
                 <br />
-                • <strong>Email Alerts:</strong> Free EmailJS / Formspree to ping <span className="font-medium text-slate-800">hamotechitsolutions@gmail.com</span> instantly.
+                • <strong>Email Alerts:</strong> Free EmailJS / Formspree to ping <span className="font-medium text-slate-800">hamotechitsolution25@gmail.com</span> instantly.
                 <br />
                 • <strong>Supabase / Firebase:</strong> Free cloud database for multi-user admin dashboards.
               </p>

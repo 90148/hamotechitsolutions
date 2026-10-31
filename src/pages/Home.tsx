@@ -17,6 +17,7 @@ import { FAQSection } from '../components/FAQSection';
 import { ContactSection } from '../components/ContactSection';
 {/*import { QRCodeSection } from '../components/QRCodeSection';*/}
 import { Sparkles } from 'lucide-react';
+import { AnimatedButton } from '../components/ui/animated-button';
 
 interface HomeProps {
   onOpenModal: (courseTitle?: string) => void;
@@ -82,13 +83,13 @@ export const Home: React.FC<HomeProps> = ({ onOpenModal }) => {
             Join hundreds of successful students. Enroll in our upcoming live technology batch today.
           </p>
           <div className="pt-2">
-            <button
+            <AnimatedButton
               onClick={() => onOpenModal()}
               className="px-8 py-3.5 rounded-xl bg-white text-rose-600 hover:text-rose-700 font-extrabold text-sm shadow-2xl inline-flex items-center space-x-2 hover:scale-105 transition-transform hover:bg-rose-50"
             >
               <Sparkles className="w-4 h-4 text-amber-500" />
               <span>ENROLL NOW</span>
-            </button>
+            </AnimatedButton>
           </div>
         </div>
       </section>

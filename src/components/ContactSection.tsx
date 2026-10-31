@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Phone, Mail, MapPin, Globe, Send, MessageSquare, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { COURSES } from '../data/courses';
+import { submitContactMessage } from '../services/registrationService';
+import contactHeroImage from '../assets/contact-hero.png';
 
 export const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -17,24 +19,40 @@ export const ContactSection: React.FC = () => {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (name === 'name') {
+      // Allow only alphabetic characters and spaces
+      const sanitized = value.replace(/[^a-zA-Z\s]/g, '');
+      setFormData(prev => ({ ...prev, name: sanitized }));
+    } else if (name === 'phone') {
+      // Allow only numbers and restrict to 10 digits strictly
+      const sanitized = value.replace(/\D/g, '').slice(0, 10);
+      setFormData(prev => ({ ...prev, phone: sanitized }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
     if (errorMsg) setErrorMsg(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
     setErrorMsg(null);
+    setIsSubmitting(true);
 
-    if (!formData.name || !formData.phone || !formData.email) {
-      setErrorMsg('Please fill in all required fields.');
+    try {
+      await submitContactMessage({
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        course: formData.course,
+        message: formData.message
+      });
+      setIsSuccess(true);
+    } catch (err: any) {
+      setErrorMsg(err.message || 'An error occurred while sending your message.');
+    } finally {
       setIsSubmitting(false);
-      return;
     }
-
-    await new Promise(res => setTimeout(res, 800));
-    setIsSubmitting(false);
-    setIsSuccess(true);
   };
 
   return (
@@ -47,20 +65,31 @@ export const ContactSection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center max-w-3xl mx-auto space-y-3 mb-8 md:mb-10"
+          className="mb-8 grid items-center gap-8 overflow-hidden rounded-[2rem] border border-rose-200/90 bg-white/80 p-5 shadow-xl shadow-rose-900/5 sm:p-8 lg:mb-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-10"
         >
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white border border-rose-300 text-[#BE123C] text-xs font-bold uppercase tracking-wider shadow-sm hover:scale-105 transition-transform">
-            <Phone className="w-3.5 h-3.5 text-[#E11D48]" />
-            <span>WE ARE HERE TO HELP YOU</span>
+          <div className="space-y-3 text-center lg:text-left">
+            <div className="inline-flex items-center space-x-2 rounded-full border border-rose-300 bg-white px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-[#BE123C] shadow-sm">
+              <Phone className="h-3.5 w-3.5 text-[#E11D48]" />
+              <span>WE ARE HERE TO HELP YOU</span>
+            </div>
+
+            <h2 className="text-3xl font-black text-slate-900 font-display sm:text-4xl lg:text-5xl">
+              LET&apos;S BUILD YOUR <span className="text-gradient-red animate-slide-up">FUTURE TOGETHER</span>
+            </h2>
+
+            <p className="mx-auto max-w-xl text-sm font-normal leading-relaxed text-slate-600 lg:mx-0 sm:text-base">
+              Have questions about training batches, fee structure, or hostel accommodation? Reach out to us today.
+            </p>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-display">
-            LET'S BUILD YOUR <span className="text-gradient-red animate-slide-up">FUTURE TOGETHER</span>
-          </h2>
-
-          <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
-            Have questions about training batches, fee structure, or hostel accommodation? Reach out to us today.
-          </p>
+          <div className="relative h-56 overflow-hidden rounded-2xl border border-sky-100 bg-sky-50 shadow-lg sm:h-72 lg:h-80">
+            <img
+              src={contactHeroImage}
+              alt="Students collaborating on a laptop in a bright learning space"
+              className="h-full w-full object-cover object-[62%_center] transition-transform duration-700 hover:scale-105"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-white/10 via-transparent to-sky-900/10" />
+          </div>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
@@ -130,8 +159,8 @@ export const ContactSection: React.FC = () => {
                   </div>
                   <div>
                     <h4 className="text-xs font-bold text-slate-900 font-display uppercase">Official Website</h4>
-                    <a href="https://www.palmplehamotechitsolutions.com" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-600 hover:text-[#E11D48] mt-1 block">
-                      www.palmplehamotechitsolutions.com
+                    <a href="https://www.hamotechitsolutions.com" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-600 hover:text-[#E11D48] mt-1 block">
+                      www.hamotechitsolutions.com
                     </a>
                   </div>
                 </div>
@@ -213,30 +242,47 @@ export const ContactSection: React.FC = () => {
                   )}
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* Name Field: Only Characters Allowed */}
                     <div>
-                      <label className="block text-xs font-semibold text-slate-700 mb-1">Your Name *</label>
+                      <div className="flex items-center justify-between mb-1">
+                        <label className="block text-xs font-bold text-slate-700">Your Name *</label>
+                        <span className="text-[10px] text-slate-400 font-medium">Letters only</span>
+                      </div>
                       <input
                         type="text"
                         name="name"
                         required
-                        placeholder="e.g. Anand Kumar"
+                        placeholder="e.g. Surya"
                         value={formData.name}
                         onChange={handleChange}
-                        className="w-full px-3.5 py-2.5 bg-rose-50/50 border border-rose-200 focus:bg-white rounded-xl text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#E11D48] focus:ring-2 focus:ring-rose-200 transition-all"
+                        className="w-full px-3.5 py-2.5 bg-rose-50/50 border border-rose-200 focus:bg-white rounded-xl text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#E11D48] focus:ring-2 focus:ring-rose-200 transition-all shadow-xs"
                       />
                     </div>
 
+                    {/* Phone Number Field: Only Numbers & Exactly 10 Digits */}
                     <div>
-                      <label className="block text-xs font-semibold text-slate-700 mb-1">Phone Number *</label>
-                      <input
-                        type="tel"
-                        name="phone"
-                        required
-                        placeholder="e.g. 9876543210"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        className="w-full px-3.5 py-2.5 bg-rose-50/50 border border-rose-200 focus:bg-white rounded-xl text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#E11D48] focus:ring-2 focus:ring-rose-200 transition-all"
-                      />
+                      <div className="flex items-center justify-between mb-1">
+                        <label className="block text-xs font-bold text-slate-700">Phone Number *</label>
+                        <span className={`text-[10px] font-mono font-bold ${formData.phone.length === 10 ? 'text-emerald-600' : 'text-slate-400'}`}>
+                          {formData.phone.length}/10 digits
+                        </span>
+                      </div>
+                      <div className="relative">
+                        <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-xs font-bold text-slate-400 font-mono">
+                          +91
+                        </span>
+                        <input
+                          type="tel"
+                          name="phone"
+                          required
+                          maxLength={10}
+                          inputMode="numeric"
+                          placeholder="9876543210"
+                          value={formData.phone}
+                          onChange={handleChange}
+                          className="w-full pl-12 pr-3.5 py-2.5 bg-rose-50/50 border border-rose-200 focus:bg-white rounded-xl text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#E11D48] focus:ring-2 focus:ring-rose-200 transition-all shadow-xs font-mono"
+                        />
+                      </div>
                     </div>
                   </div>
 
@@ -247,7 +293,7 @@ export const ContactSection: React.FC = () => {
                         type="email"
                         name="email"
                         required
-                        placeholder="e.g. anand@example.com"
+                        placeholder="e.g. surya@example.com"
                         value={formData.email}
                         onChange={handleChange}
                         className="w-full px-3.5 py-2.5 bg-rose-50/50 border border-rose-200 focus:bg-white rounded-xl text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#E11D48] focus:ring-2 focus:ring-rose-200 transition-all"

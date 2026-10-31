@@ -308,3 +308,82 @@
 .poster-glow-box {
   box-shadow: 0 20px 50px -10px rgba(225, 29, 72, 0.2), 0 0 0 1px rgba(244, 63, 94, 0.25);
 }
+
+/* ============================================================ */
+/* LIQUID TEXT EFFECT - VIBRANT RED FLUID WAVES                */
+/* ============================================================ */
+@keyframes liquidFlowWave {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes liquidGlowPulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 6px rgba(225, 29, 72, 0.4)) drop-shadow(0 0 12px rgba(244, 63, 94, 0.2));
+  }
+  50% {
+    filter: drop-shadow(0 0 12px rgba(225, 29, 72, 0.7)) drop-shadow(0 0 20px rgba(255, 46, 99, 0.35));
+  }
+}
+
+.liquid-text-red {
+  background: linear-gradient(
+    135deg,
+    #991B1B 0%,
+    #BE123C 18%,
+    #E11D48 35%,
+    #FF2E63 50%,
+    #FF758F 65%,
+    #E11D48 80%,
+    #BE123C 90%,
+    #881337 100%
+  );
+  background-size: 280% 280%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: liquidFlowWave 4.5s ease-in-out infinite, liquidGlowPulse 3s ease-in-out infinite;
+  display: inline-block;
+  position: relative;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.liquid-subtext-red {
+  background: linear-gradient(
+    90deg,
+    #B91C1C 0%,
+    #E11D48 25%,
+    #FF4D6D 50%,
+    #E11D48 75%,
+    #991B1B 100%
+  );
+  background-size: 240% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: liquidFlowWave 3.8s ease-in-out infinite;
+  display: inline-block;
+  font-weight: 800;
+  letter-spacing: 0.28em;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* On group hover over logo: liquid flows faster and intensifies */
+.group:hover .liquid-text-red {
+  animation-duration: 2s, 1.8s;
+  filter: drop-shadow(0 0 14px rgba(225, 29, 72, 0.85)) drop-shadow(0 0 24px rgba(255, 46, 99, 0.5));
+  transform: scale(1.02);
+}
+
+.group:hover .liquid-subtext-red {
+  animation-duration: 1.8s;
+  filter: drop-shadow(0 0 8px rgba(225, 29, 72, 0.6));
+  letter-spacing: 0.32em;
+}

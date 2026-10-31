@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Clock, BarChart, FolderGit2, ArrowRight, Sparkles, Code2, Terminal, Cpu, Cloud, Smartphone, Code, BarChart3, Layers, Palette, ShieldCheck } from 'lucide-react';
 import type { Course } from '../data/courses';
+import { AnimatedButton } from './ui/animated-button';
 
 interface CourseCardProps {
   course: Course;
@@ -101,13 +102,13 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course, onOpenModal }) =
           <ArrowRight className="w-3.5 h-3.5 text-[#E11D48]" />
         </Link>
 
-        <button
+        <AnimatedButton
           onClick={() => onOpenModal(course.title)}
           className="flex-1 py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#E11D48] to-[#BE123C] hover:from-[#BE123C] hover:to-[#9F1239] text-white font-bold text-xs text-center flex items-center justify-center space-x-1 shadow-md shadow-rose-500/25 transition-all transform hover:-translate-y-0.5 cursor-pointer"
         >
           <Sparkles className="w-3.5 h-3.5 text-amber-200" />
           <span>Enroll Now</span>
-        </button>
+        </AnimatedButton>
       </div>
     </motion.div>
   );

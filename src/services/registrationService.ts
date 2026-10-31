@@ -14,17 +14,91 @@ export interface LeadData {
   consent: boolean;
   createdAt?: string;
   status?: 'New' | 'Contacted' | 'Interested' | 'Registered' | 'Completed';
+  source?: 'registration' | 'contact';
 }
 
 const STORAGE_KEY = 'hamotech_leads_v1';
 
+export interface ContactMessageData {
+  name: string;
+  phone: string;
+  email: string;
+  course: string;
+  message?: string;
+}
+
+export const submitContactMessage = async (data: ContactMessageData): Promise<{ success: boolean; message: string; leadId: string }> => {
+  // Validate name
+  if (!data.name || data.name.trim().length < 2) {
+    throw new Error('Please enter your full name (minimum 2 letters).');
+  }
+  if (!/^[a-zA-Z\s]+$/.test(data.name.trim())) {
+    throw new Error('Name must contain only alphabetic characters and spaces.');
+  }
+
+  // Validate phone (10 digits starting with 6, 7, 8, or 9)
+  const cleanPhone = data.phone.replace(/[\s\-\(\)\+]/g, '');
+  const phoneRegex = /^(?:91)?[6789]\d{9}$/;
+  if (!phoneRegex.test(cleanPhone)) {
+    throw new Error('Please enter a valid 10-digit Indian phone number starting with 6, 7, 8, or 9.');
+  }
+
+  // Validate email
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!data.email || !emailRegex.test(data.email)) {
+    throw new Error('Please enter a valid email address.');
+  }
+
+  await new Promise(resolve => setTimeout(resolve, 600));
+
+  const standardPhone = cleanPhone.startsWith('91') && cleanPhone.length === 12 ? cleanPhone.slice(2) : cleanPhone;
+
+  const newLead: LeadData = {
+    id: 'HT-MSG-' + Date.now().toString(36).toUpperCase(),
+    name: data.name.trim(),
+    phone: standardPhone,
+    email: data.email.trim(),
+    qualification: 'Contact Enquiry',
+    college: 'Website Contact Page',
+    course: data.course || 'General Enquiry',
+    mode: 'Online',
+    experience: 'Beginner',
+    batch: 'Morning',
+    interest: 'Training',
+    message: data.message || '',
+    consent: true,
+    createdAt: new Date().toISOString(),
+    status: 'New',
+    source: 'contact'
+  };
+
+  try {
+    const existingLeads: LeadData[] = getStoredLeads();
+    existingLeads.unshift(newLead);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(existingLeads));
+    window.dispatchEvent(new Event('hamotech_leads_updated'));
+  } catch (err) {
+    console.warn('LocalStorage save failed:', err);
+  }
+
+  return {
+    success: true,
+    message: 'Message sent successfully! Our counselor will contact you soon.',
+    leadId: newLead.id!
+  };
+};
+
 export const submitRegistration = async (data: LeadData): Promise<{ success: boolean; message: string; leadId: string }> => {
   // Validate basic fields
   if (!data.name || data.name.trim().length < 2) {
-    throw new Error('Please enter a valid full name.');
+    throw new Error('Please enter a valid full name (at least 2 letters).');
   }
 
-  // Indian phone validation (10 digits, option to include country code +91)
+  if (!/^[a-zA-Z\s]+$/.test(data.name.trim())) {
+    throw new Error('Full name must contain only alphabetic characters and spaces.');
+  }
+
+  // Indian phone validation (strictly 10 digits, option to include country code +91)
   const cleanPhone = data.phone.replace(/[\s\-\(\)\+]/g, '');
   const phoneRegex = /^(?:91)?[6789]\d{9}$/;
   if (!phoneRegex.test(cleanPhone)) {
@@ -52,13 +126,15 @@ export const submitRegistration = async (data: LeadData): Promise<{ success: boo
     ...data,
     id: 'HT-' + Date.now().toString(36).toUpperCase(),
     createdAt: new Date().toISOString(),
-    status: 'New'
+    status: 'New',
+    source: 'registration'
   };
 
   try {
-    const existingLeads: LeadData[] = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    const existingLeads: LeadData[] = getStoredLeads();
     existingLeads.unshift(newLead);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(existingLeads));
+    window.dispatchEvent(new Event('hamotech_leads_updated'));
   } catch (err) {
     console.warn('LocalStorage save failed:', err);
   }
