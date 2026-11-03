@@ -8,7 +8,7 @@ interface InternshipsProps {
 
 export const Internships: React.FC<InternshipsProps> = ({ onOpenModal }) => {
   return (
-    <div className="pt-16 space-y-0">
+    <div className="pt-20 sm:pt-24 space-y-0 min-h-screen">
       <InternshipSection onOpenModal={onOpenModal} />
       <ProjectsSection onOpenModal={onOpenModal} />
     </div>

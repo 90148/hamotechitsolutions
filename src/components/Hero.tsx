@@ -72,16 +72,16 @@ export const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
           {/* Left Hero Column */}
-          <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
+          <div className="lg:col-span-7 space-y-5 sm:space-y-6 text-center lg:text-left">
             
             {/* Top Announcement Badge with ASCII Glitch Ripple */}
             <motion.div
               initial={{ opacity: 0, y: -16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/95 border border-rose-300 text-slate-700 text-xs font-semibold shadow-sm backdrop-blur-md hover:scale-105 transition-transform"
+              className="inline-flex items-center space-x-1.5 sm:space-x-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-white/95 border border-rose-300 text-slate-700 text-[10px] sm:text-xs font-semibold shadow-sm backdrop-blur-md hover:scale-105 transition-transform max-w-full flex-wrap justify-center text-center"
             >
-              <span className="w-2.5 h-2.5 rounded-full bg-[#E11D48] animate-ping" />
+              <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#E11D48] animate-ping shrink-0" />
               <AsciiGlitchText text="LIMITED SEATS AVAILABLE" className="text-[#BE123C] font-extrabold" />
               <span className="text-slate-400">•</span>
               <span className="text-slate-600 font-medium">ADMISSIONS OPEN FOR NEW BATCH</span>
@@ -92,9 +92,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="space-y-3"
+              className="space-y-2.5 sm:space-y-3"
             >
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.04] font-display tracking-tight">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.12] sm:leading-[1.04] font-display tracking-tight break-words">
                 BUILD YOUR FUTURE AS A <br />
                 <FlipText 
                   words={[
@@ -105,17 +105,17 @@ export const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
                     "SOFTWARE ARCHITECT"
                   ]} 
                   variant="flip-fade" 
-                  className="text-rose-600 font-extrabold tracking-wide drop-shadow-sm"
+                  className="text-rose-600 font-extrabold tracking-wide drop-shadow-sm text-2xl sm:text-4xl md:text-5xl lg:text-6xl"
                   interval={2800}
                 />
               </h1>
               
-              <div className="flex items-center justify-center lg:justify-start space-x-2 pt-1">
-                <p className="text-xl sm:text-2xl font-black text-shimmer tracking-wide font-display">
+              <div className="flex items-center justify-center lg:justify-start space-x-2 pt-1 flex-wrap gap-y-1">
+                <p className="text-lg sm:text-2xl font-black text-shimmer tracking-wide font-display">
                   YOUR FUTURE STARTS HERE! ✨
                 </p>
-                <span className="hidden sm:inline-block">
-                  <AsciiGlitchText text="[#HAMOTECH_CAREER]" className="text-[11px] font-mono text-rose-600 font-bold bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200" />
+                <span className="inline-block">
+                  <AsciiGlitchText text="[#HAMOTECH_CAREER]" className="text-[10px] sm:text-[11px] font-mono text-rose-600 font-bold bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200" />
                 </span>
               </div>
             </motion.div>
@@ -127,10 +127,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
               transition={{ duration: 0.65, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
               className="space-y-2 max-w-2xl mx-auto lg:mx-0"
             >
-              <div className="flex items-start space-x-2.5 p-3 rounded-2xl bg-white/80 border border-rose-200/80 shadow-xs backdrop-blur-sm text-left">
+              <div className="flex items-start space-x-2.5 p-2.5 sm:p-3 rounded-2xl bg-white/80 border border-rose-200/80 shadow-xs backdrop-blur-sm text-left">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#E11D48] mt-1.5 shrink-0 animate-pulse" />
                 <div className="w-full overflow-hidden">
-                  <p className="text-[11px] font-bold uppercase tracking-wider text-rose-600 mb-0.5">Dynamic Training Pipeline</p>
+                  <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-rose-600 mb-0.5">Dynamic Training Pipeline</p>
                   <MorphText
                     texts={[
                       "World-Class IT Training With 100% Practical Labs",
@@ -138,7 +138,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
                       "1-on-1 Mock Technical & HR Interviews With Senior Developers",
                       "Guaranteed Placement Guidance Across 1200+ IT Hiring Partners"
                     ]}
-                    className="text-sm sm:text-base font-bold text-slate-800"
+                    className="text-xs sm:text-base font-bold text-slate-800"
                     interval={3400}
                   />
                 </div>
@@ -190,13 +190,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
           </div>
 
           {/* Right Hero Visual Column: Interactive Code IDE Card with Rich Hover Effects */}
-          <div className="lg:col-span-5 relative flex justify-center lg:justify-end">
+          <div className="lg:col-span-5 relative flex justify-center lg:justify-end w-full px-2 sm:px-0">
             
             {/* Outer Circular Glow Container */}
-            <div className="relative w-full max-w-md aspect-square">
+            <div className="relative w-full max-w-md min-h-[440px] sm:min-h-0 sm:aspect-square">
               
-              {/* Rotating Circular Brand Badge */}
-              <div className="absolute -top-6 -left-6 z-20 w-28 h-28 rounded-full bg-white border-2 border-rose-300 p-2 shadow-2xl shadow-rose-500/20 flex items-center justify-center glow-pink">
+              {/* Rotating Circular Brand Badge - Scaled for mobile */}
+              <div className="absolute -top-4 -left-2 sm:-top-6 sm:-left-6 z-20 w-20 h-20 sm:w-28 sm:h-28 rounded-full bg-white border-2 border-rose-300 p-1 sm:p-2 shadow-2xl shadow-rose-500/20 flex items-center justify-center glow-pink">
                 <div className="relative w-full h-full flex items-center justify-center">
                   <svg className="w-full h-full animate-spin-slow" viewBox="0 0 100 100">
                     <path
@@ -213,7 +213,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
                   <img
                     src={logoImage}
                     alt="HamoTech logo"
-                    className="w-12 h-12 rounded-full object-cover absolute inset-0 m-auto shadow-sm"
+                    className="w-8 h-8 sm:w-12 sm:h-12 rounded-full object-cover absolute inset-0 m-auto shadow-sm"
                   />
                 </div>
               </div>
@@ -223,7 +223,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.7 }}
-                className="w-full h-full rounded-3xl bg-white/75 border border-rose-200/90 p-6 glass-card shadow-2xl shadow-rose-900/10 flex flex-col justify-between relative overflow-hidden group hover:border-rose-400 transition-all duration-300 backdrop-blur-md"
+                className="w-full h-full rounded-3xl bg-white/85 border border-rose-200/90 p-4 sm:p-6 glass-card shadow-2xl shadow-rose-900/10 flex flex-col justify-between relative overflow-hidden group hover:border-rose-400 transition-all duration-300 backdrop-blur-md"
               >
                 {/* Student image backdrop keeps the code panel visually connected to the career journey. */}
                 <div className="pointer-events-none absolute inset-y-0 right-0 z-0 w-[58%] overflow-hidden">
@@ -238,23 +238,23 @@ export const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
                 </div>
 
                 {/* Decorative Code Graphic Header & Interactive Tabs */}
-                <div className="relative z-10 border-b border-rose-100/80 pb-3">
-                  <div className="flex items-center justify-between mb-2.5">
+                <div className="relative z-10 border-b border-rose-100/80 pb-2.5 sm:pb-3">
+                  <div className="flex items-center justify-between mb-2">
                     {/* Window Controls */}
-                    <div className="flex items-center space-x-2">
-                      <span className="w-3 h-3 rounded-full bg-rose-500 hover:opacity-80 transition-opacity cursor-pointer" />
-                      <span className="w-3 h-3 rounded-full bg-amber-400 hover:opacity-80 transition-opacity cursor-pointer" />
-                      <span className="w-3 h-3 rounded-full bg-emerald-500 hover:opacity-80 transition-opacity cursor-pointer" />
-                      <span className="text-xs font-mono text-slate-500 ml-2 font-semibold flex items-center space-x-1">
-                        <Terminal className="w-3 h-3 text-rose-500" />
-                        <span>{codeSnippets[activeTab].filename}</span>
+                    <div className="flex items-center space-x-1.5 sm:space-x-2">
+                      <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-rose-500 hover:opacity-80 transition-opacity cursor-pointer" />
+                      <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-amber-400 hover:opacity-80 transition-opacity cursor-pointer" />
+                      <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-500 hover:opacity-80 transition-opacity cursor-pointer" />
+                      <span className="text-[11px] sm:text-xs font-mono text-slate-500 ml-1.5 sm:ml-2 font-semibold flex items-center space-x-1 truncate max-w-[140px] sm:max-w-none">
+                        <Terminal className="w-3 h-3 text-rose-500 shrink-0" />
+                        <span className="truncate">{codeSnippets[activeTab].filename}</span>
                       </span>
                     </div>
 
                     {/* Copy Code Button with Hover Effect */}
                     <button
                       onClick={handleCopyCode}
-                      className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-md bg-rose-50 hover:bg-rose-100 text-rose-600 hover:text-rose-700 text-[11px] font-bold font-mono transition-all border border-rose-200 shadow-xs active:scale-95 cursor-pointer"
+                      className="inline-flex items-center space-x-1 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md bg-rose-50 hover:bg-rose-100 text-rose-600 hover:text-rose-700 text-[10px] sm:text-[11px] font-bold font-mono transition-all border border-rose-200 shadow-xs active:scale-95 cursor-pointer"
                       title="Copy code to clipboard"
                     >
                       {copied ? (
@@ -272,16 +272,16 @@ export const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
                   </div>
 
                   {/* Interactive Tech Tabs */}
-                  <div className="flex items-center space-x-1.5 pt-1">
+                  <div className="flex items-center space-x-1 sm:space-x-1.5 pt-1">
                     {[
                       { key: 'ts', label: 'TypeScript' },
                       { key: 'py', label: 'Python AI' },
-                      { key: 'devops', label: 'Cloud & DevOps' }
+                      { key: 'devops', label: 'DevOps' }
                     ].map(tab => (
                       <button
                         key={tab.key}
                         onClick={() => setActiveTab(tab.key as any)}
-                        className={`px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold transition-all cursor-pointer ${
+                        className={`px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg text-[9px] sm:text-[10px] font-mono font-bold transition-all cursor-pointer ${
                           activeTab === tab.key
                             ? 'bg-rose-600 text-white shadow-xs'
                             : 'bg-slate-100/80 text-slate-600 hover:bg-rose-50 hover:text-rose-600'
@@ -294,48 +294,48 @@ export const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
                 </div>
 
                 {/* Simulated Interactive Code with Line Hover Highlights & Micro Badges */}
-                <div className="relative z-10 py-4 space-y-1 font-mono text-xs overflow-hidden">
+                <div className="relative z-10 py-3 sm:py-4 space-y-1 font-mono text-[11px] sm:text-xs overflow-hidden">
                   {codeSnippets[activeTab].lines.map((line, idx) => (
                     <div
                       key={idx}
                       className="code-line-interactive group/line flex items-center justify-between text-slate-700 hover:text-slate-950"
                     >
-                      <div className="flex items-center space-x-2.5">
-                        <span className="code-line-num text-slate-400 text-[10px] font-mono select-none w-4 text-right">
+                      <div className="flex items-center space-x-2 sm:space-x-2.5 min-w-0">
+                        <span className="code-line-num text-slate-400 text-[9px] sm:text-[10px] font-mono select-none w-3.5 sm:w-4 text-right shrink-0">
                           {line.num}
                         </span>
-                        <span className="code-token-highlight text-xs font-medium">
+                        <span className="code-token-highlight text-[11px] sm:text-xs font-medium truncate">
                           {line.text}
                         </span>
                       </div>
                       
                       {/* Interactive comment tooltip on hover */}
-                      <span className="hidden group-hover/line:inline-flex text-[10px] text-[#BE123C] font-semibold bg-rose-50 px-2 py-0.5 rounded border border-rose-200 animate-fade-in shrink-0 ml-2">
+                      <span className="hidden sm:group-hover/line:inline-flex text-[10px] text-[#BE123C] font-semibold bg-rose-50 px-2 py-0.5 rounded border border-rose-200 animate-fade-in shrink-0 ml-2">
                         {line.comment}
                       </span>
                     </div>
                   ))}
                   
                   {/* Blinking cursor effect */}
-                  <div className="flex items-center space-x-2 pt-1 pl-6 text-rose-500 font-bold">
-                    <span className="w-2 h-4 bg-rose-500 animate-pulse" />
-                    <span className="text-[10px] text-slate-400 font-mono italic">hover lines to inspect pipeline</span>
+                  <div className="flex items-center space-x-2 pt-1 pl-4 sm:pl-6 text-rose-500 font-bold">
+                    <span className="w-1.5 sm:w-2 h-3.5 sm:h-4 bg-rose-500 animate-pulse" />
+                    <span className="text-[9px] sm:text-[10px] text-slate-400 font-mono italic">hover lines to inspect pipeline</span>
                   </div>
                 </div>
 
                 {/* Mini Tech Floating Icons with Interactive Code Badge Hover Effects */}
-                <div className="relative z-10 grid grid-cols-3 gap-2.5 pt-3 border-t border-rose-100/80">
-                  <div className="code-badge-interactive flex items-center space-x-2 p-2 rounded-xl bg-rose-50/70 border border-rose-100 cursor-pointer">
-                    <Code className="w-4 h-4 text-[#E11D48] shrink-0" />
-                    <span className="text-[11px] font-bold text-slate-700">Clean Code</span>
+                <div className="relative z-10 grid grid-cols-3 gap-1.5 sm:gap-2.5 pt-2.5 sm:pt-3 border-t border-rose-100/80">
+                  <div className="code-badge-interactive flex items-center space-x-1.5 p-1.5 sm:p-2 rounded-xl bg-rose-50/70 border border-rose-100 cursor-pointer justify-center sm:justify-start">
+                    <Code className="w-3.5 h-3.5 text-[#E11D48] shrink-0" />
+                    <span className="text-[10px] sm:text-[11px] font-bold text-slate-700 truncate">Clean Code</span>
                   </div>
-                  <div className="code-badge-interactive flex items-center space-x-2 p-2 rounded-xl bg-amber-50/70 border border-amber-100 cursor-pointer">
-                    <Cpu className="w-4 h-4 text-[#D97706] shrink-0" />
-                    <span className="text-[11px] font-bold text-slate-700">AI / Cloud</span>
+                  <div className="code-badge-interactive flex items-center space-x-1.5 p-1.5 sm:p-2 rounded-xl bg-amber-50/70 border border-amber-100 cursor-pointer justify-center sm:justify-start">
+                    <Cpu className="w-3.5 h-3.5 text-[#D97706] shrink-0" />
+                    <span className="text-[10px] sm:text-[11px] font-bold text-slate-700 truncate">AI / Cloud</span>
                   </div>
-                  <div className="code-badge-interactive flex items-center space-x-2 p-2 rounded-xl bg-sky-50/70 border border-sky-100 cursor-pointer">
-                    <ShieldCheck className="w-4 h-4 text-[#0284C7] shrink-0" />
-                    <span className="text-[11px] font-bold text-slate-700">100% Support</span>
+                  <div className="code-badge-interactive flex items-center space-x-1.5 p-1.5 sm:p-2 rounded-xl bg-sky-50/70 border border-sky-100 cursor-pointer justify-center sm:justify-start">
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#0284C7] shrink-0" />
+                    <span className="text-[10px] sm:text-[11px] font-bold text-slate-700 truncate">Support</span>
                   </div>
                 </div>
 
@@ -380,7 +380,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
               </div>
 
               {/* Statistics Cards Grid */}
-              <div className="grid grid-cols-2 gap-3.5 sm:gap-4">
+              <div className="grid grid-cols-2 gap-2.5 sm:gap-4">
                 {[
                   { label: 'Students Trained', count: 500, suffix: '+', color: 'text-[#E11D48]', bg: 'hover:border-rose-300' },
                   { label: 'Industry Projects', count: 50, suffix: '+', color: 'text-[#D97706]', bg: 'hover:border-amber-300' },
@@ -393,12 +393,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: idx * 0.1 }}
-                    className={`p-4 sm:p-5 rounded-2xl bg-white border border-rose-100 shadow-sm hover:shadow-md ${stat.bg} transition-all duration-300 group`}
+                    className={`p-3 sm:p-5 rounded-2xl bg-white border border-rose-100 shadow-sm hover:shadow-md ${stat.bg} transition-all duration-300 group`}
                   >
-                    <div className={`text-2xl sm:text-3xl lg:text-4xl ${stat.color} font-black font-display mb-1 group-hover:scale-105 transition-transform duration-200`}>
+                    <div className={`text-xl sm:text-3xl lg:text-4xl ${stat.color} font-black font-display mb-1 group-hover:scale-105 transition-transform duration-200`}>
                       <AnimatedCounter end={stat.count} suffix={stat.suffix} />
                     </div>
-                    <p className="text-xs font-bold text-slate-600 uppercase tracking-wider">
+                    <p className="text-[10px] sm:text-xs font-bold text-slate-600 uppercase tracking-wider">
                       {stat.label}
                     </p>
                   </motion.div>
@@ -406,25 +406,25 @@ export const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
               </div>
 
               {/* Bottom Quick Feature Highlights & CTA */}
-              <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-rose-100/90">
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-semibold text-slate-600">
+              <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 border-t border-rose-100/90">
+                <div className="flex flex-wrap items-center gap-x-3 sm:gap-x-4 gap-y-1.5 text-[11px] sm:text-xs font-semibold text-slate-600">
                   <div className="flex items-center space-x-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>Mock Technical Interviews</span>
+                    <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600 shrink-0" />
+                    <span>Mock Interviews</span>
                   </div>
                   <div className="flex items-center space-x-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>Dedicated Placement Cell</span>
+                    <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600 shrink-0" />
+                    <span>Dedicated Cell</span>
                   </div>
                   <div className="flex items-center space-x-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>ATS Resume Building</span>
+                    <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600 shrink-0" />
+                    <span>ATS Resumes</span>
                   </div>
                 </div>
 
                 <button
                   onClick={onOpenModal}
-                  className="self-start sm:self-auto px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#E11D48] to-[#BE123C] hover:opacity-95 text-white text-xs font-extrabold tracking-wider shadow-md hover:shadow-rose-500/20 transition-all flex items-center space-x-2 shrink-0 transform hover:-translate-y-0.5"
+                  className="w-full sm:w-auto px-5 py-3 sm:py-2.5 rounded-xl bg-gradient-to-r from-[#E11D48] to-[#BE123C] hover:opacity-95 text-white text-xs font-extrabold tracking-wider shadow-md hover:shadow-rose-500/20 transition-all flex items-center justify-center space-x-2 shrink-0 transform hover:-translate-y-0.5 active:scale-95"
                 >
                   <span>JOIN NEXT BATCH</span>
                   <ArrowRight className="w-3.5 h-3.5" />

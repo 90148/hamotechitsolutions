@@ -14,10 +14,10 @@ export const Footer: React.FC = () => {
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-300/15 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 pb-8 border-b border-rose-200/70">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8 pb-8 border-b border-rose-200/70">
           
           {/* Column 1: Brand Info */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className="sm:col-span-2 lg:col-span-2 space-y-3.5 sm:space-y-4">
             <Link to="/" className="flex items-center space-x-3 group inline-flex">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#E11D48] via-[#F43F5E] to-[#F59E0B] p-[1.5px] shadow-md shadow-rose-500/20">
                 <div className="w-full h-full bg-white rounded-[10px] flex items-center justify-center p-0.5">
@@ -38,7 +38,7 @@ export const Footer: React.FC = () => {
               </div>
             </Link>
 
-            <p className="text-xs tracking-[0.2em] font-semibold text-[#BE123C] uppercase">
+            <p className="text-[11px] sm:text-xs tracking-[0.18em] sm:tracking-[0.2em] font-semibold text-[#BE123C] uppercase">
               TRAIN • LEARN • GROW • SUCCEED
             </p>
 
@@ -47,7 +47,7 @@ export const Footer: React.FC = () => {
             </p>
 
             {/* Social Media Icons */}
-            <div className="pt-2 flex items-center gap-3">
+            <div className="pt-1 sm:pt-2 flex items-center gap-2.5 sm:gap-3 flex-wrap">
               <a
                 href="https://wa.me/919884166198"
                 target="_blank"

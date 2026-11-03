@@ -124,7 +124,9 @@ export const WhyChooseUs: React.FC = () => {
   const isPausedRef = useRef(false);
   const isDraggingRef = useRef(false);
   const dragStartX = useRef(0);
+  const dragStartY = useRef(0);
   const dragStartRotation = useRef(0);
+  const isHorizontalGesture = useRef<boolean | null>(null);
 
   // Sync refs with state
   isPausedRef.current = isPaused;
@@ -134,8 +136,10 @@ export const WhyChooseUs: React.FC = () => {
   const updateRadius = useCallback(() => {
     if (typeof window === 'undefined') return;
     const width = window.innerWidth;
-    if (width < 640) {
-      setRadius(230); // Mobile
+    if (width < 380) {
+      setRadius(180); // Small mobile (iPhone SE, Galaxy S)
+    } else if (width < 640) {
+      setRadius(215); // Standard mobile
     } else if (width < 1024) {
       setRadius(290); // Tablet
     } else {
@@ -222,7 +226,7 @@ export const WhyChooseUs: React.FC = () => {
   const handlePointerMove = (clientX: number) => {
     if (!isDraggingRef.current) return;
     const deltaX = clientX - dragStartX.current;
-    // Drag sensitivity: 1px = ~0.3 degrees of rotation
+    // Drag sensitivity: 1px = ~0.35 degrees of rotation
     const newRotation = dragStartRotation.current + deltaX * 0.35;
     applyRotation(newRotation);
   };
@@ -230,6 +234,40 @@ export const WhyChooseUs: React.FC = () => {
   const handlePointerUp = () => {
     setIsDragging(false);
     isDraggingRef.current = false;
+  };
+
+  // Touch handlers that preserve native vertical scroll
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    dragStartX.current = touch.clientX;
+    dragStartY.current = touch.clientY;
+    dragStartRotation.current = rotationRef.current;
+    isHorizontalGesture.current = null;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    const deltaX = touch.clientX - dragStartX.current;
+    const deltaY = touch.clientY - dragStartY.current;
+
+    if (isHorizontalGesture.current === null) {
+      if (Math.abs(deltaX) > 7 || Math.abs(deltaY) > 7) {
+        isHorizontalGesture.current = Math.abs(deltaX) > Math.abs(deltaY);
+      }
+    }
+
+    if (isHorizontalGesture.current === true) {
+      setIsDragging(true);
+      isDraggingRef.current = true;
+      const newRotation = dragStartRotation.current + deltaX * 0.4;
+      applyRotation(newRotation);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+    isDraggingRef.current = false;
+    isHorizontalGesture.current = null;
   };
 
   return (
@@ -254,16 +292,16 @@ export const WhyChooseUs: React.FC = () => {
           transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
           className="text-center max-w-3xl mx-auto space-y-3 mb-6 sm:mb-8"
         >
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white border border-rose-300 text-[#D97706] text-xs font-bold uppercase tracking-wider shadow-sm hover:scale-105 transition-transform">
+          <div className="inline-flex items-center space-x-1.5 sm:space-x-2 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-white border border-rose-300 text-[#D97706] text-[10px] sm:text-xs font-bold uppercase tracking-wider shadow-sm hover:scale-105 transition-transform">
             <ShieldCheck className="w-3.5 h-3.5 text-[#E11D48] animate-pulse" />
             <span>THE HAMOTECH ADVANTAGE • 3D CYLINDER SHOWCASE</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-display">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-display">
             WHY CHOOSE <span className="text-gradient-red animate-slide-up">HAMOTECH?</span>
           </h2>
 
-          <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+          <p className="text-xs sm:text-base text-slate-600 leading-relaxed font-normal">
             Continuous 3D revolving view of our core strengths. Hover over any card to pause and explore, or drag to rotate freely.
           </p>
         </motion.div>
@@ -272,7 +310,7 @@ export const WhyChooseUs: React.FC = () => {
         {/* 3D CYLINDER CAROUSEL VIEWPORT                                */}
         {/* ============================================================ */}
         <div 
-          className="relative w-full h-[490px] sm:h-[530px] flex items-center justify-center cursor-grab active:cursor-grabbing"
+          className="relative w-full h-[470px] sm:h-[530px] flex items-center justify-center cursor-grab active:cursor-grabbing overflow-hidden"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => {
             if (!isDragging) setIsPaused(false);
@@ -280,9 +318,9 @@ export const WhyChooseUs: React.FC = () => {
           onMouseDown={(e) => handlePointerDown(e.clientX)}
           onMouseMove={(e) => handlePointerMove(e.clientX)}
           onMouseUp={handlePointerUp}
-          onTouchStart={(e) => handlePointerDown(e.touches[0].clientX)}
-          onTouchMove={(e) => handlePointerMove(e.touches[0].clientX)}
-          onTouchEnd={handlePointerUp}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
         >
           {/* 3D Scene Perspective Box */}
           <div 
@@ -295,7 +333,7 @@ export const WhyChooseUs: React.FC = () => {
             {/* The Revolving Cylinder Ring */}
             <div
               ref={cylinderRef}
-              className="relative w-[280px] sm:w-[320px] md:w-[330px] h-[380px] sm:h-[400px]"
+              className="relative w-[260px] xs:w-[280px] sm:w-[320px] md:w-[330px] h-[370px] sm:h-[400px]"
               style={{
                 transformStyle: 'preserve-3d',
                 transform: `rotateY(${rotation}deg)`,
@@ -310,7 +348,7 @@ export const WhyChooseUs: React.FC = () => {
                   <div
                     key={item.id}
                     onClick={() => rotateToIndex(idx)}
-                    className="absolute inset-0 rounded-3xl p-5 sm:p-6 bg-white/95 backdrop-blur-md border-2 shadow-2xl transition-all duration-300 flex flex-col justify-between group cursor-pointer"
+                    className="absolute inset-0 rounded-3xl p-4 sm:p-6 bg-white/95 backdrop-blur-md border-2 shadow-2xl transition-all duration-300 flex flex-col justify-between group cursor-pointer"
                     style={{
                       transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
                       transformStyle: 'preserve-3d',
@@ -324,9 +362,9 @@ export const WhyChooseUs: React.FC = () => {
                     {/* Card Inner Content */}
                     <div>
                       {/* Top Header */}
-                      <div className="flex items-center justify-between mb-4">
-                        <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${item.gradient} border ${item.borderColor} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform`}>
-                          <item.icon className={`w-6 h-6 ${item.iconColor}`} />
+                      <div className="flex items-center justify-between mb-3 sm:mb-4">
+                        <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-br ${item.gradient} border ${item.borderColor} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform`}>
+                          <item.icon className={`w-5 h-5 sm:w-6 sm:h-6 ${item.iconColor}`} />
                         </div>
 
                         <div className="flex items-center space-x-1.5">
@@ -340,22 +378,22 @@ export const WhyChooseUs: React.FC = () => {
                       </div>
 
                       {/* Badge & Title */}
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-rose-600 block mb-1">
+                      <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-rose-600 block mb-0.5 sm:mb-1">
                         {item.badge}
                       </span>
 
-                      <h3 className="text-lg sm:text-xl font-black text-slate-900 font-display mb-2 group-hover:text-[#E11D48] transition-colors leading-snug">
+                      <h3 className="text-base sm:text-xl font-black text-slate-900 font-display mb-1.5 sm:mb-2 group-hover:text-[#E11D48] transition-colors leading-snug">
                         {item.title}
                       </h3>
 
-                      <p className="text-xs text-slate-600 leading-relaxed font-normal mb-4 line-clamp-3">
+                      <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed font-normal mb-3 sm:mb-4 line-clamp-3">
                         {item.desc}
                       </p>
 
                       {/* Key points checklist */}
-                      <div className="space-y-1.5 pt-1">
+                      <div className="space-y-1 sm:space-y-1.5 pt-0.5">
                         {item.keyPoints.map((pt, pIdx) => (
-                          <div key={pIdx} className="flex items-center space-x-2 text-[11px] text-slate-700 font-medium">
+                          <div key={pIdx} className="flex items-center space-x-2 text-[10px] sm:text-[11px] text-slate-700 font-medium">
                             <div className="w-3.5 h-3.5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
                               <Check className="w-2 h-2 stroke-[3]" />
                             </div>
@@ -366,10 +404,10 @@ export const WhyChooseUs: React.FC = () => {
                     </div>
 
                     {/* Card Footer */}
-                    <div className="pt-3 border-t border-rose-100 flex items-center justify-between mt-2">
-                      <span className="inline-flex items-center space-x-1 text-[10px] font-bold text-slate-700 bg-rose-50/70 px-2.5 py-1 rounded-lg border border-rose-100">
+                    <div className="pt-2.5 sm:pt-3 border-t border-rose-100 flex items-center justify-between mt-1 sm:mt-2">
+                      <span className="inline-flex items-center space-x-1 text-[9px] sm:text-[10px] font-bold text-slate-700 bg-rose-50/70 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg border border-rose-100">
                         <Sparkles className="w-3 h-3 text-amber-500" />
-                        <span>{item.highlight}</span>
+                        <span className="truncate max-w-[140px] sm:max-w-none">{item.highlight}</span>
                       </span>
 
                       <span className="text-[10px] font-semibold text-rose-600 group-hover:underline">

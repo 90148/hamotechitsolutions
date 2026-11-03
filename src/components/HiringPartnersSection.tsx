@@ -373,7 +373,7 @@ export const HiringPartnersSection: React.FC<HiringPartnersSectionProps> = ({ on
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-display tracking-tight"
+            className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-display tracking-tight"
           >
             TOP TECH MNCS &amp; STARTUPS <span className="text-gradient-red">RECRUIT OUR TALENT</span>
           </motion.h2>
@@ -383,7 +383,7 @@ export const HiringPartnersSection: React.FC<HiringPartnersSectionProps> = ({ on
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-sm sm:text-base text-slate-600 leading-relaxed"
+            className="text-xs sm:text-base text-slate-600 leading-relaxed font-normal"
           >
             Over <span className="font-extrabold text-slate-800">1200+ technology enterprises</span>, IT conglomerates, and high-growth product companies trust HamoTech graduates for their strong foundations, live project experience, and job-ready problem-solving abilities.
           </motion.p>
@@ -394,19 +394,19 @@ export const HiringPartnersSection: React.FC<HiringPartnersSectionProps> = ({ on
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="pt-2 flex flex-wrap items-center justify-center gap-3 text-xs font-bold text-slate-700"
+            className="pt-2 flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-[11px] sm:text-xs font-bold text-slate-700"
           >
-            <span className="px-3.5 py-1.5 rounded-xl bg-white border border-rose-200 shadow-xs flex items-center space-x-1.5">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-              <span>1200+ Recruitment Partners</span>
+            <span className="px-3 sm:px-3.5 py-1.5 rounded-xl bg-white border border-rose-200 shadow-xs flex items-center space-x-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600 shrink-0" />
+              <span>1200+ Partners</span>
             </span>
-            <span className="px-3.5 py-1.5 rounded-xl bg-white border border-rose-200 shadow-xs flex items-center space-x-1.5">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-              <span>Direct Campus &amp; Off-Campus Drives</span>
+            <span className="px-3 sm:px-3.5 py-1.5 rounded-xl bg-white border border-rose-200 shadow-xs flex items-center space-x-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600 shrink-0" />
+              <span>Direct Drives</span>
             </span>
-            <span className="px-3.5 py-1.5 rounded-xl bg-white border border-rose-200 shadow-xs flex items-center space-x-1.5">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-              <span>Zero-Cost Placement Support</span>
+            <span className="px-3 sm:px-3.5 py-1.5 rounded-xl bg-white border border-rose-200 shadow-xs flex items-center space-x-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600 shrink-0" />
+              <span>Zero-Cost Support</span>
             </span>
           </motion.div>
 

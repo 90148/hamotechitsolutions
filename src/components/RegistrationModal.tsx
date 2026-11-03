@@ -204,16 +204,16 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
                   <div className="grid grid-cols-1 lg:grid-cols-12">
                     
                     {/* LEFT COLUMN: Registration Form */}
-                    <div className="lg:col-span-7 p-6 sm:p-8 space-y-5">
+                    <div className="lg:col-span-7 p-4 sm:p-8 space-y-4 sm:space-y-5">
                       
                       {/* Form Header */}
-                      <div className="space-y-2">
-                        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-rose-50 border border-rose-200 text-[#BE123C] text-xs font-bold uppercase tracking-wider shadow-xs">
+                      <div className="space-y-1.5 sm:space-y-2">
+                        <div className="inline-flex items-center space-x-1.5 sm:space-x-2 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-rose-50 border border-rose-200 text-[#BE123C] text-[10px] sm:text-xs font-bold uppercase tracking-wider shadow-xs">
                           <Sparkles className="w-3.5 h-3.5 text-[#E11D48] animate-pulse" />
                           <span>Admissions Open • Limited Seats</span>
                         </div>
 
-                        <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-display leading-tight">
+                        <h2 className="text-xl sm:text-3xl font-black text-slate-900 font-display leading-tight">
                           Fill the Form Now! <span className="text-[#E11D48]">Grab Your 30% Discount</span>
                         </h2>
 
@@ -414,19 +414,19 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
                     </div>
 
                     {/* RIGHT COLUMN: HamoTech Official Poster Feature Card */}
-                    <div className="lg:col-span-5 bg-gradient-to-b from-rose-50/70 via-pink-50/50 to-amber-50/40 p-6 sm:p-7 border-t lg:border-t-0 lg:border-l border-rose-100 flex flex-col justify-between items-center relative">
+                    <div className="lg:col-span-5 bg-gradient-to-b from-rose-50/70 via-pink-50/50 to-amber-50/40 p-4 sm:p-7 border-t lg:border-t-0 lg:border-l border-rose-100 flex flex-col justify-between items-center relative">
                       
                       {/* Top Poster Badge */}
                       <div className="w-full flex items-center justify-between mb-3">
-                        <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#BE123C] bg-white px-3 py-1 rounded-full border border-rose-200 shadow-xs flex items-center space-x-1.5">
+                        <span className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-[#BE123C] bg-white px-2.5 sm:px-3 py-1 rounded-full border border-rose-200 shadow-xs flex items-center space-x-1.5">
                           <span className="w-2 h-2 rounded-full bg-rose-500 animate-ping" />
-                          <span>Official HamoTech Poster</span>
+                          <span>Official Poster</span>
                         </span>
                         
                         <button
                           type="button"
                           onClick={() => setIsPosterZoomed(true)}
-                          className="text-xs font-bold text-rose-600 hover:text-rose-700 bg-white hover:bg-rose-50 px-2.5 py-1 rounded-lg border border-rose-200 transition-colors flex items-center space-x-1 shadow-xs"
+                          className="text-[11px] sm:text-xs font-bold text-rose-600 hover:text-rose-700 bg-white hover:bg-rose-50 px-2 sm:px-2.5 py-1 rounded-lg border border-rose-200 transition-colors flex items-center space-x-1 shadow-xs"
                         >
                           <ZoomIn className="w-3.5 h-3.5" />
                           <span>Click to Zoom</span>
@@ -436,7 +436,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
                       {/* Poster Image Container with Interactive Hover & Lightbox Trigger */}
                       <div 
                         onClick={() => setIsPosterZoomed(true)}
-                        className="relative w-full max-w-[340px] rounded-2xl overflow-hidden border-2 border-rose-200 shadow-xl shadow-rose-900/10 cursor-pointer group transition-all duration-300 hover:scale-[1.02] hover:border-rose-400 poster-glow-box"
+                        className="relative w-full max-w-[280px] xs:max-w-[320px] sm:max-w-[340px] rounded-2xl overflow-hidden border-2 border-rose-200 shadow-xl shadow-rose-900/10 cursor-pointer group transition-all duration-300 hover:scale-[1.02] hover:border-rose-400 poster-glow-box"
                       >
                         <img
                           src={posterImg}

@@ -32,22 +32,22 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onOpenModal })
           transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
           className="text-center max-w-3xl mx-auto space-y-3 mb-8 md:mb-10"
         >
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white border border-rose-300 text-[#0284C7] text-xs font-bold uppercase tracking-wider shadow-sm hover:scale-105 transition-transform">
+          <div className="inline-flex items-center space-x-1.5 sm:space-x-2 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-white border border-rose-300 text-[#0284C7] text-[10px] sm:text-xs font-bold uppercase tracking-wider shadow-sm hover:scale-105 transition-transform">
             <FolderGit2 className="w-3.5 h-3.5 text-[#0284C7]" />
             <span>ENTERPRISE PORTFOLIO</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-display">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-display">
             LEARN THROUGH <span className="text-gradient-red animate-slide-up">REAL-TIME PROJECTS</span>
           </h2>
 
-          <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+          <p className="text-xs sm:text-base text-slate-600 leading-relaxed font-normal">
             Gain authentic software engineering experience by building live industrial applications designed by IT architects.
           </p>
         </motion.div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {REAL_TIME_PROJECTS.map((p, idx) => {
             const IconComponent = iconMap[p.icon] || FolderGit2;
 
@@ -59,7 +59,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onOpenModal })
                 viewport={{ once: true }}
                 transition={{ duration: 0.55, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 whileHover={{ y: -8, scale: 1.01 }}
-                className="p-6 rounded-2xl bg-white/95 border border-rose-200/90 hover:border-rose-400 glass-card shadow-lg shadow-rose-900/5 hover:shadow-2xl hover:shadow-rose-500/15 flex flex-col justify-between group transition-all duration-300"
+                className="p-5 sm:p-6 rounded-2xl bg-white/95 border border-rose-200/90 hover:border-rose-400 glass-card shadow-lg shadow-rose-900/5 hover:shadow-2xl hover:shadow-rose-500/15 flex flex-col justify-between group transition-all duration-300"
               >
                 <div>
                   {/* Top Category Pill & Difficulty */}

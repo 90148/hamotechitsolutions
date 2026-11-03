@@ -65,24 +65,24 @@ export const ContactSection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-8 grid items-center gap-8 overflow-hidden rounded-[2rem] border border-rose-200/90 bg-white/80 p-5 shadow-xl shadow-rose-900/5 sm:p-8 lg:mb-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-10"
+          className="mb-8 grid items-center gap-6 sm:gap-8 overflow-hidden rounded-2xl sm:rounded-[2rem] border border-rose-200/90 bg-white/80 p-4 sm:p-8 lg:mb-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-10"
         >
           <div className="space-y-3 text-center lg:text-left">
-            <div className="inline-flex items-center space-x-2 rounded-full border border-rose-300 bg-white px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-[#BE123C] shadow-sm">
+            <div className="inline-flex items-center space-x-1.5 sm:space-x-2 rounded-full border border-rose-300 bg-white px-3 sm:px-3.5 py-1 sm:py-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#BE123C] shadow-sm">
               <Phone className="h-3.5 w-3.5 text-[#E11D48]" />
               <span>WE ARE HERE TO HELP YOU</span>
             </div>
 
-            <h2 className="text-3xl font-black text-slate-900 font-display sm:text-4xl lg:text-5xl">
+            <h2 className="text-2xl font-black text-slate-900 font-display sm:text-4xl lg:text-5xl">
               LET&apos;S BUILD YOUR <span className="text-gradient-red animate-slide-up">FUTURE TOGETHER</span>
             </h2>
 
-            <p className="mx-auto max-w-xl text-sm font-normal leading-relaxed text-slate-600 lg:mx-0 sm:text-base">
+            <p className="mx-auto max-w-xl text-xs sm:text-base font-normal leading-relaxed text-slate-600 lg:mx-0">
               Have questions about training batches, fee structure, or hostel accommodation? Reach out to us today.
             </p>
           </div>
 
-          <div className="relative h-56 overflow-hidden rounded-2xl border border-sky-100 bg-sky-50 shadow-lg sm:h-72 lg:h-80">
+          <div className="relative h-44 xs:h-52 sm:h-72 lg:h-80 overflow-hidden rounded-xl sm:rounded-2xl border border-sky-100 bg-sky-50 shadow-lg">
             <img
               src={contactHeroImage}
               alt="Students collaborating on a laptop in a bright learning space"
@@ -92,7 +92,7 @@ export const ContactSection: React.FC = () => {
           </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-12 items-start">
           
           {/* Left Info Column */}
           <motion.div
@@ -103,8 +103,8 @@ export const ContactSection: React.FC = () => {
             className="lg:col-span-5 space-y-6"
           >
             
-            <div className="p-8 rounded-3xl bg-white/95 border border-rose-200/90 glass-card space-y-6 shadow-xl shadow-rose-900/5">
-              <h3 className="text-xl font-black text-slate-900 font-display">
+            <div className="p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-white/95 border border-rose-200/90 glass-card space-y-5 sm:space-y-6 shadow-xl shadow-rose-900/5">
+              <h3 className="text-lg sm:text-xl font-black text-slate-900 font-display">
                 CAMPUS &amp; ADMISSIONS OFFICE
               </h3>
 
@@ -208,11 +208,11 @@ export const ContactSection: React.FC = () => {
             transition={{ duration: 0.6 }}
             className="lg:col-span-7"
           >
-            <div className="p-8 rounded-3xl bg-white/95 border border-rose-200/90 glass-card shadow-xl shadow-rose-900/5">
-              <h3 className="text-xl font-black text-slate-900 font-display mb-2">
+            <div className="p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-white/95 border border-rose-200/90 glass-card shadow-xl shadow-rose-900/5">
+              <h3 className="text-lg sm:text-xl font-black text-slate-900 font-display mb-1.5 sm:mb-2">
                 SEND US A MESSAGE
               </h3>
-              <p className="text-xs text-slate-600 mb-6 font-medium">
+              <p className="text-xs text-slate-600 mb-5 sm:mb-6 font-medium">
                 Fill out the quick enquiry form below and our counselor will call you within 24 hours.
               </p>
 

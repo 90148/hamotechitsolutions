@@ -1,11 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { 
-  motion, 
-  useScroll, 
-  useTransform, 
-  useMotionValueEvent, 
-  MotionValue 
-} from 'framer-motion';
+import { motion } from 'framer-motion';
 import { 
   Target, 
   FileText, 
@@ -137,236 +131,250 @@ const PLACEMENT_STAGES: PlacementStage[] = [
   }
 ];
 
-// Sub-component for individual stacking card
-const StackingCard: React.FC<{
-  stage: PlacementStage;
-  index: number;
-  total: number;
-  progress: MotionValue<number>;
-  onOpenModal: () => void;
-  onScrollToNext?: () => void;
-}> = ({ stage, index, total, progress, onOpenModal, onScrollToNext }) => {
-  const Icon = stage.icon;
+export const PlacementSection: React.FC<PlacementSectionProps> = ({ onOpenModal }) => {
+  const [activeStage, setActiveStage] = useState(0);
+  const [mobileActiveStage, setMobileActiveStage] = useState(0);
+  const cardsContainerRef = useRef<HTMLDivElement>(null);
 
-  // Calculate slice points for this card
-  // total = 6. Each card gets ~ 1/6 slice
-  const step = 1 / total;
-  const start = index * step;
-  const end = (index + 1) * step;
+  // Sync active stage as user scrolls through right-hand cards
+  const handleCardsScroll = () => {
+    if (!cardsContainerRef.current) return;
+    const { scrollTop, clientHeight } = cardsContainerRef.current;
+    if (clientHeight === 0) return;
+    const currentIdx = Math.round(scrollTop / clientHeight);
+    const clampedIdx = Math.max(0, Math.min(PLACEMENT_STAGES.length - 1, currentIdx));
+    if (clampedIdx !== activeStage) {
+      setActiveStage(clampedIdx);
+    }
+  };
 
-  // Transform values for stacking effect
-  const y = useTransform(
-    progress,
-    [
-      Math.max(0, start - 0.12),
-      start,
-      end,
-      Math.min(1, end + 0.12)
-    ],
-    [
-      index === 0 ? 0 : 90, // slides up from 90px below
-      0,                   // sits in place at center
-      0,                   // stays at center during its active range
-      -18                  // slightly lifts up when next card arrives
-    ]
-  );
+  // Smoothly scroll the cards container to a specific stage
+  const scrollToStage = (stageIdx: number) => {
+    if (cardsContainerRef.current) {
+      const cardHeight = cardsContainerRef.current.clientHeight;
+      cardsContainerRef.current.scrollTo({
+        top: stageIdx * cardHeight,
+        behavior: 'smooth'
+      });
+    }
+    setActiveStage(stageIdx);
+  };
 
-  const scale = useTransform(
-    progress,
-    [start, end, Math.min(1, end + 0.12)],
-    [1, 1, 0.94] // scales slightly down to sit as a stacked layer
-  );
-
-  const opacity = useTransform(
-    progress,
-    [
-      Math.max(0, start - 0.1),
-      start,
-      end,
-      Math.min(1, end + 0.12)
-    ],
-    [
-      index === 0 ? 1 : 0, // card 0 starts visible; others fade in
-      1,
-      1,
-      0.35 // fades into background as next card sits in front
-    ]
-  );
+  const currentMobileStage = PLACEMENT_STAGES[mobileActiveStage];
+  const MobileIcon = currentMobileStage.icon;
 
   return (
-    <motion.div
-      style={{
-        y,
-        scale,
-        opacity,
-        zIndex: index + 10
-      }}
-      className="absolute inset-0 w-full h-full flex items-center justify-center pointer-events-auto"
-    >
-      <div className="w-full max-w-xl bg-white/95 backdrop-blur-md rounded-3xl border-2 border-rose-200/90 shadow-2xl shadow-rose-900/10 p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:border-rose-300">
-        
-        {/* Card Header */}
-        <div>
-          <div className="flex items-center justify-between pb-4 border-b border-rose-100/80 mb-5">
-            <div className="flex items-center space-x-3">
-              <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${stage.color} text-white flex items-center justify-center shadow-md shadow-rose-500/20`}>
-                <Icon className="w-6 h-6" />
+    <>
+      {/* ============================================================ */}
+      {/* MOBILE & TABLET VIEW (< lg): Fluid Interactive Cards         */}
+      {/* ============================================================ */}
+      <section id="placements-mobile" className="lg:hidden py-12 bg-gradient-to-b from-[#FFF1F2]/80 via-[#FDF2F8]/80 to-[#FFF7ED]/80 border-t border-rose-100 relative overflow-hidden">
+        {/* Background ambient lighting */}
+        <div className="absolute top-10 left-0 w-72 h-72 bg-rose-400/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-10 right-0 w-72 h-72 bg-amber-300/15 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="max-w-xl mx-auto px-4 relative z-10 space-y-6">
+          {/* Header */}
+          <div className="text-center space-y-3">
+            <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-white border border-rose-300 text-[#BE123C] text-[10px] font-black uppercase tracking-wider shadow-sm">
+              <Target className="w-3.5 h-3.5 text-[#E11D48] animate-pulse" />
+              <span>CAREER TRANSFORMATION ROADMAP</span>
+            </div>
+
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-display leading-tight">
+              FROM LEARNING TO <span className="text-gradient-red animate-slide-up">CAREER</span>
+            </h2>
+
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+              We prepare you end-to-end to excel in corporate IT recruitment drives. Tap the stages below to explore your path.
+            </p>
+          </div>
+
+          {/* Mobile Stage Selector Tabs (6 Pills Grid) */}
+          <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
+            {PLACEMENT_STAGES.map((s, sIdx) => {
+              const isActive = mobileActiveStage === sIdx;
+              return (
+                <button
+                  key={s.id}
+                  type="button"
+                  onClick={() => setMobileActiveStage(sIdx)}
+                  className={`py-2 px-1.5 sm:px-2 rounded-xl text-center transition-all cursor-pointer flex flex-col items-center justify-center ${
+                    isActive
+                      ? 'bg-gradient-to-r from-rose-500 to-[#E11D48] text-white shadow-md shadow-rose-500/25 scale-[1.02]'
+                      : 'bg-white/85 text-slate-700 hover:bg-rose-50 border border-rose-200/70 shadow-xs'
+                  }`}
+                >
+                  <span className={`text-[10px] font-mono font-black ${isActive ? 'text-amber-200' : 'text-rose-600'}`}>
+                    STAGE {s.stageNumber}
+                  </span>
+                  <span className="text-[11px] font-bold truncate max-w-[85px] leading-tight mt-0.5">
+                    {s.title.split(' ')[0]}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Active Mobile Stage Card */}
+          <motion.div
+            key={currentMobileStage.id}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="w-full bg-white/95 backdrop-blur-md rounded-3xl border-2 border-rose-200/90 shadow-2xl shadow-rose-900/10 p-5 sm:p-7 flex flex-col justify-between"
+          >
+            <div>
+              {/* Card Header */}
+              <div className="flex items-center justify-between pb-3.5 border-b border-rose-100/80 mb-4">
+                <div className="flex items-center space-x-3">
+                  <div className={`w-11 h-11 rounded-2xl bg-gradient-to-br ${currentMobileStage.color} text-white flex items-center justify-center shadow-md shadow-rose-500/20 shrink-0`}>
+                    <MobileIcon className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-rose-600 block">
+                      {currentMobileStage.category}
+                    </span>
+                    <span className="text-xs font-mono font-bold text-slate-400">
+                      STAGE {currentMobileStage.stageNumber} OF 06
+                    </span>
+                  </div>
+                </div>
+
+                <span className="px-2.5 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-700 text-xs font-black font-mono shadow-xs">
+                  0{mobileActiveStage + 1}
+                </span>
               </div>
-              <div>
-                <span className="text-[11px] font-bold uppercase tracking-wider text-rose-600 block">
-                  {stage.category}
-                </span>
-                <span className="text-xs font-mono font-bold text-slate-400">
-                  STAGE {stage.stageNumber} OF 0{total}
-                </span>
+
+              {/* Title & Description */}
+              <h3 className="text-lg sm:text-xl font-black text-slate-900 font-display mb-2">
+                {currentMobileStage.title}
+              </h3>
+
+              <p className="text-xs text-slate-600 leading-relaxed font-normal mb-4">
+                {currentMobileStage.desc}
+              </p>
+
+              {/* Features Checklist */}
+              <div className="space-y-2 mb-4">
+                {currentMobileStage.features.map((feat, fIdx) => (
+                  <div key={fIdx} className="flex items-start space-x-2 text-xs text-slate-700 font-medium">
+                    <div className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5">
+                      <Check className="w-2.5 h-2.5 stroke-[3]" />
+                    </div>
+                    <span>{feat}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Highlight Badge */}
+              <div className="p-2.5 rounded-xl bg-gradient-to-r from-rose-50 via-orange-50/50 to-rose-50 border border-rose-200/80 flex items-center space-x-2 text-xs text-[#BE123C] font-semibold">
+                <Sparkles className="w-4 h-4 text-[#E11D48] shrink-0 animate-pulse" />
+                <span className="text-[11px] leading-snug">{currentMobileStage.highlight}</span>
               </div>
             </div>
 
-            <span className="px-3 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-700 text-xs font-black font-mono shadow-xs">
-              0{index + 1}
-            </span>
-          </div>
-
-          {/* Card Title & Desc */}
-          <h3 className="text-xl sm:text-2xl font-black text-slate-900 font-display mb-3">
-            {stage.title}
-          </h3>
-
-          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal mb-5">
-            {stage.desc}
-          </p>
-
-          {/* Features Checklist */}
-          <div className="space-y-2.5 mb-5">
-            {stage.features.map((feat, fIdx) => (
-              <div key={fIdx} className="flex items-start space-x-2.5 text-xs text-slate-700 font-medium">
-                <div className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5">
-                  <Check className="w-2.5 h-2.5 stroke-[3]" />
-                </div>
-                <span>{feat}</span>
+            {/* Card Actions */}
+            <div className="pt-4 mt-3 border-t border-rose-100 flex items-center justify-between">
+              <div className="flex items-center space-x-1.5 text-xs text-emerald-700 font-bold">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                <span>100% Support</span>
               </div>
-            ))}
+
+              <div className="flex items-center space-x-2">
+                {mobileActiveStage < PLACEMENT_STAGES.length - 1 ? (
+                  <button
+                    type="button"
+                    onClick={() => setMobileActiveStage(prev => prev + 1)}
+                    className="inline-flex items-center space-x-1 text-xs font-bold text-rose-600 hover:text-rose-700 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-xl border border-rose-200 transition-colors cursor-pointer"
+                  >
+                    <span>Next Stage</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={onOpenModal}
+                    className="inline-flex items-center space-x-1.5 text-xs font-extrabold text-white bg-gradient-to-r from-[#E11D48] to-[#BE123C] px-3.5 py-1.5 rounded-xl shadow-md shadow-rose-600/25 hover:shadow-lg transition-all cursor-pointer"
+                  >
+                    <span>Get Placed</span>
+                    <Sparkles className="w-3.5 h-3.5 text-amber-200" />
+                  </button>
+                )}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Action Buttons for Mobile */}
+          <div className="flex flex-col sm:flex-row items-center gap-2.5 pt-1">
+            <button
+              type="button"
+              onClick={onOpenModal}
+              className="w-full py-3 rounded-xl bg-gradient-to-r from-[#E11D48] via-[#F43F5E] to-[#BE123C] text-white font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-rose-600/25 flex items-center justify-center space-x-2 active:scale-95 transition-transform cursor-pointer"
+            >
+              <Sparkles className="w-4 h-4 text-amber-200" />
+              <span>START YOUR CAREER WITH HAMOTECH</span>
+            </button>
+
+            <a
+              href="tel:9884166198"
+              className="w-full py-3 rounded-xl bg-white border border-rose-200 text-slate-700 hover:text-[#E11D48] text-xs font-bold shadow-xs flex items-center justify-center space-x-2"
+            >
+              <PhoneCall className="w-3.5 h-3.5 text-emerald-600" />
+              <span>Call Counselor: +91 98841 66198</span>
+            </a>
           </div>
 
-          {/* Highlight Badge */}
-          <div className="p-3 rounded-xl bg-gradient-to-r from-rose-50 via-orange-50/50 to-rose-50 border border-rose-200/80 flex items-center space-x-2 text-xs text-[#BE123C] font-semibold">
-            <Sparkles className="w-4 h-4 text-[#E11D48] shrink-0 animate-pulse" />
-            <span className="line-clamp-1">{stage.highlight}</span>
-          </div>
         </div>
+      </section>
 
-        {/* Card Footer Actions */}
-        <div className="pt-5 mt-4 border-t border-rose-100 flex items-center justify-between">
-          <div className="flex items-center space-x-1.5 text-xs text-emerald-700 font-bold">
-            <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-            <span>100% Verified Support</span>
-          </div>
+      {/* ============================================================ */}
+      {/* DESKTOP VIEW (>= lg): Compact Section & Scrolled Cards       */}
+      {/* ============================================================ */}
+      <section 
+        id="placements" 
+        className="hidden lg:block relative py-12 xl:py-16 bg-gradient-to-b from-[#FFF1F2]/80 via-[#FDF2F8]/80 to-[#FFF7ED]/80 border-t border-rose-100"
+      >
+        {/* Background ambient lighting */}
+        <div className="absolute top-10 left-10 w-96 h-96 bg-rose-400/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-10 right-10 w-96 h-96 bg-amber-300/15 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="flex items-center space-x-2">
-            {index < total - 1 ? (
-              <button
-                type="button"
-                onClick={onScrollToNext}
-                className="inline-flex items-center space-x-1 text-xs font-bold text-rose-600 hover:text-rose-700 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-xl border border-rose-200 transition-colors cursor-pointer"
-              >
-                <span>Stage 0{index + 2}</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            ) : (
-              <button
-                type="button"
-                onClick={onOpenModal}
-                className="inline-flex items-center space-x-1.5 text-xs font-extrabold text-white bg-gradient-to-r from-[#E11D48] to-[#BE123C] px-4 py-2 rounded-xl shadow-md shadow-rose-600/25 hover:shadow-lg transition-all cursor-pointer"
-              >
-                <span>Get Placed</span>
-                <Sparkles className="w-3.5 h-3.5 text-amber-200" />
-              </button>
-            )}
-          </div>
-        </div>
-
-      </div>
-    </motion.div>
-  );
-};
-
-export const PlacementSection: React.FC<PlacementSectionProps> = ({ onOpenModal }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [activeStage, setActiveStage] = useState(0);
-
-  // Scroll tracking across the sticky section
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end end']
-  });
-
-  // Keep active stage in sync with user scrolling
-  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
-    const idx = Math.min(
-      PLACEMENT_STAGES.length - 1,
-      Math.max(0, Math.floor(latest * PLACEMENT_STAGES.length))
-    );
-    setActiveStage(idx);
-  });
-
-  // Jump to specific stage
-  const scrollToStage = (stageIdx: number) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const scrollTop = window.scrollY + rect.top;
-    const totalDistance = containerRef.current.scrollHeight - window.innerHeight;
-    const targetY = scrollTop + (stageIdx / (PLACEMENT_STAGES.length - 1)) * totalDistance;
-    window.scrollTo({ top: targetY, behavior: 'smooth' });
-  };
-
-  return (
-    <section 
-      ref={containerRef} 
-      id="placements" 
-      className="relative h-[380vh] bg-gradient-to-b from-[#FFF1F2]/80 via-[#FDF2F8]/80 to-[#FFF7ED]/80 border-t border-rose-100"
-    >
-      {/* Background ambient lighting */}
-      <div className="absolute top-1/4 left-10 w-96 h-96 bg-rose-400/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 right-10 w-96 h-96 bg-amber-300/15 rounded-full blur-3xl pointer-events-none" />
-
-      {/* STICKY VIEWPORT CONTAINER: Locks on screen while user scrolls through cards */}
-      <div className="sticky top-16 md:top-20 h-[calc(100vh-4rem)] md:h-[calc(100vh-5rem)] flex items-center justify-center overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-center">
             
             {/* ============================================================ */}
-            {/* LEFT COLUMN: STICKY SECTION HEADINGS & PROGRESS TRACKER      */}
+            {/* LEFT COLUMN: SECTION HEADINGS & PROGRESS TRACKER             */}
             {/* ============================================================ */}
-            <div className="lg:col-span-5 space-y-5 text-left">
+            <div className="lg:col-span-5 space-y-2.5 text-left">
               
-              <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white border border-rose-300 text-[#BE123C] text-xs font-black uppercase tracking-wider shadow-sm">
+              <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-white border border-rose-300 text-[#BE123C] text-[10px] font-black uppercase tracking-wider shadow-xs">
                 <Target className="w-3.5 h-3.5 text-[#E11D48] animate-pulse" />
                 <span>CAREER TRANSFORMATION ROADMAP</span>
               </div>
 
               <div>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-display leading-[1.14]">
+                <h2 className="text-xl sm:text-2xl lg:text-[1.75rem] xl:text-3xl font-black text-slate-900 font-display leading-[1.15]">
                   FROM LEARNING TO <br />
                   <span className="text-gradient-red animate-slide-up">CAREER</span>
                 </h2>
-                <p className="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                  We don&apos;t just teach technology — we prepare you end-to-end to excel in corporate IT recruitment drives. Scroll down to experience each stage of your preparation.
+                <p className="mt-1 text-xs text-slate-600 leading-snug font-normal line-clamp-2">
+                  We don&apos;t just teach technology — we prepare you end-to-end to excel in corporate IT recruitment drives. Scroll cards on the right to experience each stage.
                 </p>
               </div>
 
               {/* Progress Bar Indicator */}
-              <div className="bg-white/80 p-4 rounded-2xl border border-rose-200/80 shadow-sm space-y-2">
-                <div className="flex items-center justify-between text-xs font-bold text-slate-700">
-                  <span className="text-[#E11D48]">
-                    Active: Stage 0{activeStage + 1} of 0{PLACEMENT_STAGES.length}
+              <div className="bg-white/85 backdrop-blur-xs px-3 py-2 rounded-xl border border-rose-200/80 shadow-xs space-y-1">
+                <div className="flex items-center justify-between text-[11px] font-bold text-slate-700">
+                  <span className="text-[#E11D48] flex items-center space-x-1.5 min-w-0">
+                    <span className="w-2 h-2 rounded-full bg-[#E11D48] animate-pulse shrink-0" />
+                    <span className="truncate">Stage 0{activeStage + 1} of 0{PLACEMENT_STAGES.length}: {PLACEMENT_STAGES[activeStage].category}</span>
                   </span>
-                  <span className="text-slate-400 font-mono">
-                    {Math.round(((activeStage + 1) / PLACEMENT_STAGES.length) * 100)}% Complete
+                  <span className="text-slate-400 font-mono text-[10px] shrink-0 ml-2">
+                    {Math.round(((activeStage + 1) / PLACEMENT_STAGES.length) * 100)}%
                   </span>
                 </div>
                 
-                <div className="w-full h-2 bg-rose-100 rounded-full overflow-hidden">
+                <div className="w-full h-1.5 bg-rose-100 rounded-full overflow-hidden">
                   <motion.div 
                     className="h-full bg-gradient-to-r from-[#E11D48] to-[#F59E0B] rounded-full"
                     animate={{ width: `${((activeStage + 1) / PLACEMENT_STAGES.length) * 100}%` }}
@@ -375,8 +383,8 @@ export const PlacementSection: React.FC<PlacementSectionProps> = ({ onOpenModal 
                 </div>
               </div>
 
-              {/* Clickable Stages List */}
-              <div className="hidden sm:grid grid-cols-2 lg:grid-cols-1 gap-2 pt-1">
+              {/* Clickable Stages List (Vertical 6 Stages) */}
+              <div className="space-y-1 pt-0.5">
                 {PLACEMENT_STAGES.map((s, sIdx) => {
                   const isActive = activeStage === sIdx;
                   const isPast = activeStage > sIdx;
@@ -386,27 +394,29 @@ export const PlacementSection: React.FC<PlacementSectionProps> = ({ onOpenModal 
                       key={s.id}
                       type="button"
                       onClick={() => scrollToStage(sIdx)}
-                      className={`flex items-center justify-between p-2.5 rounded-xl text-xs font-bold transition-all text-left cursor-pointer ${
+                      className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all text-left cursor-pointer ${
                         isActive
-                          ? 'bg-gradient-to-r from-rose-500 to-[#E11D48] text-white shadow-md shadow-rose-500/20 scale-[1.02]'
+                          ? 'bg-gradient-to-r from-rose-500 to-[#E11D48] text-white shadow-md shadow-rose-500/20 scale-[1.01]'
                           : isPast
-                          ? 'bg-rose-50 text-rose-800 hover:bg-rose-100/70 border border-rose-200/50'
-                          : 'bg-white/70 text-slate-600 hover:bg-rose-50 hover:text-slate-900 border border-rose-100'
+                          ? 'bg-rose-50/90 text-rose-800 hover:bg-rose-100/70 border border-rose-200/60'
+                          : 'bg-white/80 text-slate-600 hover:bg-rose-50 hover:text-slate-900 border border-rose-100'
                       }`}
                     >
-                      <div className="flex items-center space-x-2.5">
-                        <span className={`w-6 h-6 rounded-lg flex items-center justify-center font-mono text-[10px] ${
+                      <div className="flex items-center space-x-2 min-w-0">
+                        <span className={`w-5 h-5 rounded-md flex items-center justify-center font-mono text-[10px] shrink-0 font-bold ${
                           isActive
-                            ? 'bg-white text-[#E11D48] font-black'
+                            ? 'bg-white text-[#E11D48]'
+                            : isPast
+                            ? 'bg-rose-200/70 text-rose-700'
                             : 'bg-slate-100 text-slate-600'
                         }`}>
                           {s.stageNumber}
                         </span>
-                        <span className="truncate">{s.title}</span>
+                        <span className="truncate text-xs">{s.title}</span>
                       </div>
 
                       {isActive && (
-                        <span className="w-2 h-2 rounded-full bg-amber-300 animate-ping mr-1" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-300 animate-ping shrink-0 ml-1" />
                       )}
                     </button>
                   );
@@ -414,29 +424,29 @@ export const PlacementSection: React.FC<PlacementSectionProps> = ({ onOpenModal 
               </div>
 
               {/* Action Buttons */}
-              <div className="flex flex-wrap items-center gap-3 pt-2">
+              <div className="flex items-center gap-2 pt-0.5">
                 <button
                   type="button"
                   onClick={onOpenModal}
-                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#E11D48] via-[#F43F5E] to-[#BE123C] text-white font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-rose-600/25 hover:shadow-xl transition-all cursor-pointer flex items-center space-x-2"
+                  className="flex-1 py-2 px-3 rounded-xl bg-gradient-to-r from-[#E11D48] via-[#F43F5E] to-[#BE123C] text-white font-extrabold text-[11px] uppercase tracking-wider shadow-md shadow-rose-600/20 hover:shadow-lg transition-all cursor-pointer flex items-center justify-center space-x-1.5"
                 >
-                  <Sparkles className="w-4 h-4 text-amber-200" />
+                  <Sparkles className="w-3.5 h-3.5 text-amber-200" />
                   <span>START YOUR CAREER</span>
                 </button>
 
                 <a
                   href="tel:9884166198"
-                  className="inline-flex items-center space-x-1.5 px-3.5 py-3 rounded-xl bg-white border border-rose-200 text-slate-700 hover:text-[#E11D48] text-xs font-bold shadow-xs transition-colors"
+                  className="py-2 px-2.5 rounded-xl bg-white border border-rose-200 text-slate-700 hover:text-[#E11D48] text-[11px] font-bold shadow-xs transition-colors flex items-center space-x-1 shrink-0"
                 >
-                  <PhoneCall className="w-3.5 h-3.5 text-emerald-600" />
+                  <PhoneCall className="w-3 h-3 text-emerald-600" />
                   <span>+91 98841 66198</span>
                 </a>
               </div>
 
               {/* Scroll Helper Hint */}
-              <div className="flex items-center space-x-2 text-[11px] text-slate-400 font-medium pt-1">
-                <ChevronDown className="w-4 h-4 text-rose-500 animate-bounce" />
-                <span>Scroll down to advance cards one by one</span>
+              <div className="flex items-center space-x-1.5 text-[10px] text-slate-400 font-medium">
+                <ChevronDown className="w-3.5 h-3.5 text-rose-500 animate-bounce" />
+                <span>Scroll cards with wheel or click stages to explore</span>
               </div>
 
             </div>
@@ -444,30 +454,142 @@ export const PlacementSection: React.FC<PlacementSectionProps> = ({ onOpenModal 
             {/* ============================================================ */}
             {/* RIGHT COLUMN: SCROLLING CARDS CONTAINER (ONE BY ONE)         */}
             {/* ============================================================ */}
-            <div className="lg:col-span-7 relative h-[480px] sm:h-[520px] w-full flex items-center justify-center">
-              
-              {/* Decorative Background Frame */}
-              <div className="absolute inset-x-2 sm:inset-x-6 inset-y-4 rounded-3xl bg-gradient-to-br from-rose-200/30 to-orange-200/20 blur-xl pointer-events-none" />
+            <div className="lg:col-span-7 relative flex items-center justify-center">
+              {/* Outer Shell matching left column height */}
+              <div className="relative w-full max-w-xl">
+                
+                {/* Scroll-snapping Container for Cards */}
+                <div 
+                  ref={cardsContainerRef}
+                  onScroll={handleCardsScroll}
+                  className="h-[460px] xl:h-[480px] w-full overflow-y-auto snap-y snap-mandatory scroll-smooth rounded-3xl border-2 border-rose-200/90 shadow-2xl shadow-rose-900/10 bg-white/95 backdrop-blur-md relative no-scrollbar"
+                >
+                  {PLACEMENT_STAGES.map((stage, idx) => {
+                    const Icon = stage.icon;
 
-              {/* Render All 6 Stacking Cards with Motion Values */}
-              {PLACEMENT_STAGES.map((stage, idx) => (
-                <StackingCard
-                  key={stage.id}
-                  stage={stage}
-                  index={idx}
-                  total={PLACEMENT_STAGES.length}
-                  progress={scrollYProgress}
-                  onOpenModal={onOpenModal}
-                  onScrollToNext={() => scrollToStage(idx + 1)}
-                />
-              ))}
+                    return (
+                      <div 
+                        key={stage.id}
+                        className="h-[460px] xl:h-[480px] w-full snap-center snap-always p-5 sm:p-6 xl:p-7 flex flex-col justify-between"
+                      >
+                        {/* Card Header */}
+                        <div>
+                          <div className="flex items-center justify-between pb-3 border-b border-rose-100/80 mb-3.5">
+                            <div className="flex items-center space-x-3">
+                              <div className={`w-11 h-11 xl:w-12 xl:h-12 rounded-2xl bg-gradient-to-br ${stage.color} text-white flex items-center justify-center shadow-md shadow-rose-500/20 shrink-0`}>
+                                <Icon className="w-5 h-5 xl:w-6 xl:h-6" />
+                              </div>
+                              <div>
+                                <span className="text-[11px] font-bold uppercase tracking-wider text-rose-600 block">
+                                  {stage.category}
+                                </span>
+                                <span className="text-xs font-mono font-bold text-slate-400">
+                                  STAGE {stage.stageNumber} OF 0{PLACEMENT_STAGES.length}
+                                </span>
+                              </div>
+                            </div>
 
+                            <span className="px-3 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-700 text-xs font-black font-mono shadow-xs">
+                              0{idx + 1}
+                            </span>
+                          </div>
+
+                          {/* Card Title & Desc */}
+                          <h3 className="text-xl sm:text-2xl font-black text-slate-900 font-display mb-2">
+                            {stage.title}
+                          </h3>
+
+                          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal mb-3.5">
+                            {stage.desc}
+                          </p>
+
+                          {/* Features Checklist */}
+                          <div className="space-y-2 mb-3.5">
+                            {stage.features.map((feat, fIdx) => (
+                              <div key={fIdx} className="flex items-start space-x-2.5 text-xs text-slate-700 font-medium">
+                                <div className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5">
+                                  <Check className="w-2.5 h-2.5 stroke-[3]" />
+                                </div>
+                                <span>{feat}</span>
+                              </div>
+                            ))}
+                          </div>
+
+                          {/* Highlight Badge */}
+                          <div className="p-2.5 rounded-xl bg-gradient-to-r from-rose-50 via-orange-50/50 to-rose-50 border border-rose-200/80 flex items-center space-x-2 text-xs text-[#BE123C] font-semibold">
+                            <Sparkles className="w-4 h-4 text-[#E11D48] shrink-0 animate-pulse" />
+                            <span className="line-clamp-1">{stage.highlight}</span>
+                          </div>
+                        </div>
+
+                        {/* Card Footer Actions */}
+                        <div className="pt-3.5 mt-2 border-t border-rose-100 flex items-center justify-between">
+                          <div className="flex items-center space-x-1.5 text-xs text-emerald-700 font-bold">
+                            <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                            <span>100% Verified Support</span>
+                          </div>
+
+                          <div className="flex items-center space-x-2 pr-4">
+                            {idx > 0 && (
+                              <button
+                                type="button"
+                                onClick={() => scrollToStage(idx - 1)}
+                                className="inline-flex items-center space-x-1 text-xs font-bold text-slate-600 hover:text-rose-600 bg-white hover:bg-rose-50 px-3 py-1.5 rounded-xl border border-rose-200 transition-colors cursor-pointer"
+                              >
+                                <span>Prev</span>
+                              </button>
+                            )}
+
+                            {idx < PLACEMENT_STAGES.length - 1 ? (
+                              <button
+                                type="button"
+                                onClick={() => scrollToStage(idx + 1)}
+                                className="inline-flex items-center space-x-1 text-xs font-bold text-rose-600 hover:text-rose-700 bg-rose-50 hover:bg-rose-100 px-3.5 py-1.5 rounded-xl border border-rose-200 transition-colors cursor-pointer"
+                              >
+                                <span>Stage 0{idx + 2}</span>
+                                <ArrowRight className="w-3.5 h-3.5" />
+                              </button>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={onOpenModal}
+                                className="inline-flex items-center space-x-1.5 text-xs font-extrabold text-white bg-gradient-to-r from-[#E11D48] to-[#BE123C] px-4 py-2 rounded-xl shadow-md shadow-rose-600/25 hover:shadow-lg transition-all cursor-pointer"
+                              >
+                                <span>Get Placed</span>
+                                <Sparkles className="w-3.5 h-3.5 text-amber-200" />
+                              </button>
+                            )}
+                          </div>
+                        </div>
+
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Vertical Stage Position Indicator Dots */}
+                <div className="absolute right-3 top-1/2 -translate-y-1/2 flex flex-col space-y-1.5 z-20 pointer-events-auto">
+                  {PLACEMENT_STAGES.map((_, dotIdx) => (
+                    <button
+                      key={dotIdx}
+                      type="button"
+                      onClick={() => scrollToStage(dotIdx)}
+                      className={`rounded-full transition-all cursor-pointer ${
+                        activeStage === dotIdx
+                          ? 'w-2 h-5 bg-[#E11D48] shadow-xs'
+                          : 'w-2 h-2 bg-rose-200 hover:bg-rose-300'
+                      }`}
+                      aria-label={`Jump to stage 0${dotIdx + 1}`}
+                    />
+                  ))}
+                </div>
+
+              </div>
             </div>
 
           </div>
-
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };

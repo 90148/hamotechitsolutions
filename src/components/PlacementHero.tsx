@@ -93,21 +93,21 @@ export const PlacementHero: React.FC<PlacementHeroProps> = ({ onOpenModal }) => 
 
             {/* Quick Value Pills (2x2 on mobile, flex wrap on tablet/desktop) */}
             <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-center gap-1.5 sm:gap-3 pt-1 sm:pt-2">
-              <span className="inline-flex items-center space-x-1.5 px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-xl bg-white/90 border border-rose-100 text-[11px] sm:text-xs font-bold text-slate-700 shadow-xs">
+              <span className="inline-flex items-center space-x-1 sm:space-x-1.5 px-2 py-1 sm:px-3 sm:py-1.5 rounded-xl bg-white/90 border border-rose-100 text-[10px] sm:text-xs font-bold text-slate-700 shadow-xs">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                 <span className="truncate">100% Placement</span>
               </span>
-              <span className="inline-flex items-center space-x-1.5 px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-xl bg-white/90 border border-rose-100 text-[11px] sm:text-xs font-bold text-slate-700 shadow-xs">
+              <span className="inline-flex items-center space-x-1 sm:space-x-1.5 px-2 py-1 sm:px-3 sm:py-1.5 rounded-xl bg-white/90 border border-rose-100 text-[10px] sm:text-xs font-bold text-slate-700 shadow-xs">
                 <CheckCircle2 className="w-3.5 h-3.5 text-blue-600 shrink-0" />
                 <span className="truncate">Mock Interviews</span>
               </span>
-              <span className="inline-flex items-center space-x-1.5 px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-xl bg-white/90 border border-rose-100 text-[11px] sm:text-xs font-bold text-slate-700 shadow-xs">
+              <span className="inline-flex items-center space-x-1 sm:space-x-1.5 px-2 py-1 sm:px-3 sm:py-1.5 rounded-xl bg-white/90 border border-rose-100 text-[10px] sm:text-xs font-bold text-slate-700 shadow-xs">
                 <CheckCircle2 className="w-3.5 h-3.5 text-[#E11D48] shrink-0" />
                 <span className="truncate">ATS Resumes</span>
               </span>
-              <span className="inline-flex items-center space-x-1.5 px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-xl bg-white/90 border border-rose-100 text-[11px] sm:text-xs font-bold text-slate-700 shadow-xs">
+              <span className="inline-flex items-center space-x-1 sm:space-x-1.5 px-2 py-1 sm:px-3 sm:py-1.5 rounded-xl bg-white/90 border border-rose-100 text-[10px] sm:text-xs font-bold text-slate-700 shadow-xs">
                 <CheckCircle2 className="w-3.5 h-3.5 text-amber-600 shrink-0" />
-                <span className="truncate">Direct MNC Drives</span>
+                <span className="truncate">Direct Drives</span>
               </span>
             </div>
           </div>

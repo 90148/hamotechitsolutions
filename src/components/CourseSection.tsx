@@ -33,16 +33,16 @@ export const CourseSection: React.FC<CourseSectionProps> = ({ onOpenModal }) => 
           transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
           className="text-center max-w-3xl mx-auto space-y-3 mb-8"
         >
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white border border-rose-300 text-[#BE123C] text-xs font-bold uppercase tracking-wider shadow-sm hover:scale-105 transition-transform">
+          <div className="inline-flex items-center space-x-1.5 sm:space-x-2 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-white border border-rose-300 text-[#BE123C] text-[10px] sm:text-xs font-bold uppercase tracking-wider shadow-sm hover:scale-105 transition-transform">
             <BookOpen className="w-3.5 h-3.5 text-[#E11D48]" />
             <span>JOB-ORIENTED IT CURRICULUM</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-display">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-display">
             OUR INDUSTRY-READY <span className="text-gradient-red animate-slide-up">COURSES</span>
           </h2>
 
-          <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+          <p className="text-xs sm:text-base text-slate-600 leading-relaxed font-normal">
             Learn the technologies top software companies are actively hiring for. Hands-on coding, live projects &amp; mentorship.
           </p>
         </motion.div>
@@ -53,13 +53,13 @@ export const CourseSection: React.FC<CourseSectionProps> = ({ onOpenModal }) => 
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.15 }}
-          className="flex flex-wrap items-center justify-center gap-2 mb-8"
+          className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mb-6 sm:mb-8"
         >
           {categories.map(cat => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer ${
+              className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold transition-all duration-200 cursor-pointer ${
                 selectedCategory === cat
                   ? 'bg-gradient-to-r from-[#E11D48] to-[#BE123C] text-white shadow-md shadow-rose-500/25 scale-105'
                   : 'bg-white text-slate-600 hover:text-slate-900 border border-rose-200 hover:border-rose-300 shadow-sm'
@@ -73,7 +73,7 @@ export const CourseSection: React.FC<CourseSectionProps> = ({ onOpenModal }) => 
         {/* Courses Cards Grid */}
         <motion.div
           layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
         >
           {filteredCourses.map(course => (
             <CourseCard key={course.id} course={course} onOpenModal={onOpenModal} />
@@ -86,11 +86,11 @@ export const CourseSection: React.FC<CourseSectionProps> = ({ onOpenModal }) => 
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-8 text-center"
+          className="mt-6 sm:mt-8 text-center"
         >
           <Link
             to="/courses"
-            className="inline-flex items-center space-x-2.5 px-8 py-3.5 rounded-xl bg-white hover:bg-rose-50 text-slate-800 hover:text-[#E11D48] font-extrabold text-sm border border-rose-200 hover:border-rose-300 transition-all shadow-md hover:-translate-y-0.5"
+            className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl bg-white hover:bg-rose-50 text-slate-800 hover:text-[#E11D48] font-extrabold text-xs sm:text-sm border border-rose-200 hover:border-rose-300 transition-all shadow-md hover:-translate-y-0.5 active:scale-95"
           >
             <span>VIEW ALL COURSES &amp; SYLLABUS</span>
             <ArrowRight className="w-4 h-4 text-[#E11D48]" />

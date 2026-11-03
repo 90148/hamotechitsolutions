@@ -47,11 +47,11 @@ export const PlacedStudentsSection: React.FC<PlacedStudentsSectionProps> = ({ on
             initial={{ opacity: 0, y: -10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/95 border-2 border-rose-300 shadow-md shadow-rose-500/10 text-xs font-black uppercase tracking-widest text-[#BE123C]"
+            className="inline-flex items-center space-x-1.5 sm:space-x-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-white/95 border-2 border-rose-300 shadow-md shadow-rose-500/10 text-[10px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest text-[#BE123C] max-w-full flex-wrap justify-center text-center"
           >
-            <Trophy className="w-4 h-4 text-amber-500 animate-bounce" />
-            <span>HALL OF FAME • PROUD PLACEMENT ACHIEVERS</span>
-            <Sparkles className="w-4 h-4 text-rose-500" />
+            <Trophy className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500 animate-bounce shrink-0" />
+            <span>HALL OF FAME • PROUD ACHIEVERS</span>
+            <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-rose-500 shrink-0" />
           </motion.div>
 
           {/* Main Title */}
@@ -60,12 +60,12 @@ export const PlacedStudentsSection: React.FC<PlacedStudentsSectionProps> = ({ on
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="space-y-2"
+            className="space-y-1.5 sm:space-y-2"
           >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-display tracking-tight leading-tight">
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-display tracking-tight leading-tight">
               CONGRATULATIONS TO OUR <span className="text-gradient-red">PLACED STUDENTS!</span>
             </h2>
-            <p className="text-base sm:text-lg font-extrabold text-[#D97706] tracking-wide font-display uppercase">
+            <p className="text-sm sm:text-lg font-extrabold text-[#D97706] tracking-wide font-display uppercase">
               From HamoTech IT Solutions to Software Engineers
             </p>
           </motion.div>
@@ -76,7 +76,7 @@ export const PlacedStudentsSection: React.FC<PlacedStudentsSectionProps> = ({ on
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed"
+            className="text-xs sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed"
           >
             <span className="font-semibold text-slate-800">Different Paths | One Goal | Brighter Futures.</span>{' '}
             Meet our recent batch graduates who turned intensive coding practice and real-time project mentorship into high-paying corporate tech offers.
@@ -88,39 +88,39 @@ export const PlacedStudentsSection: React.FC<PlacedStudentsSectionProps> = ({ on
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="pt-4 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-3xl mx-auto"
+            className="pt-2 sm:pt-4 grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-4 max-w-3xl mx-auto"
           >
             {[
               { label: 'Highest Package', value: '10.5 LPA', color: 'text-[#BE123C]', sub: 'QuantumWorks' },
               { label: 'Average Package', value: '8.2 LPA', color: 'text-[#0284C7]', sub: 'Top IT Roles' },
-              { label: 'Placement Rate', value: '100%', color: 'text-emerald-600', sub: 'Placement Assistance' },
+              { label: 'Placement Rate', value: '100%', color: 'text-emerald-600', sub: 'Assistance' },
               { label: 'Recruiters Network', value: '1200+', color: 'text-[#D97706]', sub: 'Hiring Partners' }
             ].map((stat, idx) => (
               <div 
                 key={idx}
-                className="p-3 sm:p-4 rounded-2xl bg-white/95 border border-rose-200/80 shadow-md text-center hover:border-rose-300 transition-all"
+                className="p-2.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white/95 border border-rose-200/80 shadow-md text-center hover:border-rose-300 transition-all"
               >
-                <div className={`text-xl sm:text-2xl font-black font-display ${stat.color}`}>
+                <div className={`text-lg sm:text-2xl font-black font-display ${stat.color}`}>
                   {stat.value}
                 </div>
-                <div className="text-xs font-bold text-slate-700">{stat.label}</div>
-                <div className="text-[10px] text-slate-500 font-medium">{stat.sub}</div>
+                <div className="text-[11px] sm:text-xs font-bold text-slate-700">{stat.label}</div>
+                <div className="text-[9px] sm:text-[10px] text-slate-500 font-medium">{stat.sub}</div>
               </div>
             ))}
           </motion.div>
 
           {/* Filter Tabs */}
-          <div className="pt-6 flex flex-wrap items-center justify-center gap-2">
+          <div className="pt-4 sm:pt-6 flex flex-wrap items-center justify-center gap-1.5 sm:gap-2">
             {[
-              { id: 'all', label: `All Placed Students (${PLACED_STUDENTS.length})` },
+              { id: 'all', label: `All Placed (${PLACED_STUDENTS.length})` },
               { id: 'python', label: 'Python Developers' },
-              { id: 'fullstack', label: 'Full Stack & Software Engineers' },
+              { id: 'fullstack', label: 'Full Stack & Software' },
               { id: 'high-package', label: 'Top Packages (≥ 8.5 LPA)' }
             ].map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveFilter(tab.id as any)}
-                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold tracking-wide transition-all duration-300 ${
+                className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-bold tracking-wide transition-all duration-300 ${
                   activeFilter === tab.id
                     ? 'bg-gradient-to-r from-[#E11D48] to-[#BE123C] text-white shadow-lg shadow-rose-500/25 scale-105'
                     : 'bg-white/90 text-slate-700 hover:bg-white hover:text-slate-900 border border-rose-200/80'
@@ -241,22 +241,22 @@ export const PlacedStudentsSection: React.FC<PlacedStudentsSectionProps> = ({ on
         </motion.div>
 
         {/* Featured Partner Companies Ticker */}
-        <div className="mt-16 p-6 rounded-3xl bg-white/95 border border-rose-200/90 shadow-xl max-w-5xl mx-auto">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+        <div className="mt-10 sm:mt-16 p-4 sm:p-6 rounded-3xl bg-white/95 border border-rose-200/90 shadow-xl max-w-5xl mx-auto">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6 text-center md:text-left">
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-[#BE123C] block mb-1">
+              <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#BE123C] block mb-0.5 sm:mb-1">
                 TOP RECRUITMENT TIE-UPS
               </span>
-              <h4 className="text-xl font-black text-slate-900 font-display">
+              <h4 className="text-lg sm:text-xl font-black text-slate-900 font-display">
                 Where HamoTech Students Get Placed
               </h4>
             </div>
 
-            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
               {['Teamverse', 'QuantumWorks', 'NovaHamo Technologies', 'Tasa IT Services', '1200+ Partner MNCs'].map((company, idx) => (
                 <div 
                   key={idx}
-                  className="px-4 py-2 rounded-xl bg-slate-50 border border-slate-200/80 font-bold text-xs text-slate-800 shadow-xs flex items-center space-x-2"
+                  className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-slate-50 border border-slate-200/80 font-bold text-[11px] sm:text-xs text-slate-800 shadow-xs flex items-center space-x-1.5 sm:space-x-2"
                 >
                   <Building2 className="w-3.5 h-3.5 text-[#E11D48]" />
                   <span>{company}</span>
@@ -271,9 +271,9 @@ export const PlacedStudentsSection: React.FC<PlacedStudentsSectionProps> = ({ on
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-12 text-center max-w-2xl mx-auto space-y-4"
+          className="mt-8 sm:mt-12 text-center max-w-2xl mx-auto space-y-3 sm:space-y-4 px-2"
         >
-          <div className="inline-block px-4 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-slate-800 text-xs font-extrabold uppercase tracking-wide">
+          <div className="inline-block px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-rose-50 border border-rose-200 text-slate-800 text-[10px] sm:text-xs font-extrabold uppercase tracking-wide">
             🌟 Real Hardwork Creates Real Opportunities!
           </div>
 
@@ -284,11 +284,11 @@ export const PlacedStudentsSection: React.FC<PlacedStudentsSectionProps> = ({ on
           <div>
             <button
               onClick={onOpenModal}
-              className="px-8 py-4 rounded-xl bg-gradient-to-r from-[#E11D48] via-[#F43F5E] to-[#BE123C] hover:opacity-95 text-white font-black text-sm tracking-wider shadow-xl shadow-rose-500/25 inline-flex items-center space-x-2.5 glow-red transition-all duration-300 transform hover:-translate-y-0.5"
+              className="w-full sm:w-auto px-5 sm:px-8 py-3.5 sm:py-4 rounded-xl bg-gradient-to-r from-[#E11D48] via-[#F43F5E] to-[#BE123C] hover:opacity-95 text-white font-black text-xs sm:text-sm tracking-wider shadow-xl shadow-rose-500/25 inline-flex items-center justify-center space-x-2 glow-red transition-all duration-300 transform hover:-translate-y-0.5 active:scale-95"
             >
-              <Sparkles className="w-5 h-5 text-amber-200" />
-              <span>BECOME OUR NEXT PLACEMENT SUCCESS STORY</span>
-              <ArrowRight className="w-4 h-4" />
+              <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-amber-200 shrink-0" />
+              <span>BECOME OUR NEXT SUCCESS STORY</span>
+              <ArrowRight className="w-4 h-4 shrink-0" />
             </button>
           </div>
         </motion.div>

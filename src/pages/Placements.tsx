@@ -11,7 +11,7 @@ interface PlacementsProps {
 
 export const Placements: React.FC<PlacementsProps> = ({ onOpenModal }) => {
   return (
-    <div className="space-y-0">
+    <div className="pt-8 sm:pt-14 space-y-0 min-h-screen">
       {/* Placement Page Hero Section with Featured Corporate Recruitment Drive Image */}
       <PlacementHero onOpenModal={onOpenModal} />
       

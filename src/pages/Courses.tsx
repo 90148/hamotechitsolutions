@@ -36,32 +36,32 @@ export const Courses: React.FC<CoursesPageProps> = ({ onOpenModal }) => {
         {/* ============================================================ */}
         {/* HERO SECTION WITH STUDENTS BANNER IMAGE                     */}
         {/* ============================================================ */}
-        <div className="mb-12 rounded-3xl bg-gradient-to-br from-white/95 via-rose-50/70 to-orange-50/50 border border-rose-200/90 shadow-2xl shadow-rose-950/5 p-5 sm:p-8 lg:p-10 relative overflow-hidden">
+        <div className="mb-8 sm:mb-12 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-white/95 via-rose-50/70 to-orange-50/50 border border-rose-200/90 shadow-2xl shadow-rose-950/5 p-4 sm:p-8 lg:p-10 relative overflow-hidden">
           {/* Subtle background radial light beams */}
           <div className="absolute -top-24 -right-24 w-80 h-80 bg-rose-400/15 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-orange-300/20 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 items-center relative z-10">
             
             {/* Left Column: Headline, Highlights, & Actions */}
             <div className="lg:col-span-7 space-y-4 sm:space-y-5 text-left">
               
-              <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-rose-100/90 border border-rose-200 text-rose-700 text-xs font-bold uppercase tracking-wider shadow-sm">
-                <Sparkles className="w-3.5 h-3.5 text-[#E11D48] animate-pulse" />
-                <span>PALMPLE&apos;S HAMOTECH IT SOLUTIONS • ADMISSIONS OPEN</span>
+              <div className="inline-flex items-center space-x-1.5 sm:space-x-2 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-rose-100/90 border border-rose-200 text-rose-700 text-[10px] sm:text-xs font-bold uppercase tracking-wider shadow-sm">
+                <Sparkles className="w-3.5 h-3.5 text-[#E11D48] animate-pulse shrink-0" />
+                <span className="truncate">HAMOTECH IT SOLUTIONS • ADMISSIONS OPEN</span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-display leading-[1.12]">
+              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-display leading-[1.12]">
                 MASTER IN-DEMAND <br />
                 <span className="text-gradient-red">IT &amp; SOFTWARE SKILLS</span>
               </h1>
 
-              <p className="text-sm sm:text-base text-slate-600 font-medium leading-relaxed max-w-xl">
+              <p className="text-xs sm:text-base text-slate-600 font-medium leading-relaxed max-w-xl">
                 Transform from a curious learner to a job-ready tech professional. Hands-on code labs, 50+ real-time enterprise projects, 1-on-1 mentor guidance, and 100% career placement support.
               </p>
 
               {/* Value proposition badges */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 pt-1">
+              <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-2.5 pt-1">
                 <div className="flex items-center space-x-2 text-xs font-bold text-slate-700 bg-white/90 px-3 py-2 rounded-xl border border-rose-100 shadow-sm">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                   <span>100% Practical Labs</span>
@@ -70,18 +70,18 @@ export const Courses: React.FC<CoursesPageProps> = ({ onOpenModal }) => {
                   <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />
                   <span>50+ Real Projects</span>
                 </div>
-                <div className="flex items-center space-x-2 text-xs font-bold text-slate-700 bg-white/90 px-3 py-2 rounded-xl border border-rose-100 shadow-sm col-span-2 sm:col-span-1">
+                <div className="flex items-center space-x-2 text-xs font-bold text-slate-700 bg-white/90 px-3 py-2 rounded-xl border border-rose-100 shadow-sm xs:col-span-2 sm:col-span-1">
                   <CheckCircle2 className="w-4 h-4 text-[#E11D48] shrink-0" />
                   <span>Placement Cell</span>
                 </div>
               </div>
 
               {/* Action Buttons */}
-              <div className="pt-2 flex flex-wrap items-center gap-3">
+              <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3">
                 <AnimatedButton
                   type="button"
                   onClick={() => onOpenModal()}
-                  className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#E11D48] via-[#F43F5E] to-[#BE123C] text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-rose-600/25 hover:shadow-xl hover:shadow-rose-600/35 hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center space-x-2"
+                  className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#E11D48] via-[#F43F5E] to-[#BE123C] text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-rose-600/25 hover:shadow-xl hover:shadow-rose-600/35 hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center space-x-2 cursor-pointer"
                 >
                   <span>Enroll Now / Free Demo</span>
                   <ArrowRight className="w-4 h-4" />
@@ -89,14 +89,14 @@ export const Courses: React.FC<CoursesPageProps> = ({ onOpenModal }) => {
 
                 <a
                   href="#course-list"
-                  className="px-5 py-3.5 rounded-xl bg-white border border-rose-200 text-slate-700 hover:text-[#E11D48] hover:border-rose-300 font-bold text-xs uppercase tracking-wider shadow-sm transition-all"
+                  className="w-full sm:w-auto px-5 py-3.5 rounded-xl bg-white border border-rose-200 text-slate-700 hover:text-[#E11D48] hover:border-rose-300 font-bold text-xs uppercase tracking-wider shadow-sm transition-all text-center"
                 >
                   Browse 10+ Programs
                 </a>
 
                 <a
                   href="tel:9884166198"
-                  className="inline-flex items-center space-x-1.5 px-4 py-3.5 rounded-xl bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 text-xs font-bold transition-all"
+                  className="w-full sm:w-auto inline-flex items-center justify-center space-x-1.5 px-4 py-3.5 rounded-xl bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 text-xs font-bold transition-all text-center"
                   title="Direct Counselor Helpline"
                 >
                   <PhoneCall className="w-3.5 h-3.5 text-emerald-600" />
@@ -105,18 +105,18 @@ export const Courses: React.FC<CoursesPageProps> = ({ onOpenModal }) => {
               </div>
 
               {/* Trust counters */}
-              <div className="pt-2 flex items-center space-x-6 text-xs text-slate-500">
-                <div className="flex items-center space-x-1.5">
-                  <Users className="w-4 h-4 text-rose-500" />
+              <div className="pt-2 flex items-center justify-between sm:justify-start sm:space-x-6 text-[11px] sm:text-xs text-slate-500">
+                <div className="flex items-center space-x-1">
+                  <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-rose-500" />
                   <span><strong className="text-slate-800 font-black">500+</strong> Trained</span>
                 </div>
-                <div className="flex items-center space-x-1.5">
-                  <Award className="w-4 h-4 text-amber-500" />
-                  <span><strong className="text-slate-800 font-black">95%</strong> Career Support</span>
+                <div className="flex items-center space-x-1">
+                  <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500" />
+                  <span><strong className="text-slate-800 font-black">95%</strong> Support</span>
                 </div>
-                <div className="flex items-center space-x-1.5">
-                  <BookOpen className="w-4 h-4 text-blue-500" />
-                  <span><strong className="text-slate-800 font-black">10+</strong> Industry Stacks</span>
+                <div className="flex items-center space-x-1">
+                  <BookOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-500" />
+                  <span><strong className="text-slate-800 font-black">10+</strong> Stacks</span>
                 </div>
               </div>
 
@@ -124,7 +124,7 @@ export const Courses: React.FC<CoursesPageProps> = ({ onOpenModal }) => {
 
             {/* Right Column: Hero Image with Interactive Floating Cards */}
             <div className="lg:col-span-5 relative">
-              <div className="relative rounded-3xl overflow-hidden border-2 border-rose-200/90 shadow-2xl shadow-rose-900/15 group bg-white">
+              <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-rose-200/90 shadow-2xl shadow-rose-900/15 group bg-white">
                 
                 {/* Hero Student Banner Image */}
                 <img
@@ -137,7 +137,7 @@ export const Courses: React.FC<CoursesPageProps> = ({ onOpenModal }) => {
                 <InteractiveParticles
                   src={coursesHeroImage}
                   allowUpload={false}
-                  className="absolute inset-0 z-10 opacity-70 mix-blend-multiply"
+                  className="absolute inset-0 z-10 opacity-70 mix-blend-multiply pointer-events-none"
                   background="transparent"
                   color="#E11D48"
                   size={1.35}

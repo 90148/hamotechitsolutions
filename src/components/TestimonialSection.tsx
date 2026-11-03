@@ -28,16 +28,16 @@ export const TestimonialSection: React.FC = () => {
           transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
           className="text-center max-w-3xl mx-auto space-y-3 mb-8 md:mb-10"
         >
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white border border-rose-300 text-[#D97706] text-xs font-bold uppercase tracking-wider shadow-sm hover:scale-105 transition-transform">
+          <div className="inline-flex items-center space-x-1.5 sm:space-x-2 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-white border border-rose-300 text-[#D97706] text-[10px] sm:text-xs font-bold uppercase tracking-wider shadow-sm hover:scale-105 transition-transform">
             <MessageSquare className="w-3.5 h-3.5 text-[#D97706]" />
             <span>ALUMNI REVIEWS &amp; SUCCESS</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-display">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-display">
             WHAT OUR <span className="text-gradient-red animate-slide-up">STUDENTS SAY</span>
           </h2>
 
-          <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+          <p className="text-xs sm:text-base text-slate-600 leading-relaxed font-normal">
             Discover how HamoTech IT Solutions has helped students transition into software careers.
           </p>
         </motion.div>
@@ -52,46 +52,46 @@ export const TestimonialSection: React.FC = () => {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.4 }}
-              className="p-8 sm:p-12 rounded-3xl bg-white/95 border border-rose-200/90 glass-card shadow-2xl shadow-rose-900/10 relative overflow-hidden"
+              className="p-5 sm:p-12 rounded-3xl bg-white/95 border border-rose-200/90 glass-card shadow-2xl shadow-rose-900/10 relative overflow-hidden"
             >
-              <Quote className="w-16 h-16 text-rose-500/10 absolute top-6 right-8 pointer-events-none" />
+              <Quote className="w-12 h-12 sm:w-16 sm:h-16 text-rose-500/10 absolute top-4 right-4 sm:top-6 sm:right-8 pointer-events-none" />
 
-              <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 relative z-10">
+              <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 relative z-10">
                 {/* Photo */}
-                <div className="w-20 h-20 rounded-2xl overflow-hidden border-2 border-rose-400 shrink-0 shadow-lg shadow-rose-500/20">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border-2 border-rose-400 shrink-0 shadow-lg shadow-rose-500/20">
                   <img src={current.image} alt={current.name} className="w-full h-full object-cover" />
                 </div>
 
                 {/* Body Content */}
-                <div className="space-y-4 text-center sm:text-left flex-1">
+                <div className="space-y-3 sm:space-y-4 text-center sm:text-left flex-1">
                   {/* Rating Stars */}
                   <div className="flex items-center justify-center sm:justify-start space-x-1">
                     {[...Array(current.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 text-amber-400 fill-amber-400" />
+                      <Star key={i} className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 fill-amber-400" />
                     ))}
                   </div>
 
                   {/* Review Text */}
-                  <p className="text-sm sm:text-base text-slate-700 leading-relaxed italic font-normal">
+                  <p className="text-xs sm:text-base text-slate-700 leading-relaxed italic font-normal">
                     &quot;{current.content}&quot;
                   </p>
 
                   {/* Student Details */}
                   <div>
-                    <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-                      <h3 className="text-lg font-black text-slate-900 font-display">
+                    <div className="flex flex-wrap items-center justify-center sm:justify-start gap-1.5 sm:gap-2">
+                      <h3 className="text-base sm:text-lg font-black text-slate-900 font-display">
                         {current.name}
                       </h3>
                       {current.packageLPA && (
-                        <span className="px-2 py-0.5 rounded-md bg-rose-50 border border-rose-200 text-[#BE123C] text-[11px] font-black font-mono">
+                        <span className="px-2 py-0.5 rounded-md bg-rose-50 border border-rose-200 text-[#BE123C] text-[10px] sm:text-[11px] font-black font-mono">
                           Offer: {current.packageLPA}
                         </span>
                       )}
                     </div>
-                    <p className="text-xs text-[#E11D48] font-bold">
+                    <p className="text-xs text-[#E11D48] font-bold mt-0.5">
                       {current.role} • <span className="text-slate-500 font-normal">{current.company}</span>
                     </p>
-                    <p className="text-[11px] text-slate-500 font-mono mt-0.5">
+                    <p className="text-[10px] sm:text-[11px] text-slate-500 font-mono mt-0.5">
                       Course: {current.course} (Batch {current.batchYear})
                     </p>
                   </div>
