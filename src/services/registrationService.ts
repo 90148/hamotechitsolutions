@@ -17,7 +17,27 @@ export interface LeadData {
   source?: 'registration' | 'contact';
 }
 
-const STORAGE_KEY = 'hamotech_leads_v1';
+const API_BASE = '/api';
+
+const getAdminPassword = (): string =>
+  sessionStorage.getItem('hamotech_admin_password') || '';
+
+const apiRequest = async <T>(path: string, options: RequestInit = {}): Promise<T> => {
+  const response = await fetch(`${API_BASE}${path}`, {
+    ...options,
+    headers: {
+      'Content-Type': 'application/json',
+      ...(getAdminPassword() ? { 'x-admin-password': getAdminPassword() } : {}),
+      ...options.headers
+    }
+  });
+
+  const body = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    throw new Error(body.error || 'The server could not complete this request.');
+  }
+  return body as T;
+};
 
 export interface ContactMessageData {
   name: string;
@@ -72,14 +92,10 @@ export const submitContactMessage = async (data: ContactMessageData): Promise<{ 
     source: 'contact'
   };
 
-  try {
-    const existingLeads: LeadData[] = getStoredLeads();
-    existingLeads.unshift(newLead);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(existingLeads));
-    window.dispatchEvent(new Event('hamotech_leads_updated'));
-  } catch (err) {
-    console.warn('LocalStorage save failed:', err);
-  }
+  await apiRequest('/leads', {
+    method: 'POST',
+    body: JSON.stringify(newLead)
+  });
 
   return {
     success: true,
@@ -130,14 +146,10 @@ export const submitRegistration = async (data: LeadData): Promise<{ success: boo
     source: 'registration'
   };
 
-  try {
-    const existingLeads: LeadData[] = getStoredLeads();
-    existingLeads.unshift(newLead);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(existingLeads));
-    window.dispatchEvent(new Event('hamotech_leads_updated'));
-  } catch (err) {
-    console.warn('LocalStorage save failed:', err);
-  }
+  await apiRequest('/leads', {
+    method: 'POST',
+    body: JSON.stringify(newLead)
+  });
 
   return {
     success: true,
@@ -146,45 +158,20 @@ export const submitRegistration = async (data: LeadData): Promise<{ success: boo
   };
 };
 
-export const getStoredLeads = (): LeadData[] => {
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-  } catch {
-    return [];
-  }
+export const getStoredLeads = async (): Promise<LeadData[]> =>
+  apiRequest<LeadData[]>('/leads');
+
+export const updateLeadStatus = async (id: string, status: LeadData['status']): Promise<boolean> => {
+  await apiRequest(`/leads/${encodeURIComponent(id)}`, {
+    method: 'PATCH',
+    body: JSON.stringify({ status })
+  });
+  return true;
 };
 
-export const updateLeadStatus = (id: string, status: LeadData['status']): boolean => {
-  try {
-    const leads = getStoredLeads();
-    const updated = leads.map(lead => lead.id === id ? { ...lead, status } : lead);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-    return true;
-  } catch (err) {
-    console.error('Failed to update lead status:', err);
-    return false;
-  }
-};
-
-export const deleteLead = (id: string): boolean => {
-  try {
-    const leads = getStoredLeads();
-    const updated = leads.filter(lead => lead.id !== id);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-    return true;
-  } catch (err) {
-    console.error('Failed to delete lead:', err);
-    return false;
-  }
-};
-
-export const clearAllLeads = (): boolean => {
-  try {
-    localStorage.removeItem(STORAGE_KEY);
-    return true;
-  } catch {
-    return false;
-  }
+export const deleteLead = async (id: string): Promise<boolean> => {
+  await apiRequest(`/leads/${encodeURIComponent(id)}`, { method: 'DELETE' });
+  return true;
 };
 
 export const exportLeadsToCSV = (leads: LeadData[]): void => {
@@ -240,8 +227,8 @@ export const exportLeadsToCSV = (leads: LeadData[]): void => {
   document.body.removeChild(link);
 };
 
-export const seedSampleLeadsIfEmpty = (): LeadData[] => {
-  const current = getStoredLeads();
+export const seedSampleLeadsIfEmpty = async (): Promise<LeadData[]> => {
+  const current = await getStoredLeads();
   if (current.length > 0) return current;
 
   const sampleLeads: LeadData[] = [
@@ -298,6 +285,11 @@ export const seedSampleLeadsIfEmpty = (): LeadData[] => {
     }
   ];
 
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(sampleLeads));
-  return sampleLeads;
+  for (const sampleLead of sampleLeads) {
+    await apiRequest('/leads', {
+      method: 'POST',
+      body: JSON.stringify(sampleLead)
+    });
+  }
+  return getStoredLeads();
 };

@@ -26,13 +26,6 @@ import {
 } from '../services/registrationService';
 
 // Allow configured env password or safe institutes defaults
-const VALID_PASSWORDS = [
-  import.meta.env.VITE_ADMIN_PASSWORD,
-  'admin123',
-  'hamotech@admin',
-  'hamotech2025'
-].filter(Boolean) as string[];
-
 export const AdminCandidates: React.FC = () => {
   const [password, setPassword] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -49,12 +42,12 @@ export const AdminCandidates: React.FC = () => {
     const isAuth = sessionStorage.getItem('hamotech_admin_auth');
     if (isAuth === 'true') {
       setIsAuthenticated(true);
-      setLeads(getStoredLeads());
+      void getStoredLeads().then(setLeads).catch(() => setIsAuthenticated(false));
     }
 
     // Auto-refresh when new messages or registrations arrive
     const handleLeadUpdate = () => {
-      setLeads(getStoredLeads());
+      void getStoredLeads().then(setLeads).catch(() => undefined);
     };
 
     window.addEventListener('hamotech_leads_updated', handleLeadUpdate);
@@ -66,57 +59,65 @@ export const AdminCandidates: React.FC = () => {
     };
   }, []);
 
-  const handleLogin = (event: React.FormEvent) => {
+  const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    if (!VALID_PASSWORDS.includes(password.trim())) {
-      setLoginError('Invalid password. Please enter the correct admin password.');
-      return;
-    }
-
     try {
+      const response = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: password.trim() })
+      });
+      if (!response.ok) {
+        setLoginError('Invalid password. Please enter the correct admin password.');
+        return;
+      }
+      sessionStorage.setItem('hamotech_admin_password', password.trim());
       sessionStorage.setItem('hamotech_admin_auth', 'true');
+      setLeads(await getStoredLeads());
+      setIsAuthenticated(true);
+      setLoginError('');
     } catch {
-      // Ignore
+      setLoginError('Unable to connect to the server. Please try again.');
     }
-
-    setLeads(getStoredLeads());
-    setIsAuthenticated(true);
-    setLoginError('');
   };
 
-  const handleRefresh = () => {
+  const handleRefresh = async () => {
     setIsRefreshing(true);
-    setLeads(getStoredLeads());
-    setTimeout(() => setIsRefreshing(false), 500);
+    try {
+      setLeads(await getStoredLeads());
+    } finally {
+      setIsRefreshing(false);
+    }
   };
 
   const handleLogout = () => {
     setIsAuthenticated(false);
     setPassword('');
     sessionStorage.removeItem('hamotech_admin_auth');
+    sessionStorage.removeItem('hamotech_admin_password');
     setLeads([]);
     setSearchTerm('');
     setSelectedLead(null);
   };
 
-  const handleStatusChange = (id: string, newStatus: LeadData['status']) => {
-    updateLeadStatus(id, newStatus);
-    setLeads(getStoredLeads());
+  const handleStatusChange = async (id: string, newStatus: LeadData['status']) => {
+    await updateLeadStatus(id, newStatus);
+    setLeads(await getStoredLeads());
   };
 
-  const handleDeleteLead = (id: string, name: string) => {
+  const handleDeleteLead = async (id: string, name: string) => {
     if (window.confirm(`Are you sure you want to remove entry "${name}"?`)) {
-      deleteLead(id);
-      setLeads(getStoredLeads());
+      await deleteLead(id);
+      setLeads(await getStoredLeads());
       if (selectedLead?.id === id) {
         setSelectedLead(null);
       }
     }
   };
 
-  const handleLoadSamples = () => {
-    const samples = seedSampleLeadsIfEmpty();
+  const handleLoadSamples = async () => {
+    const samples = await seedSampleLeadsIfEmpty();
     setLeads(samples);
   };
 
@@ -198,14 +199,14 @@ export const AdminCandidates: React.FC = () => {
                 setPassword(event.target.value);
                 setLoginError('');
               }}
-              placeholder="Enter password (default: admin123)"
+              placeholder="Enter the configured admin password"
               className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#E11D48] focus:ring-2 focus:ring-rose-100"
               autoComplete="current-password"
               required
             />
             {loginError && <p className="mt-2 text-xs font-medium text-rose-600">{loginError}</p>}
             <p className="mt-2 text-[11px] text-slate-400">
-              Default password: <span className="font-mono text-slate-600 font-semibold">admin123</span>
+              Use the ADMIN_PASSWORD configured in Render.
             </p>
           </div>
 
