@@ -141,9 +141,9 @@ export const WhyChooseUs: React.FC = () => {
     } else if (width < 640) {
       setRadius(215); // Standard mobile
     } else if (width < 1024) {
-      setRadius(290); // Tablet
+      setRadius(280); // Tablet
     } else {
-      setRadius(345); // Desktop
+      setRadius(330); // Desktop
     }
   }, []);
 
@@ -273,7 +273,7 @@ export const WhyChooseUs: React.FC = () => {
   return (
     <section 
       id="why-us" 
-      className="py-12 md:py-16 bg-gradient-to-b from-[#FFF1F2]/80 via-[#FFF7ED]/80 to-[#FDF2F8]/80 relative overflow-hidden border-t border-rose-100 select-none"
+      className="scroll-mt-24 sm:scroll-mt-28 py-12 md:py-16 bg-gradient-to-b from-[#FFF1F2]/80 via-[#FFF7ED]/80 to-[#FDF2F8]/80 relative overflow-hidden border-t border-rose-100 select-none"
     >
       {/* Ambient background light glows */}
       <div className="absolute top-10 left-10 w-96 h-96 bg-rose-300/20 rounded-full blur-3xl pointer-events-none" />
@@ -307,10 +307,10 @@ export const WhyChooseUs: React.FC = () => {
         </motion.div>
 
         {/* ============================================================ */}
-        {/* 3D CYLINDER CAROUSEL VIEWPORT                                */}
+        {/* 3D CYLINDER CAROUSEL VIEWPORT (UNCLIPPED FULL PERSPECTIVE)   */}
         {/* ============================================================ */}
         <div 
-          className="relative w-full h-[470px] sm:h-[530px] flex items-center justify-center cursor-grab active:cursor-grabbing overflow-hidden"
+          className="relative w-full h-[520px] sm:h-[580px] md:h-[620px] flex items-center justify-center cursor-grab active:cursor-grabbing overflow-visible my-1 sm:my-3"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => {
             if (!isDragging) setIsPaused(false);
@@ -324,16 +324,16 @@ export const WhyChooseUs: React.FC = () => {
         >
           {/* 3D Scene Perspective Box */}
           <div 
-            className="w-full h-full flex items-center justify-center"
+            className="w-full h-full flex items-center justify-center overflow-visible"
             style={{ 
-              perspective: '1200px',
+              perspective: '1300px',
               perspectiveOrigin: '50% 50%'
             }}
           >
             {/* The Revolving Cylinder Ring */}
             <div
               ref={cylinderRef}
-              className="relative w-[260px] xs:w-[280px] sm:w-[320px] md:w-[330px] h-[370px] sm:h-[400px]"
+              className="relative w-[260px] xs:w-[280px] sm:w-[310px] md:w-[325px] h-[360px] xs:h-[370px] sm:h-[385px] md:h-[390px]"
               style={{
                 transformStyle: 'preserve-3d',
                 transform: `rotateY(${rotation}deg)`,
@@ -424,7 +424,7 @@ export const WhyChooseUs: React.FC = () => {
           {/* ============================================================ */}
           {/* HOLOGRAPHIC CYLINDER FLOOR / PEDESTAL PLATFORM              */}
           {/* ============================================================ */}
-          <div className="absolute -bottom-6 w-72 sm:w-96 h-28 pointer-events-none flex items-center justify-center">
+          <div className="absolute bottom-0 sm:bottom-2 w-72 sm:w-96 h-28 pointer-events-none flex items-center justify-center">
             {/* Outer blur glow */}
             <div className="w-full h-full bg-gradient-to-r from-rose-500/20 via-amber-400/25 to-rose-500/20 rounded-full blur-2xl" />
             
@@ -444,7 +444,7 @@ export const WhyChooseUs: React.FC = () => {
         {/* ============================================================ */}
         {/* INTERACTIVE CONTROLS TOOLBAR & PROGRESS DOTS                 */}
         {/* ============================================================ */}
-        <div className="mt-4 flex flex-col sm:flex-row items-center justify-between gap-4 max-w-xl mx-auto px-4 py-3 bg-white/90 backdrop-blur-md rounded-2xl border border-rose-200/80 shadow-md">
+        <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 max-w-xl mx-auto px-4 py-3 bg-white/90 backdrop-blur-md rounded-2xl border border-rose-200/80 shadow-md relative z-20">
           
           {/* Left: Play / Pause Auto-Rotation */}
           <div className="flex items-center space-x-2">
